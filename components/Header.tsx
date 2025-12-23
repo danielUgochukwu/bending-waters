@@ -6,6 +6,7 @@ import { navLinks } from "@/constants";
 import { Search, Menu, X, ChevronRight } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Image from "next/image";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,11 +50,8 @@ export default function Header() {
     <header className="fixed top-0 z-100 w-full bg-np-dark/80 backdrop-blur-md border-b border-white/5 px-4">
       <div className="container-custom flex h-24 items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-1 group">
-          <div className="text-3xl font-bold text-np-orange">Bending</div>
-          <span className="text-3xl font-bold text-white group-hover:text-gray-300 transition-colors">
-            Waters
-          </span>
+        <Link href="/">
+          <Image src="/logo.svg" alt="Logo" width={100} height={100} />
         </Link>
 
         {/* Desktop Navigation */}
@@ -97,9 +95,8 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       <div
         ref={menuRef}
-        className={`fixed inset-0 z-50 ${
-          isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-50 ${isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
+          }`}
       >
         {/* Backdrop */}
         <div
