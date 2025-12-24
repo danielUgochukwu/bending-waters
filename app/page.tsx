@@ -10,10 +10,10 @@ export default function Home() {
     <main className="flex flex-col">
       <Header />
       <Hero />
-      <Storytelling />
-      <Locations />
       <ServicesSection />
       <SocialProof />
+      <Storytelling />
+      <Locations />
     </main>
   );
 }

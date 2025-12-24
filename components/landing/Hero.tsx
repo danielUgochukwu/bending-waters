@@ -34,14 +34,14 @@ export default function Hero() {
       <div className="max-w-5xl w-full flex flex-col gap-8 items-start text-left md:items-center md:text-center md:mt-20">
 
         {/* Headline */}
-        <h1 className="hero-element text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.1]">
+        <h1 className="hero-element text-4xl sm:text-6xl font-bold tracking-tight leading-[1.1]">
           We make sure customers find you everywhere from{' '}
           <span className="text-np-orange">Google</span> to{' '}
           <span className="text-np-orange">ChatGPT</span>
         </h1>
 
         {/* Subtext */}
-        <p className="hero-element text-lg md:text-2xl text-gray-300 font-light leading-relaxed max-w-3xl">
+        <p className="hero-element text-lg md:text-xl text-gray-300 font-light leading-relaxed max-w-3xl">
           We help you show up everywhere customers are searching, swiping, scrolling, streaming, and shopping.
         </p>
 
