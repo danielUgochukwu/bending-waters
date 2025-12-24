@@ -1,7 +1,10 @@
 export const navLinks = [
-  { name: "HOME", link: "/" },
-  { name: "PAGES", link: "#" },
-  { name: "SERVICE", link: "#" },
-  { name: "PROJECT", link: "#" },
-  { name: "BLOG", link: "#" },
+    { name: "About", link: "/about" },
+    { name: "Solutions", link: "/solutions" },
+    { name: "Work", link: "/work" },
+    { name: "Recognition", link: "/recognition" },
+    { name: "News & Insights", link: "/news" },
+    { name: "Careers", link: "/careers" },
+    { name: "AI & Technology", link: "/ai" },
+    { name: "Contact", link: "/contact" },
 ];

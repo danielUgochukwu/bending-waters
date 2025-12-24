@@ -1,7 +1,8 @@
 import Header from "@/components/Header";
 import Hero from "@/components/landing/Hero";
-import Partners from "@/components/landing/Partners";
 import ServicesSection from "@/components/landing/Service";
+import Storytelling from "@/components/landing/Storytelling";
+import Locations from "@/components/landing/Locations";
 import SocialProof from "@/components/landing/SocialProof";
 
 export default function Home() {
@@ -9,8 +10,9 @@ export default function Home() {
     <main className="flex flex-col">
       <Header />
       <Hero />
+      <Storytelling />
+      <Locations />
       <ServicesSection />
-      <Partners />
       <SocialProof />
     </main>
   );
