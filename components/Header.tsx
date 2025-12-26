@@ -7,6 +7,7 @@ import { Search, Menu, X, ChevronRight } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
+import MagneticButton from "@/components/MagneticButton";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -103,12 +104,14 @@ export default function Header() {
           </button>
 
           {/* CTA Button */}
-          <Link
-            href="#"
-            className="hidden md:block bg-np-orange text-black px-8 py-3 rounded-full text-sm font-bold hover:bg-white transition-colors uppercase"
-          >
-            Let&apos;s Talk
-          </Link>
+          <MagneticButton>
+            <Link
+              href="#"
+              className="hidden md:block bg-np-orange text-black px-8 py-3 rounded-full text-sm font-bold hover:bg-white transition-colors uppercase"
+            >
+              Let&apos;s Talk
+            </Link>
+          </MagneticButton>
 
           {/* Mobile Menu Toggle */}
           <button

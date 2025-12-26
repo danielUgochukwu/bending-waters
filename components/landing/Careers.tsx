@@ -1,7 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Careers = () => {
+    const container = useRef(null);
+    const gridRef = useRef(null);
+
     // Using existing assets to simulate the grid. In a real scenario, these would be distinct team photos.
     const images = [
         "/hero1.png",
@@ -14,10 +25,27 @@ const Careers = () => {
         "/hero2.png",
     ];
 
+    useGSAP(() => {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: container.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+            },
+        });
+
+        // Parallax effect: Move the grid slightly slower than the scroll
+        // We start it slightly shifted up (-10%) and move it down to 10%
+        tl.fromTo(gridRef.current, { y: "-10%" }, { y: "10%", ease: "none" });
+
+    }, { scope: container });
+
     return (
-        <section className="relative w-full py-24 md:py-32 flex items-center justify-center overflow-hidden bg-black">
+        <section ref={container} className="relative w-full py-24 md:py-32 flex items-center justify-center overflow-hidden bg-black">
             {/* Background Grid */}
-            <div className="absolute inset-0 grid grid-cols-2 md:grid-cols-4 gap-0 opacity-40 pointer-events-none">
+            {/* Added scale-110 to ensure no whitespace during parallax movement */}
+            <div ref={gridRef} className="absolute inset-0 grid grid-cols-2 md:grid-cols-4 gap-0 opacity-40 pointer-events-none scale-110">
                 {images.map((src, index) => (
                     <div key={index} className="relative w-full h-full min-h-[200px] md:min-h-[300px]">
                         <Image
