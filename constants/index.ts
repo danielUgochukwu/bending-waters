@@ -1,6 +1,57 @@
 export const navLinks = [
     { name: "About", link: "/about" },
-    { name: "Solutions", link: "/solutions" },
+    {
+        name: "Solutions",
+        link: "/solutions",
+        dropdown: [
+            {
+                title: "Data & Analytics",
+                items: [
+                    "Data Analytics & Insights",
+                    "Dashboard Development",
+                    "Conversion Rate Optimization",
+                    "User Experience",
+                    "Front End Development",
+                    "Ad Operations"
+                ]
+            },
+            {
+                title: "Earned Media",
+                items: [
+                    "AI Search Optimization",
+                    "Search Engine Optimization",
+                    "App Store Optimization",
+                    "Content Marketing",
+                    "Digital PR",
+                    "Influencer Marketing",
+                    "Organic Social Media",
+                    "Email Marketing"
+                ]
+            },
+            {
+                title: "Paid Media",
+                items: [
+                    "Media Strategy & Planning",
+                    "Paid Search",
+                    "Paid Social",
+                    "Programmatic & Display",
+                    "Marketplaces",
+                    "Streaming"
+                ]
+            },
+            {
+                title: "Creative",
+                items: [
+                    "Performance Creative",
+                    "Branding",
+                    "Content Production",
+                    "Website Design",
+                    "Graphic & Motion Design",
+                    "Audio Production"
+                ]
+            }
+        ]
+    },
     { name: "Work", link: "/work" },
     { name: "Recognition", link: "/recognition" },
     { name: "News & Insights", link: "/news" },

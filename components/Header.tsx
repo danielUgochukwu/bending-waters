@@ -55,15 +55,43 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8 h-full">
           {navLinks.map((nav) => (
-            <Link
+            <div
               key={nav.name}
-              href={nav.link}
-              className="text-sm font-bold text-np-grey hover:text-np-orange transition-colors uppercase tracking-wide"
+              className="relative h-full flex items-center group"
+              onMouseEnter={() => nav.dropdown && setIsMenuOpen(false)} // Close mobile menu if open (edge case)
             >
-              {nav.name}
-            </Link>
+              <Link
+                href={nav.link}
+                className="text-sm font-bold text-np-grey hover:text-np-orange transition-colors uppercase tracking-wide flex items-center gap-1"
+              >
+                {nav.name}
+                {nav.dropdown && <ChevronRight className="w-3 h-3 rotate-90" />}
+              </Link>
+
+              {/* Desktop Dropdown */}
+              {nav.dropdown && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[90vw] max-w-7xl bg-black border-t border-white/10 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 p-8 rounded-b-xl">
+                  <div className="grid grid-cols-4 gap-8">
+                    {nav.dropdown.map((column, idx) => (
+                      <div key={idx}>
+                        <h3 className="text-white font-bold text-lg mb-4">{column.title}</h3>
+                        <ul className="space-y-2">
+                          {column.items.map((item, i) => (
+                            <li key={i}>
+                              <Link href="#" className="text-neutral-400 hover:text-np-orange text-sm transition-colors block py-1">
+                                {item}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           ))}
         </nav>
 
@@ -137,24 +165,71 @@ export default function Header() {
             {/* Navigation Links */}
             <nav className="flex flex-col space-y-2">
               {navLinks.map((nav) => (
-                <Link
-                  key={nav.name}
-                  href={nav.link}
-                  className="group flex items-center justify-between py-3 px-4 rounded-xl hover:bg-white/5 text-white hover:text-np-orange transition-all"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <span className="text-base font-bold uppercase tracking-wide">
-                    {nav.name}
-                  </span>
-                  <div className="w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center group-hover:bg-np-orange group-hover:text-black transition-all">
-                    <ChevronRight className="w-3 h-3" />
-                  </div>
-                </Link>
+                <MobileNavItem key={nav.name} nav={nav} setIsMenuOpen={setIsMenuOpen} />
               ))}
             </nav>
           </div>
         </div>
       </div>
     </header>
+  );
+}
+
+function MobileNavItem({ nav, setIsMenuOpen }: { nav: any; setIsMenuOpen: (open: boolean) => void }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <div className="flex flex-col">
+      <div
+        className="group flex items-center justify-between py-3 px-4 rounded-xl hover:bg-white/5 text-white hover:text-np-orange transition-all cursor-pointer"
+        onClick={() => {
+          if (nav.dropdown) {
+            setIsExpanded(!isExpanded);
+          } else {
+            setIsMenuOpen(false);
+          }
+        }}
+      >
+        <Link
+          href={nav.link}
+          className="flex-1 text-base font-bold uppercase tracking-wide pointer-events-none"
+        >
+          {nav.name}
+        </Link>
+        {nav.dropdown ? (
+          <div className={`w-6 h-6 flex items-center justify-center transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
+            <ChevronRight className="w-4 h-4 rotate-90 text-neutral-500" />
+          </div>
+        ) : (
+          <div className="w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center group-hover:bg-np-orange group-hover:text-black transition-all">
+            <ChevronRight className="w-3 h-3" />
+          </div>
+        )}
+      </div>
+
+      {/* Mobile Dropdown Items */}
+      {nav.dropdown && (
+        <div className={`pl-4 pr-2 space-y-4 border-l border-white/10 ml-4 overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[1000px] opacity-100 mt-2 pb-4' : 'max-h-0 opacity-0'}`}>
+          {nav.dropdown.map((column: any, idx: number) => (
+            <div key={idx}>
+              <h4 className="text-np-orange text-sm font-bold mb-2 uppercase">{column.title}</h4>
+              <ul className="space-y-2">
+                {column.items.map((item: string, i: number) => (
+                  <li key={i}>
+                    <Link
+                      href="#"
+                      className="text-neutral-400 text-sm hover:text-white block py-1"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
