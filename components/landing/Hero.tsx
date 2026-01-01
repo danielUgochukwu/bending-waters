@@ -30,11 +30,11 @@ export default function Hero() {
          'items-start' (left) on mobile, 'md:items-center' (center) on desktop.
          'text-left' on mobile, 'md:text-center' on desktop.
       */}
-      <div className="max-w-5xl w-full flex flex-col gap-8 items-start text-left md:items-center md:text-center  max-sm:pt-16 md:mt-20">
+      <div className="max-w-3xl w-full flex flex-col gap-4 items-start text-left md:items-center md:text-center  max-sm:pt-16 md:mt-20">
 
         {/* Headline */}
         <div className="overflow-hidden">
-          <h1 className="hero-element text-4xl sm:text-6xl font-bold tracking-tight leading-[1.1]">
+          <h1 className="hero-element text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1]">
             We make sure customers find you everywhere from{' '}
             <span className="text-np-orange">Google</span> to{' '}
             <span className="text-np-orange">ChatGPT</span>
@@ -43,7 +43,7 @@ export default function Hero() {
 
         {/* Subtext */}
         <div className="overflow-hidden">
-          <p className="hero-element text-lg md:text-xl text-gray-300 font-light leading-relaxed max-w-3xl">
+          <p className="hero-element text-lg md:text-md text-gray-300 font-light leading-relaxed max-w-3xl">
             We help you show up everywhere customers are searching, swiping, scrolling, streaming, and shopping.
           </p>
         </div>
