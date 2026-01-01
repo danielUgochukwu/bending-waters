@@ -23,7 +23,7 @@ const ClientResults = () => {
                     {/* Left Column: Visual Asset */}
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl bg-neutral-200 dark:bg-neutral-800 group">
                         <Image
-                            src="/clietnresult.png"
+                            src="/clientresult.png"
                             alt="Client Results"
                             fill
                             className="object-cover"

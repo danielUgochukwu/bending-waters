@@ -1,21 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Monda, Jost } from "next/font/google";
+import { Roboto, Jost } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const monda = Monda({
-  variable: "--font-monda",
+const roboto = Roboto({
+  variable: "--font-roboto",
   subsets: ["latin"],
 });
 
@@ -37,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${monda.variable} ${jost.variable} antialiased`}
+        className={`${roboto.variable} ${jost.variable} antialiased`}
         suppressHydrationWarning={true}
       >
         {children}

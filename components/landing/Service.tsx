@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from 'react';
+import Image from 'next/image';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -63,17 +64,8 @@ export default function ServicesSection() {
 
             {/* LEFT COLUMN: Client Logos (Black) */}
             <div className="w-full lg:w-1/2 bg-np-dark text-white p-12 lg:p-20 flex flex-col justify-center">
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-16 opacity-100">
-                    {CLIENTS.map((client, index) => (
-                        <div key={index} className="client-logo flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 cursor-default">
-                            {/* NOTE: In a real app, replace this text with <img> or <svg> tags.
-                 I am using text styling to simulate the white logo look.
-              */}
-                            <span className="text-xl font-bold tracking-wider text-gray-300 hover:text-white text-center">
-                                {client}
-                            </span>
-                        </div>
-                    ))}
+                <div className='relative w-[400px] h-[500px] lg:w-[513px] lg:h-[500px]'>
+                    <Image src="/clientresult.png" alt="client" fill className="object-cover" />
                 </div>
             </div>
 
@@ -81,7 +73,7 @@ export default function ServicesSection() {
             <div className="w-full lg:w-1/2 bg-np-grey p-8 md:p-16 lg:p-24 flex flex-col justify-center">
                 <div className="max-w-4xl mx-auto w-full">
 
-                    <h2 className="form-element text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
+                    <h2 className="form-element text-3xl md:text-4xl font-bold text-white mb-12 text-center">
                         How can we help you get found?
                     </h2>
 
