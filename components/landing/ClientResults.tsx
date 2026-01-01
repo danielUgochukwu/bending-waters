@@ -22,14 +22,12 @@ const ClientResults = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center mb-16 md:mb-24">
                     {/* Left Column: Visual Asset */}
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl bg-neutral-200 dark:bg-neutral-800 group">
-                        <video
-                            className="w-full h-full object-cover"
-                            controls
-                            poster="/hero1.png"
-                        >
-                            <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4" type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
+                        <Image
+                            src="/clietnresult.png"
+                            alt="Client Results"
+                            fill
+                            className="object-cover"
+                        />
                     </div>
 
                     {/* Right Column: Content */}

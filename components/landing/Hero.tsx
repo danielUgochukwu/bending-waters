@@ -5,7 +5,6 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import MagneticButton from '@/components/MagneticButton';
 
 export default function Hero() {
   const container = useRef(null);
@@ -25,7 +24,7 @@ export default function Hero() {
   return (
     <section
       ref={container}
-      className="w-full h-[80vh] bg-black text-white flex-center px-6 py-20 md:px-12"
+      className="w-full h-screen bg-black text-white flex-center px-6 py-20 md:px-12"
     >
       {/* Container width limited for readability.
          'items-start' (left) on mobile, 'md:items-center' (center) on desktop.
@@ -51,17 +50,15 @@ export default function Hero() {
 
         {/* CTA Button */}
         <div className="overflow-hidden p-1"> {/* Added padding to avoid clipping shadow/outline if any */}
-          <MagneticButton>
-            <Link
-              href="#"
-              className="hero-element inline-flex items-center gap-2 bg-np-orange text-white font-bold px-8 py-4 rounded-full hover:bg-white hover:text-black transition-colors duration-300"
-            >
-              Discover More
-              <div className="bg-white rounded-full p-1">
-                <ArrowUpRight className="w-4 h-4 text-black" />
-              </div>
-            </Link>
-          </MagneticButton>
+          <Link
+            href="#"
+            className="hero-element inline-flex items-center gap-2 bg-np-orange text-white font-bold px-8 py-4 rounded-full hover:bg-white hover:text-black transition-colors duration-300"
+          >
+            Discover More
+            <div className="bg-white rounded-full p-1">
+              <ArrowUpRight className="w-4 h-4 text-black" />
+            </div>
+          </Link>
         </div>
 
       </div>

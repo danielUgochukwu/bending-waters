@@ -96,7 +96,7 @@ export default function ServicesSection() {
                                     className="form-element group relative cursor-pointer"
                                 >
                                     <div className={`
-                    flex items-center gap-3 p-4 bg-white rounded-sm border transition-all duration-200 h-full
+                    flex items-center gap-3 px-4 py-2 bg-white rounded-sm border transition-all duration-200 h-full
                     ${isSelected ? 'border-transparent' : 'border-transparent hover:border-gray-300'}
                   `}>
                                         {/* Checkbox Square */}

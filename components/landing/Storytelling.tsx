@@ -4,6 +4,9 @@ import React, { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Storytelling() {
     const container = useRef(null);
@@ -96,12 +99,11 @@ export default function Storytelling() {
                     <video
                         ref={videoRef}
                         className="w-full h-full object-cover"
-                        poster="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2071&auto=format&fit=crop"
                         loop
                         muted={isMuted}
                         playsInline
                     >
-                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" type="video/mp4" />
+                        <source src="/videeo.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
 

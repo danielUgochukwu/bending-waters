@@ -15,14 +15,14 @@ const Careers = () => {
 
     // Using existing assets to simulate the grid. In a real scenario, these would be distinct team photos.
     const images = [
-        "/hero1.png",
-        "/hero2.png",
-        "/story-bg.png",
-        "/hero1.png",
-        "/hero2.png",
-        "/story-bg.png",
-        "/hero1.png",
-        "/hero2.png",
+        "/career-1.png",
+        "/career-2.png",
+        "/career-3.png",
+        "/career-4.png",
+        "/career-5.png",
+        "/career-6.png",
+        "/career-7.png",
+        "/career-8.png",
     ];
 
     useGSAP(() => {
