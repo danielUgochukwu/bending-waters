@@ -8,12 +8,15 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import MagneticButton from "@/components/MagneticButton";
+import { useModal } from "@/context/ModalContext";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
+
+  const { openModal } = useModal();
 
   const { contextSafe } = useGSAP({ scope: menuRef });
 
@@ -104,14 +107,13 @@ export default function Header() {
           </button>
 
           {/* CTA Button */}
-          <MagneticButton>
-            <Link
-              href="#"
+            <button
+              onClick={openModal}
               className="hidden md:block bg-np-orange text-black px-8 py-3 rounded-full text-sm font-bold hover:bg-white transition-colors uppercase"
             >
               Let&apos;s Talk
-            </Link>
-          </MagneticButton>
+            </button>
+
 
           {/* Mobile Menu Toggle */}
           <button

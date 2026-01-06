@@ -3,7 +3,6 @@ import Hero from "@/components/landing/Hero";
 import ServicesSection from "@/components/landing/Service";
 import Storytelling from "@/components/landing/Storytelling";
 import Locations from "@/components/landing/Locations";
-import SocialProof from "@/components/landing/SocialProof";
 import ClientResults from "@/components/landing/ClientResults";
 import Careers from "@/components/landing/Careers";
 import UnlockGrowth from "@/components/landing/UnlockGrowth";
@@ -14,7 +13,6 @@ export default function Home() {
       <Header />
       <Hero />
       <ServicesSection />
-      <SocialProof />
       <Storytelling />
       <ClientResults />
       <Locations />

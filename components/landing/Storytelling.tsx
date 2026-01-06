@@ -84,13 +84,14 @@ export default function Storytelling() {
                     </h3>
 
                     <h2 className="story-text text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
-                        Creative storytelling and branding
+                        Content-Led Sales & Pre-Sales Strategy
                     </h2>
 
                     <div className="story-text w-24 h-1 bg-np-orange mx-auto rounded-full my-6"></div>
 
                     <p className="story-text text-gray-300 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
-                        Creativity and data-driven strategies are seamlessly integrated, empowering marketers to earn meaningful attention, balance short and long-term goals and maximize efforts in today's ever-changing business landscape.
+                        We help SaaS founders turn founder-led content into a predictable sales engine.
+                        By aligning positioning, storytelling, and distribution, we transform content from brand noise into qualified sales conversations.
                     </p>
                 </div>
 
