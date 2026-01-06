@@ -15,9 +15,9 @@ const Footer = () => {
                             <Image src="/logo.svg" alt="NP Digital" fill className="object-contain" />
                         </Link>
                         <div className="text-neutral-400 text-sm space-y-2">
-                            <p>5940 S Rainbow Blvd, Ste 400</p>
-                            <p>Las Vegas, NV 89118-2507</p>
-                            <p className="pt-2">sales@npdigital.com</p>
+                            <p>House Suite 100, Rear, Car Park Wing, 8 </p>
+                            <p>Opebi Rd, Adebola, Ikeja 100281, Lagos</p>
+                            <p className="pt-2">askbendingwaters@gmail.com</p>
                         </div>
                     </div>
 
