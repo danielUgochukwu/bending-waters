@@ -19,9 +19,9 @@ const ClientResults = () => {
                     Client results
                 </h2>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center mb-16 md:mb-24">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center mb-16 md:mb-24">
                     {/* Left Column: Visual Asset */}
-                    <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl bg-neutral-200 dark:bg-neutral-800 group">
+                    <div className="lg:col-span-7 relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl bg-neutral-200 dark:bg-neutral-800 group">
                         <Image
                             src="/clientresult.png"
                             alt="Client Results"
@@ -31,7 +31,7 @@ const ClientResults = () => {
                     </div>
 
                     {/* Right Column: Content */}
-                    <div className="flex flex-col justify-center space-y-6">
+                    <div className="lg:col-span-5 max-w-3xl flex flex-col justify-center space-y-6">
                         <span className="text-np-orange font-bold tracking-wider uppercase text-sm md:text-base">
                             REFIJET
                         </span>
