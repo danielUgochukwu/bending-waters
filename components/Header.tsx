@@ -107,12 +107,12 @@ export default function Header() {
           </button>
 
           {/* CTA Button */}
-            <button
-              onClick={openModal}
-              className="hidden md:block bg-np-orange text-black px-8 py-3 rounded-full text-sm font-bold hover:bg-white transition-colors uppercase"
-            >
-              Let&apos;s Talk
-            </button>
+          <button
+            onClick={openModal}
+            className="hidden md:block bg-np-orange text-black px-8 py-3 rounded-full text-sm font-bold hover:bg-white transition-colors uppercase"
+          >
+            Let&apos;s Talk
+          </button>
 
 
           {/* Mobile Menu Toggle */}
@@ -183,37 +183,21 @@ export default function Header() {
 function MobileNavItem({ nav, setIsMenuOpen }: { nav: any; setIsMenuOpen: (open: boolean) => void }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  return (
-    <div className="flex flex-col">
-      <div
-        className="group flex items-center justify-between py-3 px-4 rounded-xl hover:bg-white/5 text-white hover:text-np-orange transition-all cursor-pointer"
-        onClick={() => {
-          if (nav.dropdown) {
-            setIsExpanded(!isExpanded);
-          } else {
-            setIsMenuOpen(false);
-          }
-        }}
-      >
-        <Link
-          href={nav.link}
-          className="flex-1 text-base font-bold uppercase tracking-wide pointer-events-none"
+  if (nav.dropdown) {
+    return (
+      <div className="flex flex-col">
+        <div
+          className="group flex items-center justify-between py-3 px-4 rounded-xl hover:bg-white/5 text-white hover:text-np-orange transition-all cursor-pointer"
+          onClick={() => setIsExpanded(!isExpanded)}
         >
-          {nav.name}
-        </Link>
-        {nav.dropdown ? (
+          <span className="flex-1 text-base font-bold uppercase tracking-wide">
+            {nav.name}
+          </span>
           <div className={`w-6 h-6 flex items-center justify-center transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
             <ChevronRight className="w-4 h-4 rotate-90 text-neutral-500" />
           </div>
-        ) : (
-          <div className="w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center group-hover:bg-np-orange group-hover:text-black transition-all">
-            <ChevronRight className="w-3 h-3" />
-          </div>
-        )}
-      </div>
+        </div>
 
-      {/* Mobile Dropdown Items */}
-      {nav.dropdown && (
         <div className={`pl-4 pr-2 space-y-4 border-l border-white/10 ml-4 overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[1000px] opacity-100 mt-2 pb-4' : 'max-h-0 opacity-0'}`}>
           {nav.dropdown.map((column: any, idx: number) => (
             <div key={idx}>
@@ -234,7 +218,22 @@ function MobileNavItem({ nav, setIsMenuOpen }: { nav: any; setIsMenuOpen: (open:
             </div>
           ))}
         </div>
-      )}
-    </div>
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      href={nav.link}
+      className="group flex items-center justify-between py-3 px-4 rounded-xl hover:bg-white/5 text-white hover:text-np-orange transition-all cursor-pointer"
+      onClick={() => setIsMenuOpen(false)}
+    >
+      <span className="flex-1 text-base font-bold uppercase tracking-wide">
+        {nav.name}
+      </span>
+      <div className="w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center group-hover:bg-np-orange group-hover:text-black transition-all">
+        <ChevronRight className="w-3 h-3" />
+      </div>
+    </Link>
   );
 }
