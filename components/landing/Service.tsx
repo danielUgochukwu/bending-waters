@@ -96,16 +96,16 @@ export default function ServicesSection() {
       className="w-full bg-[radial-gradient(circle,rgba(18,17,17,0.99)_90%,rgba(247,58,0,0.77)_100%)] flex flex-col lg:flex-row"
     >
       {/* LEFT COLUMN: Client Logos (Black) */}
-      <div className="w-full lg:w-1/2 bg-np-black text-white p-12 lg:p-20 flex flex-col justify-center items-center">
+      <div className="w-full lg:w-1/2 bg-black text-white flex flex-col justify-center items-center">
         <img
           src="/service.png"
           alt="service"
-          className="object-cover w-[900px]"
+          className="object-cover w-full max-w-[600px]"
         />
       </div>
 
       {/* RIGHT COLUMN: Service Form (Light Gray) */}
-      <div className="w-full lg:w-1/2 bg-np-grey p-8 md:p-16 lg:p-24 flex flex-col justify-center">
+      <div className="w-full lg:w-1/2 bg-np-grey p-8 md:px-16 py-0 flex flex-col justify-center">
         <div className="max-w-4xl mx-auto w-full">
           <h2 className="form-element text-3xl md:text-4xl font-bold text-black mb-12 text-center">
             How can we help you get found?

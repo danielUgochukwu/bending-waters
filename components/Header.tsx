@@ -52,7 +52,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 z-100 w-full bg-np-dark/80 backdrop-blur-md border-b border-white/5 px-4">
-      <div className="container-custom flex h-24 items-center justify-between">
+      <div className="container-custom flex items-center justify-between">
         {/* Logo */}
         <Link href="/">
           <Image src="/logo.svg" alt="Logo" width={100} height={100} />
@@ -109,7 +109,7 @@ export default function Header() {
           {/* CTA Button */}
           <button
             onClick={openModal}
-            className="hidden md:block bg-np-orange text-black px-8 py-3 rounded-full text-sm font-bold hover:bg-white transition-colors uppercase"
+            className="hidden md:block bg-np-orange text-black px-4 py-2 rounded-xl text-sm font-bold hover:bg-white transition-colors uppercase"
           >
             Let&apos;s Talk
           </button>
