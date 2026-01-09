@@ -98,7 +98,7 @@ export default function ServicesSection() {
       {/* LEFT COLUMN: Client Logos (Black) */}
       <div className="w-full lg:w-1/2 bg-black text-white flex flex-col justify-center items-center">
         <img
-          src="/service.png"
+          src="/images/service.png"
           alt="service"
           className="object-cover w-full w-[800px]"
         />

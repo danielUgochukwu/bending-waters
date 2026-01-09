@@ -84,9 +84,9 @@ export default function Locations() {
                 */}
                 <div className="relative aspect-2/1 w-full">
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/World_map_blank_without_borders.svg/2000px-World_map_blank_without_borders.svg.png"
+                        src="/images/map-with-dots-1030x499.webp"
                         alt="World Map"
-                        className="w-full h-full object-contain opacity-20"
+                        className="w-full h-full object-contain opacity-80"
                     />
 
                     {/* Simulated Dots (just a few for visual representation as per the design) */}

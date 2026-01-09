@@ -104,7 +104,7 @@ export default function Storytelling() {
                         muted={isMuted}
                         playsInline
                     >
-                        <source src="/videeo.mp4" type="video/mp4" />
+                        <source src="/videos/videeo.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
 

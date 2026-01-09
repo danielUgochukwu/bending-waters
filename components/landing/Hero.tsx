@@ -18,14 +18,18 @@ export default function Hero() {
         {/* Headline */}
         <div className="overflow-hidden max-w-2xl">
           <h1 className="hero-element text-4xl sm:text-5xl md:text-4xl font-bold tracking-tight leading-[1.1]">
-            We are a marketing, media, and technology <span className="text-np-orange">company</span>. We help you get <span className="text-np-orange">found</span> by customers who matter.
+            We are a marketing, media, and technology{" "}
+            <span className="text-np-orange">company</span>. We help you get{" "}
+            <span className="text-np-orange">found</span> by customers who
+            matter.
           </h1>
         </div>
 
         {/* Subtext */}
         <div className="overflow-hidden">
           <p className="hero-element text-lg md:text-xl font-light leading-relaxed max-w-3xl text-gray-300">
-            We help you show up everywhere customers are searching, swiping, scrolling, streaming, and shopping.
+            We help you show up everywhere customers are searching, swiping,
+            scrolling, streaming, and shopping.
           </p>
         </div>
 
@@ -34,7 +38,7 @@ export default function Hero() {
           <Link
             onClick={openModal}
             href="#"
-            className="hero-element inline-flex items-center justify-center bg-np-orange  px-4 py-2 lg:px-8 lg:py-4 rounded-md hover:bg-white hover:text-black transition-colors duration-300 text-lg"
+            className="hero-element inline-flex items-center justify-center bg-np-orange  px-4 py-2 rounded-md hover:bg-white hover:text-black transition-colors duration-300 text-lg"
           >
             Work with us
           </Link>

@@ -22,7 +22,7 @@ const Footer = () => {
           <div className="space-y-6">
             <Link href="/" className="block w-32 md:w-40 relative h-10">
               <Image
-                src="/logo.png"
+                src="/images/logo.png"
                 alt="logo"
                 fill
                 className="object-contain"

@@ -26,7 +26,7 @@ const ClientResults = () => {
           {/* Left Column: Visual Asset */}
           <div className="lg:col-span-7 relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl bg-neutral-200 dark:bg-neutral-800 group">
             <Image
-              src="/creative.png"
+              src="/images/creative.png"
               alt="Client Results"
               fill
               className="object-cover"

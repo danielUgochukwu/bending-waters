@@ -82,7 +82,7 @@ export default function ContactModal() {
                    I'll add a filter to invert it if needed, or just assume it handles color.
                    Actually, let's just use the image tag. */}
                             <Image
-                                src="/logo.svg"
+                                src="/images/logo.png"
                                 alt="NP Digital"
                                 fill
                                 className="object-contain invert" // Inverting because the logo is likely white for the dark theme website
@@ -155,8 +155,11 @@ export default function ContactModal() {
 
                             {/* Monthly Marketing Budget */}
                             <div className="bg-gray-50 p-3 rounded-sm border border-gray-100 focus-within:border-gray-300 transition-colors">
-                                <select className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400 appearance-none cursor-pointer">
-                                    <option value="" disabled selected>Monthly Marketing Budget</option>
+                                <select
+                                    className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400 appearance-none cursor-pointer"
+                                    defaultValue=""
+                                >
+                                    <option value="" disabled>Monthly Marketing Budget</option>
                                     <option value="<5k">Less than $5,000</option>
                                     <option value="5k-10k">$5,000 - $10,000</option>
                                     <option value="10k-50k">$10,000 - $50,000</option>

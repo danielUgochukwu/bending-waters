@@ -55,7 +55,7 @@ export default function Header() {
       <div className="container-custom flex items-center justify-between">
         {/* Logo */}
         <Link href="/">
-          <Image src="/logo.png" alt="Logo" width={100} height={100} />
+          <Image src="/images/logo.png" alt="Logo" width={100} height={100} />
         </Link>
 
         {/* Desktop Navigation */}
@@ -63,7 +63,7 @@ export default function Header() {
           {navLinks.map((nav) => (
             <div
               key={nav.name}
-              className="relative h-full flex items-center group"
+              className="h-full flex items-center group"
               onMouseEnter={() => nav.dropdown && setIsMenuOpen(false)} // Close mobile menu if open (edge case)
             >
               <Link
@@ -76,8 +76,8 @@ export default function Header() {
 
               {/* Desktop Dropdown */}
               {nav.dropdown && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[90vw] max-w-7xl bg-black border-t border-white/10 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 p-8 rounded-b-xl">
-                  <div className="grid grid-cols-4 gap-8">
+                <div className="absolute top-full left-0 w-full bg-black border-t border-white/10 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 p-8">
+                  <div className="container-custom grid grid-cols-4 gap-8">
                     {nav.dropdown.map((column, idx) => (
                       <div key={idx}>
                         <h3 className="text-white font-bold text-lg mb-4">
@@ -107,14 +107,14 @@ export default function Header() {
         {/* Right Actions */}
         <div className="flex items-center gap-6">
           {/* Search Icon */}
-          <button className="hidden md:flex w-8 h-8 items-center justify-center rounded-full bg-white text-black hover:bg-gray-200 transition-colors">
+          <button className="hidden md:flex items-center justify-center text-white">
             <Search className="w-5 h-5" />
           </button>
 
           {/* CTA Button */}
           <button
             onClick={openModal}
-            className="hidden md:block bg-np-orange text-black px-4 py-2  text-sm font-bold hover:bg-white transition-colors uppercase"
+            className="hidden md:block bg-np-orange text-np-white px-4 py-2 text-sm font-bold rounded-sm  hover:bg-white  transition-colors uppercase"
           >
             Let&apos;s Talk
           </button>
@@ -132,9 +132,8 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       <div
         ref={menuRef}
-        className={`fixed inset-0 z-50 ${
-          isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-50 ${isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
+          }`}
       >
         {/* Backdrop */}
         <div
@@ -150,7 +149,7 @@ export default function Header() {
         >
           <div className="p-6 flex items-center justify-between border-b border-white/10">
             <Link href="/" className="flex items-center gap-1">
-              <Image src="/logo.png" alt="Logo" width={100} height={100} />
+              <Image src="/images/logo.png" alt="Logo" width={100} height={100} />
             </Link>
             <button
               className="text-gray-400 hover:text-white transition-colors cursor-pointer"
