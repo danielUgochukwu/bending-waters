@@ -12,6 +12,8 @@ import {
   Minus,
   ArrowUp,
 } from "lucide-react";
+import { useState } from "react";
+import { globalLocations } from "@/constants";
 
 const Footer = () => {
   return (
@@ -41,29 +43,8 @@ const Footer = () => {
               Global
             </h3>
             <div className="space-y-4">
-              <div className="border-b border-neutral-800 pb-2">
-                <div className="flex justify-between items-center cursor-pointer group">
-                  <span className="text-sm font-medium">North America</span>
-                  <Minus className="w-4 h-4 text-white" />
-                </div>
-                <div className="pl-4 mt-2 space-y-2 text-sm text-neutral-400">
-                  <p className="text-white font-medium border-l-2 border-np-orange pl-2">
-                    United States
-                  </p>
-                  <p className="hover:text-white transition-colors cursor-pointer">
-                    Canada
-                  </p>
-                </div>
-              </div>
-              {["APAC", "Europe", "LATAM"].map((region) => (
-                <div key={region} className="border-b border-neutral-800 pb-2">
-                  <div className="flex justify-between items-center cursor-pointer group hover:text-np-orange transition-colors">
-                    <span className="text-sm font-medium text-neutral-400 group-hover:text-white">
-                      {region}
-                    </span>
-                    <Plus className="w-4 h-4 text-neutral-400 group-hover:text-white" />
-                  </div>
-                </div>
+              {globalLocations.map((region) => (
+                <GlobalRegion key={region.region} region={region} />
               ))}
             </div>
           </div>
@@ -227,3 +208,61 @@ const Footer = () => {
 };
 
 export default Footer;
+
+function GlobalRegion({ region }: { region: any }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="border-b border-neutral-800 pb-2">
+      <div
+        className="flex justify-between items-center cursor-pointer group hover:text-np-orange transition-colors"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span
+          className={`text-sm font-medium transition-colors ${isOpen ? "text-white" : "text-neutral-400 group-hover:text-white"
+            }`}
+        >
+          {region.region}
+        </span>
+        {isOpen ? (
+          <Minus className="w-4 h-4 text-white" />
+        ) : (
+          <Plus className="w-4 h-4 text-neutral-400 group-hover:text-white" />
+        )}
+      </div>
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-[500px] opacity-100 mt-2" : "max-h-0 opacity-0"
+          }`}
+      >
+        <div className="pl-4 space-y-2 text-sm text-neutral-400 pb-2">
+          {region.countries.map((country: any, idx: number) => (
+            <div key={idx}>
+              <Link
+                href={country.link}
+                className={`block transition-colors ${country.name === "United States"
+                  ? "text-white font-medium border-l-2 border-np-orange pl-2"
+                  : "hover:text-white"
+                  }`}
+              >
+                {country.name}
+              </Link>
+              {country.subItems && (
+                <div className="pl-4 mt-1 space-y-1">
+                  {country.subItems.map((sub: any, sIdx: number) => (
+                    <Link
+                      key={sIdx}
+                      href={sub.link}
+                      className="block text-xs hover:text-np-orange transition-colors"
+                    >
+                      {sub.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
