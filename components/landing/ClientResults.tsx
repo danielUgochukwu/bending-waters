@@ -3,16 +3,16 @@ import Link from "next/link";
 
 const ClientResults = () => {
   const clients = [
-    { name: "RefiJet", logo: "RefiJet" },
-    { name: "ZAGG", logo: "ZAGG" },
-    { name: "Adobe", logo: "Adobe" },
-    { name: "Claire's", logo: "claire's" },
+    { name: "RefiJet", logo: "/images/client-1.png" },
+    { name: "ZAGG", logo: "/images/client-2.png" },
+    { name: "Adobe", logo: "/images/client-3.png" },
+    { name: "Claire's", logo: "/images/client-4.png" },
     {
       name: "Universal Technical Institute",
-      logo: "UNIVERSAL TECHNICAL INSTITUTE",
+      logo: "/images/client-5.png",
     },
-    { name: "SoFi", logo: "SoFi" },
-    { name: "CNN", logo: "CNN" },
+    { name: "SoFi", logo: "/images/client-6.png" },
+    { name: "CNN", logo: "/images/client-7.png" },
   ];
 
   return (
@@ -65,12 +65,16 @@ const ClientResults = () => {
           {clients.map((client, index) => (
             <div
               key={index}
-              className="aspect-square bg-neutral-800 flex items-center justify-center p-4 grayscale hover:grayscale-0 transition-all duration-300 group cursor-pointer"
+              className="aspect-square bg-neutral-800 flex items-center justify-center p-4 grayscale hover:grayscale-0 transition-all duration-300 group cursor-pointer relative"
             >
-              {/* Using text as placeholder for logos, styled to look like white logos on dark background as per design */}
-              <span className="text-white font-bold text-center text-sm md:text-base opacity-70 group-hover:opacity-100">
-                {client.logo}
-              </span>
+              <div className="relative w-full h-full">
+                <Image
+                  src={client.logo}
+                  alt={client.name}
+                  fill
+                  className="object-contain"
+                />
+              </div>
             </div>
           ))}
         </div>
