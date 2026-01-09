@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { navLinks } from "@/constants";
+import { navLinks, globalLocations } from "@/constants";
 import { Search, Menu, X, ChevronRight, ChevronDown } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -53,12 +53,16 @@ export default function Header() {
   return (
     <header className="fixed top-0 z-100 w-full bg-np-dark/80 backdrop-blur-md border-b border-white/5 p-4">
       <div className="container-custom flex items-center justify-between">
-        {/* Logo */}
         {/* Logo & Global Dropdown */}
         <div className="relative group flex items-center h-full mr-8">
           <div className="flex items-center gap-2 cursor-pointer">
             <Link href="/">
-              <Image src="/images/logo.png" alt="Logo" width={100} height={100} />
+              <Image
+                src="/images/logo.png"
+                alt="Logo"
+                width={100}
+                height={100}
+              />
             </Link>
             <div className="flex items-center gap-1">
               <span className="text-neutral-500 text-xl font-light">/</span>
@@ -70,39 +74,50 @@ export default function Header() {
           {/* Global Dropdown */}
           <div className="absolute top-full left-0 pt-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 min-w-[250px]">
             <div className="bg-[#111] border border-white/10 p-6 shadow-2xl">
-              <h3 className="text-white font-bold text-sm uppercase mb-4 tracking-wider border-b border-white/20 pb-2">
-                EMEA
-              </h3>
-              <ul className="space-y-4">
-                <li>
-                  <Link
-                    href="#"
-                    className="text-np-orange font-medium text-sm flex items-center gap-2 hover:text-white transition-colors"
-                  >
-                    <span className="w-1.5 h-1.5 bg-np-orange rounded-sm"></span>{" "}
-                    SMB
-                  </Link>
-                  <ul className="pl-4 mt-2 border-l border-white/10 ml-[3px]">
-                    <li>
-                      <Link
-                        href="#"
-                        className="text-white text-xs hover:text-np-orange transition-colors block pl-3 underline decoration-white/30 underline-offset-4"
-                      >
-                        Startups
-                      </Link>
-                    </li>
+              {globalLocations.map((region, idx) => (
+                <div key={idx} className={idx > 0 ? "mt-6" : ""}>
+                  <h3 className="text-white font-bold text-sm uppercase mb-4 tracking-wider border-b border-white/20 pb-2">
+                    {region.region}
+                  </h3>
+                  <ul className="space-y-4">
+                    {region.countries.map((country, cIdx) => (
+                      <li key={cIdx}>
+                        <Link
+                          href={country.link}
+                          className={`font-medium text-sm flex items-center gap-2 transition-colors ${
+                            country.name === "United States"
+                              ? "text-np-orange hover:text-white"
+                              : "text-white hover:text-np-orange"
+                          }`}
+                        >
+                          <span
+                            className={`w-1.5 h-1.5 rounded-sm ${
+                              country.name === "United States"
+                                ? "bg-np-orange"
+                                : "bg-neutral-500"
+                            }`}
+                          ></span>{" "}
+                          {country.name}
+                        </Link>
+                        {country.subItems && (
+                          <ul className="pl-4 mt-2 border-l border-white/10 ml-[3px]">
+                            {country.subItems.map((sub, sIdx) => (
+                              <li key={sIdx}>
+                                <Link
+                                  href={sub.link}
+                                  className="text-white text-xs hover:text-np-orange transition-colors block pl-3 underline decoration-white/30 underline-offset-4"
+                                >
+                                  {sub.name}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
                   </ul>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-white font-medium text-sm flex items-center gap-2 hover:text-np-orange transition-colors"
-                  >
-                    <span className="w-1.5 h-1.5 bg-neutral-500 rounded-sm"></span>{" "}
-                    Enterprise
-                  </Link>
-                </li>
-              </ul>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -181,8 +196,9 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       <div
         ref={menuRef}
-        className={`fixed inset-0 z-50 ${isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
-          }`}
+        className={`fixed inset-0 z-50 ${
+          isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
+        }`}
       >
         {/* Backdrop */}
         <div
@@ -198,7 +214,12 @@ export default function Header() {
         >
           <div className="p-6 flex items-center justify-between border-b border-white/10">
             <Link href="/" className="flex items-center gap-1">
-              <Image src="/images/logo.png" alt="Logo" width={100} height={100} />
+              <Image
+                src="/images/logo.png"
+                alt="Logo"
+                width={100}
+                height={100}
+              />
             </Link>
             <button
               className="text-gray-400 hover:text-white transition-colors cursor-pointer"

@@ -59,3 +59,16 @@ export const navLinks = [
     { name: "AI & Technology", link: "/ai" },
     { name: "Contact", link: "/contact" },
 ];
+
+export const globalLocations = [
+    {
+        region: "EMEA",
+        countries: [
+            {
+                name: "StartUps",
+                link: "#",
+            },
+            { name: "Enterprises", link: "#" }
+        ]
+    }
+];

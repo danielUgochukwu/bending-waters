@@ -8,9 +8,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const STATS = [
-    { number: "28", label: "COUNTRIES" },
-    { number: "1,000+", label: "EMPLOYEES" },
-    { number: "270+", label: "CLIENTS" }
+    { number: "5", label: "COUNTRIES" },
+    { number: "1,000+", label: "COMMUNITIES" },
+    { number: "100+", label: "CLIENTS" }
 ];
 
 export default function Locations() {
