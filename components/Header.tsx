@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { navLinks } from "@/constants";
-import { Search, Menu, X, ChevronRight } from "lucide-react";
+import { Search, Menu, X, ChevronRight, ChevronDown } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
@@ -54,9 +54,58 @@ export default function Header() {
     <header className="fixed top-0 z-100 w-full bg-np-dark/80 backdrop-blur-md border-b border-white/5 p-4">
       <div className="container-custom flex items-center justify-between">
         {/* Logo */}
-        <Link href="/">
-          <Image src="/images/logo.png" alt="Logo" width={100} height={100} />
-        </Link>
+        {/* Logo & Global Dropdown */}
+        <div className="relative group flex items-center h-full mr-8">
+          <div className="flex items-center gap-2 cursor-pointer">
+            <Link href="/">
+              <Image src="/images/logo.png" alt="Logo" width={100} height={100} />
+            </Link>
+            <div className="flex items-center gap-1">
+              <span className="text-neutral-500 text-xl font-light">/</span>
+              <span className="text-np-orange text-lg">Global</span>
+              <ChevronDown className="w-4 h-4 text-np-orange group-hover:rotate-180 transition-transform duration-300" />
+            </div>
+          </div>
+
+          {/* Global Dropdown */}
+          <div className="absolute top-full left-0 pt-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 min-w-[250px]">
+            <div className="bg-[#111] border border-white/10 p-6 shadow-2xl">
+              <h3 className="text-white font-bold text-sm uppercase mb-4 tracking-wider border-b border-white/20 pb-2">
+                EMEA
+              </h3>
+              <ul className="space-y-4">
+                <li>
+                  <Link
+                    href="#"
+                    className="text-np-orange font-medium text-sm flex items-center gap-2 hover:text-white transition-colors"
+                  >
+                    <span className="w-1.5 h-1.5 bg-np-orange rounded-sm"></span>{" "}
+                    SMB
+                  </Link>
+                  <ul className="pl-4 mt-2 border-l border-white/10 ml-[3px]">
+                    <li>
+                      <Link
+                        href="#"
+                        className="text-white text-xs hover:text-np-orange transition-colors block pl-3 underline decoration-white/30 underline-offset-4"
+                      >
+                        Startups
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="text-white font-medium text-sm flex items-center gap-2 hover:text-np-orange transition-colors"
+                  >
+                    <span className="w-1.5 h-1.5 bg-neutral-500 rounded-sm"></span>{" "}
+                    Enterprise
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8 h-full">
