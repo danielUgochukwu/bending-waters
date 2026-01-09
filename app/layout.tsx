@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto, Jost } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import Providers from "@/components/Providers";
 
@@ -34,7 +33,6 @@ export default function RootLayout({
         <Providers>
           {children}
           <SmoothScroll />
-          <Footer />
         </Providers>
       </body>
     </html>

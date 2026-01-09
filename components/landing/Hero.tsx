@@ -34,7 +34,7 @@ export default function Hero() {
           <Link
             onClick={openModal}
             href="#"
-            className="hero-element inline-flex items-center justify-center bg-np-orange text-black font-bold px-8 py-4 rounded-md hover:bg-white transition-colors duration-300 text-lg"
+            className="hero-element inline-flex items-center justify-center bg-np-orange  px-4 py-2 lg:px-8 lg:py-4 rounded-md hover:bg-white hover:text-black transition-colors duration-300 text-lg"
           >
             Work with us
           </Link>

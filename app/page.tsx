@@ -6,6 +6,7 @@ import Locations from "@/components/landing/Locations";
 import ClientResults from "@/components/landing/ClientResults";
 import Careers from "@/components/landing/Careers";
 import UnlockGrowth from "@/components/landing/UnlockGrowth";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Locations />
       <Careers />
       <UnlockGrowth />
+      <Footer />
     </main>
   );
 }

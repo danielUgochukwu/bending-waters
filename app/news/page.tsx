@@ -1,9 +1,10 @@
-import Footer from "@/components/Footer";
+
 import Header from "@/components/Header";
 import { sanityFetch } from "@/sanity/lib/live";
 import { POSTS_QUERY } from "@/sanity/lib/queries";
 import LoadMorePosts from "@/components/LoadMorePost";
 import Head from "next/head";
+import Footer from "@/components/Footer";
 
 export const revalidate = 60;
 
@@ -26,8 +27,8 @@ const Page = async () => {
             <Header />
 
             <div className="bg-np-orange w-full h-50 md:h-110 flex-center">
-                <h1 className="text-black text-4xl sm:text-6xl md:text-9xl tracking-wider font-black font-zuume uppercase">
-                    News & stories
+                <h1 className="text-black text-3xl sm:text-4xl md:text-5xl tracking-wider font-black font-zuume uppercase">
+                    News & Insights
                 </h1>
             </div>
 

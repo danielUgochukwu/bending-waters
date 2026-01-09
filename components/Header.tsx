@@ -51,11 +51,11 @@ export default function Header() {
   );
 
   return (
-    <header className="fixed top-0 z-100 w-full bg-np-dark/80 backdrop-blur-md border-b border-white/5 px-4">
+    <header className="fixed top-0 z-100 w-full bg-np-dark/80 backdrop-blur-md border-b border-white/5 p-4">
       <div className="container-custom flex items-center justify-between">
         {/* Logo */}
         <Link href="/">
-          <Image src="/logo.svg" alt="Logo" width={100} height={100} />
+          <Image src="/logo.png" alt="Logo" width={100} height={100} />
         </Link>
 
         {/* Desktop Navigation */}
@@ -80,11 +80,16 @@ export default function Header() {
                   <div className="grid grid-cols-4 gap-8">
                     {nav.dropdown.map((column, idx) => (
                       <div key={idx}>
-                        <h3 className="text-white font-bold text-lg mb-4">{column.title}</h3>
+                        <h3 className="text-white font-bold text-lg mb-4">
+                          {column.title}
+                        </h3>
                         <ul className="space-y-2">
                           {column.items.map((item, i) => (
                             <li key={i}>
-                              <Link href="#" className="text-neutral-400 hover:text-np-orange text-sm transition-colors block py-1">
+                              <Link
+                                href="#"
+                                className="text-neutral-400 hover:text-np-orange text-sm transition-colors block py-1"
+                              >
                                 {item}
                               </Link>
                             </li>
@@ -102,22 +107,21 @@ export default function Header() {
         {/* Right Actions */}
         <div className="flex items-center gap-6">
           {/* Search Icon */}
-          <button className="hidden md:flex w-10 h-10 items-center justify-center rounded-full bg-white text-black hover:bg-gray-200 transition-colors">
+          <button className="hidden md:flex w-8 h-8 items-center justify-center rounded-full bg-white text-black hover:bg-gray-200 transition-colors">
             <Search className="w-5 h-5" />
           </button>
 
           {/* CTA Button */}
           <button
             onClick={openModal}
-            className="hidden md:block bg-np-orange text-black px-4 py-2 rounded-xl text-sm font-bold hover:bg-white transition-colors uppercase"
+            className="hidden md:block bg-np-orange text-black px-4 py-2  text-sm font-bold hover:bg-white transition-colors uppercase"
           >
             Let&apos;s Talk
           </button>
 
-
           {/* Mobile Menu Toggle */}
           <button
-            className="lg:hidden text-white hover:text-np-orange transition-colors"
+            className="lg:hidden text-white hover:text-np-orange transition-colors cursor-pointer"
             onClick={() => setIsMenuOpen(true)}
           >
             <Menu className="w-8 h-8" />
@@ -128,8 +132,9 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       <div
         ref={menuRef}
-        className={`fixed inset-0 z-50 ${isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
-          }`}
+        className={`fixed inset-0 z-50 ${
+          isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
+        }`}
       >
         {/* Backdrop */}
         <div
@@ -141,15 +146,14 @@ export default function Header() {
         {/* Drawer */}
         <div
           ref={drawerRef}
-          className="top-0 left-0 h-screen w-[320px] bg-np-dark border-r border-white/10 -translate-x-full flex flex-col shadow-2xl"
+          className="top-0 left-0 h-screen w-full bg-np-dark border-r border-white/10 -translate-x-full flex flex-col shadow-2xl"
         >
           <div className="p-6 flex items-center justify-between border-b border-white/10">
             <Link href="/" className="flex items-center gap-1">
-              <div className="text-3xl font-bold text-np-orange">Bending</div>
-              <span className="text-3xl font-bold text-white">Waters</span>
+              <Image src="/logo.png" alt="Logo" width={100} height={100} />
             </Link>
             <button
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-white transition-colors cursor-pointer"
               onClick={() => setIsMenuOpen(false)}
             >
               <X className="w-8 h-8" />
@@ -170,7 +174,11 @@ export default function Header() {
             {/* Navigation Links */}
             <nav className="flex flex-col space-y-2">
               {navLinks.map((nav) => (
-                <MobileNavItem key={nav.name} nav={nav} setIsMenuOpen={setIsMenuOpen} />
+                <MobileNavItem
+                  key={nav.name}
+                  nav={nav}
+                  setIsMenuOpen={setIsMenuOpen}
+                />
               ))}
             </nav>
           </div>
@@ -180,7 +188,13 @@ export default function Header() {
   );
 }
 
-function MobileNavItem({ nav, setIsMenuOpen }: { nav: any; setIsMenuOpen: (open: boolean) => void }) {
+function MobileNavItem({
+  nav,
+  setIsMenuOpen,
+}: {
+  nav: any;
+  setIsMenuOpen: (open: boolean) => void;
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (nav.dropdown) {
@@ -193,15 +207,21 @@ function MobileNavItem({ nav, setIsMenuOpen }: { nav: any; setIsMenuOpen: (open:
           <span className="flex-1 text-base font-bold uppercase tracking-wide">
             {nav.name}
           </span>
-          <div className={`w-6 h-6 flex items-center justify-center transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
+          <div
+            className={`w-6 h-6 flex items-center justify-center transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+          >
             <ChevronRight className="w-4 h-4 rotate-90 text-neutral-500" />
           </div>
         </div>
 
-        <div className={`pl-4 pr-2 space-y-4 border-l border-white/10 ml-4 overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[1000px] opacity-100 mt-2 pb-4' : 'max-h-0 opacity-0'}`}>
+        <div
+          className={`pl-4 pr-2 space-y-4 border-l border-white/10 ml-4 overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? "max-h-[1000px] opacity-100 mt-2 pb-4" : "max-h-0 opacity-0"}`}
+        >
           {nav.dropdown.map((column: any, idx: number) => (
             <div key={idx}>
-              <h4 className="text-np-orange text-sm font-bold mb-2 uppercase">{column.title}</h4>
+              <h4 className="text-np-orange text-sm font-bold mb-2 uppercase">
+                {column.title}
+              </h4>
               <ul className="space-y-2">
                 {column.items.map((item: string, i: number) => (
                   <li key={i}>
