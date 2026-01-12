@@ -3,24 +3,24 @@ import React from "react";
 export default function SocialProof() {
   const awards = [
     {
-      logo: "AdAge",
-      title: "Best Workplace",
+      logo: "Fashion",
+      title: "Communities",
     },
     {
-      logo: "PMW",
-      title: "Agency of the Year",
+      logo: "Lifestyle",
+      title: "Communities",
     },
     {
-      logo: "Google",
-      title: "Premier Partner",
+      logo: "Founders",
+      title: "Communities",
     },
     {
-      logo: "campaign",
-      title: "Global Agency of the Year",
+      logo: "Startup",
+      title: "Communities",
     },
     {
-      logo: "Inc.",
-      title: "Best Place to Work",
+      logo: "Tech",
+      title: "Communities",
     },
   ];
 
@@ -29,7 +29,7 @@ export default function SocialProof() {
       <div className="container-custom px-8">
         {/* Top Text */}
         <h2 className="text-center text-lg md:text-xl font-semibold mb-12 max-w-4xl mx-auto leading-relaxed">
-          We are a brand focus on building communities of business owners that
+          We are a brand focused on building communities of business owners that
           contribute to the economic and social growth of Africa and the world
         </h2>
 

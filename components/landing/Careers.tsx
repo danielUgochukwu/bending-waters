@@ -75,8 +75,8 @@ const Careers = () => {
                     <div className="w-16 h-1 bg-np-orange my-4"></div>
 
                     <p className="text-neutral-200 text-lg md:text-xl leading-relaxed max-w-2xl">
-                        Beer and ping-pong are fun, but we prioritize employee growth and impact.
-                        Think big, own it, and have fun — earning recognition from "Ad Age" and "Inc." as a Best Place to Work.
+                        We enjoy the work — but we take growth seriously.
+                        This is a place to learn fast, own outcomes, and build something worth being proud of.
                     </p>
 
                     <div className="pt-8">

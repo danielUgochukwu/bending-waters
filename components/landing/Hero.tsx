@@ -16,8 +16,8 @@ export default function Hero() {
       */}
       <div className="w-full flex flex-col gap-8 items-start text-left md:items-center md:text-center max-w-5xl mx-auto">
         {/* Headline */}
-        <div className="overflow-hidden max-w-2xl">
-          <h1 className="hero-element text-4xl sm:text-5xl md:text-4xl font-bold tracking-tight leading-[1.1]">
+        <div className="overflow-hidden max-w-5xl">
+          <h1 className="hero-element text-4xl sm:text-4xl font-bold tracking-tight leading-[1.1]">
             We are a marketing, media, and technology{" "}
             <span className="text-np-orange">company</span>. We help you get{" "}
             <span className="text-np-orange">found</span> by customers who
@@ -26,8 +26,8 @@ export default function Hero() {
         </div>
 
         {/* Subtext */}
-        <div className="overflow-hidden">
-          <p className="hero-element text-lg md:text-xl font-light leading-relaxed max-w-3xl text-gray-300">
+        <div className="overflow-hidden max-w-3xl">
+          <p className="hero-element text- md:text-lg font-light leading-relaxed  text-gray-300">
             We help you show up everywhere customers are searching, swiping,
             scrolling, streaming, and shopping.
           </p>

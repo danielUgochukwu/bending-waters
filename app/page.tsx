@@ -7,7 +7,7 @@ import ClientResults from "@/components/landing/ClientResults";
 import Careers from "@/components/landing/Careers";
 import UnlockGrowth from "@/components/landing/UnlockGrowth";
 import Footer from "@/components/Footer";
-import SocialProof from "@/components/landing/SocialProof";
+import SocialProof from "@/components/landing/Community";
 
 export default function Home() {
   return (

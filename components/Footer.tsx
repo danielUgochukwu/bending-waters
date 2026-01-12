@@ -84,9 +84,9 @@ const Footer = () => {
             </h3>
             <ul className="space-y-3 text-sm text-neutral-400">
               {[
-                "Ubersuggest",
-                "Answer The Public",
-                "Marketing School",
+                "Product Scorecard",
+                "Profit Margin Calculator",
+                "Tax Calculator",
                 "Blog",
                 "Webinars",
                 "Partnerships",
@@ -219,8 +219,9 @@ function GlobalRegion({ region }: { region: any }) {
         onClick={() => setIsOpen(!isOpen)}
       >
         <span
-          className={`text-sm font-medium transition-colors ${isOpen ? "text-white" : "text-neutral-400 group-hover:text-white"
-            }`}
+          className={`text-sm font-medium transition-colors ${
+            isOpen ? "text-white" : "text-neutral-400 group-hover:text-white"
+          }`}
         >
           {region.region}
         </span>
@@ -231,18 +232,20 @@ function GlobalRegion({ region }: { region: any }) {
         )}
       </div>
       <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-[500px] opacity-100 mt-2" : "max-h-0 opacity-0"
-          }`}
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-[500px] opacity-100 mt-2" : "max-h-0 opacity-0"
+        }`}
       >
         <div className="pl-4 space-y-2 text-sm text-neutral-400 pb-2">
           {region.countries.map((country: any, idx: number) => (
             <div key={idx}>
               <Link
                 href={country.link}
-                className={`block transition-colors ${country.name === "United States"
-                  ? "text-white font-medium border-l-2 border-np-orange pl-2"
-                  : "hover:text-white"
-                  }`}
+                className={`block transition-colors ${
+                  country.name === "United States"
+                    ? "text-white font-medium border-l-2 border-np-orange pl-2"
+                    : "hover:text-white"
+                }`}
               >
                 {country.name}
               </Link>

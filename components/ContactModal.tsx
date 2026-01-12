@@ -6,12 +6,33 @@ import { X } from "lucide-react";
 import { useModal } from "@/context/ModalContext";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { submitContactForm } from "@/app/actions/contact";
+import { useState, useTransition } from "react";
 
 export default function ContactModal() {
     const { isOpen, closeModal } = useModal();
     const modalRef = useRef<HTMLDivElement>(null);
     const backdropRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
+    const [isPending, startTransition] = useTransition();
+    const [status, setStatus] = useState<{ success?: boolean; message?: string } | null>(null);
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+
+        startTransition(async () => {
+            const result = await submitContactForm(formData);
+            setStatus(result);
+            if (result.success) {
+                // Optional: Close modal after success or show success message
+                setTimeout(() => {
+                    closeModal();
+                    setStatus(null); // Reset status for next open
+                }, 2000);
+            }
+        });
+    };
 
     useGSAP(
         () => {
@@ -99,12 +120,14 @@ export default function ContactModal() {
                     </p>
 
                     {/* Form */}
-                    <form className="w-full space-y-4">
+                    <form className="w-full space-y-4" onSubmit={handleSubmit}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {/* Email */}
                             <div className="bg-gray-50 p-3 rounded-sm border border-gray-100 focus-within:border-gray-300 transition-colors">
                                 <input
                                     type="email"
+                                    name="email"
+                                    required
                                     placeholder="Email"
                                     className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400"
                                 />
@@ -121,6 +144,7 @@ export default function ContactModal() {
                                 </div>
                                 <input
                                     type="tel"
+                                    name="phone"
                                     placeholder=""
                                     className="w-full bg-transparent outline-none text-gray-700"
                                 />
@@ -130,6 +154,8 @@ export default function ContactModal() {
                             <div className="bg-gray-50 p-3 rounded-sm border border-gray-100 focus-within:border-gray-300 transition-colors">
                                 <input
                                     type="text"
+                                    name="firstName"
+                                    required
                                     placeholder="First Name"
                                     className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400"
                                 />
@@ -139,6 +165,8 @@ export default function ContactModal() {
                             <div className="bg-gray-50 p-3 rounded-sm border border-gray-100 focus-within:border-gray-300 transition-colors">
                                 <input
                                     type="text"
+                                    name="lastName"
+                                    required
                                     placeholder="Last Name"
                                     className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400"
                                 />
@@ -148,6 +176,7 @@ export default function ContactModal() {
                             <div className="bg-gray-50 p-3 rounded-sm border border-gray-100 focus-within:border-gray-300 transition-colors">
                                 <input
                                     type="url"
+                                    name="website"
                                     placeholder="Website URL?"
                                     className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400"
                                 />
@@ -158,6 +187,7 @@ export default function ContactModal() {
                                 <select
                                     className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400 appearance-none cursor-pointer"
                                     defaultValue=""
+                                    name="budget"
                                 >
                                     <option value="" disabled>Monthly Marketing Budget</option>
                                     <option value="<5k">Less than $5,000</option>
@@ -170,18 +200,24 @@ export default function ContactModal() {
 
                         {/* Disclaimer */}
                         <p className="text-xs text-gray-500 mt-6 leading-relaxed">
-                            By clicking the button below, you consent for NP Digital and partners to use automated technology, including pre-recorded messages, cell phones and texts, and email to contact you at the number and email address provided. This includes if the number is currently on any Do Not Call Lists. This consent is not required to make a purchase. Privacy Policy.
+                            By clicking the button below, you consent for BendingWaters and partners to use automated technology, including pre-recorded messages, cell phones and texts, and email to contact you at the number and email address provided. This includes if the number is currently on any Do Not Call Lists. This consent is not required to make a purchase. Privacy Policy.
                         </p>
 
                         {/* Submit Button */}
                         <div className="flex justify-end mt-8">
                             <button
-                                type="button"
-                                className="bg-np-orange hover:bg-orange-600 text-white font-medium py-3 px-12 rounded-sm transition-colors shadow-sm"
+                                type="submit"
+                                disabled={isPending}
+                                className="bg-np-orange hover:bg-orange-600 text-white font-medium py-3 px-12 rounded-sm transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                Submit
+                                {isPending ? "Submitting..." : "Submit"}
                             </button>
                         </div>
+                        {status && (
+                            <div className={`text-center text-sm ${status.success ? "text-green-600" : "text-red-600"}`}>
+                                {status.message}
+                            </div>
+                        )}
                     </form>
                 </div>
             </div>

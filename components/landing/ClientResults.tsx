@@ -39,15 +39,11 @@ const ClientResults = () => {
               REFIJET
             </span>
             <h3 className="text-2xl md:text-4xl font-bold leading-tight text-foreground">
-              AI SEO strategy delivers +2,012% increase in referral traffic from
-              ChatGPT and other LLMs.
+              We've grown communities across niches with a +1,001% increase in 6 months
             </h3>
             <div className="w-12 h-1 bg-np-orange"></div>
             <p className="text-neutral-600 dark:text-neutral-400 text-lg leading-relaxed">
-              We aligned content with high-intent queries while also
-              anticipating the “fan out” effect of AI-driven subqueries.
-              Retrieval-Augmented Generation combined RefiJet’s data with
-              trusted third-party validation.
+              Want to leverage community-led growth strategies for your business? Lets have a conversation!
             </p>
             <div className="pt-4">
               <Link
