@@ -21,7 +21,7 @@ export const openGraphImage = {
   description: "",
   image: "/images/creative.png",
   type: "website",
-  url: "https://bendingwaters.africa",
+  url: "https://www.bendingwaters.africa",
   siteName: "BendingWaters",
   locale: "en_US",
   images: [
