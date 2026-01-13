@@ -49,11 +49,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             <main className="grow container mx-auto px-4 py-12 max-w-4xl mt-20">
                 <div className="mb-8">
                     <h1 className="text-4xl md:text-6xl font-bold mb-4 text-black uppercase">{post.title}</h1>
-                    <p className="text-gray-500">{post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    }) : ''}</p>
+                    <p className="text-gray-500">
+                        {post.author && <span className="text-black font-medium mr-2">{post.author}</span>}
+                        {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        }) : ''}</p>
                 </div>
 
                 {post.mainImage && (

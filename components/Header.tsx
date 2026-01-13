@@ -130,7 +130,7 @@ export default function Header() {
             >
               <Link
                 href={nav.link}
-                className="text-sm font-bold text-np-grey hover:text-np-orange transition-colors uppercase tracking-wide flex items-center gap-1"
+                className="text-sm  text-np-grey hover:text-np-orange transition-colors uppercase tracking-wide flex items-center gap-1"
               >
                 {nav.name}
                 {nav.dropdown && <ChevronRight className="w-3 h-3 rotate-90" />}
@@ -176,7 +176,7 @@ export default function Header() {
           {/* CTA Button */}
           <button
             onClick={openModal}
-            className="hidden md:block bg-np-orange text-np-white px-4 py-2 text-sm font-bold rounded-sm  hover:bg-white  transition-colors uppercase"
+            className="hidden md:block bg-np-orange text-np-white px-4 py-2 text-sm rounded-sm hover:bg-black transition-colors uppercase"
           >
             Let&apos;s Talk
           </button>

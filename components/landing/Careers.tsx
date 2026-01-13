@@ -59,7 +59,7 @@ const Careers = () => {
             </div>
 
             {/* Dark Overlay Gradient for better text readability */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60 z-0"></div>
+            <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/40 to-black/60 z-0"></div>
 
             {/* Content Overlay */}
             <div className="relative z-10 container mx-auto px-4 text-center">

@@ -10,6 +10,11 @@ export const news = defineType({
       title: "Title",
       type: "string", // or array of blocks if you want rich title
     }),
+    defineField({
+      name: "author",
+      title: "Author",
+      type: "string",
+    }),
 
     defineField({
       name: "tags",

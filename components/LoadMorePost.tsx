@@ -11,6 +11,7 @@ type Post = {
     _id: string;
     title: string;
     slug: { current: string };
+    author?: string;
     publishedAt: string;
     mainImage: any;
     description: string;
@@ -72,6 +73,7 @@ export default function LoadMorePosts({ initialPosts }: { initialPosts: Post[] }
                     </div>
                     <div className="flex flex-col gap-2">
                         <p className="text-sm text-gray-500 font-medium">
+                            {post.author && <span className="text-black mr-2">{post.author}</span>}
                             {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', {
                                 year: 'numeric',
                                 month: 'long',
