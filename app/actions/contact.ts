@@ -17,10 +17,10 @@ export async function submitContactForm(formData: FormData) {
     try {
         // We need a client with a token to perform write operations
         // Assuming SANITY_API_TOKEN is set in environment variables
-        const token = process.env.SANITY_API_TOKEN
+        const token = process.env.NEXT_SANITY_API_TOKEN
 
         if (!token) {
-            console.error('Missing SANITY_API_TOKEN')
+            console.error('Missing NEXT_SANITY_API_TOKEN')
             return { success: false, message: 'Server configuration error' }
         }
 

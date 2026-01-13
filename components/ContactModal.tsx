@@ -184,7 +184,9 @@ export default function ContactModal() {
 
                             {/* Monthly Marketing Budget */}
                             <div className="bg-gray-50 p-3 rounded-sm border border-gray-100 focus-within:border-gray-300 transition-colors">
+                                <label htmlFor="budget" className="sr-only">Monthly Marketing Budget</label>
                                 <select
+                                    id="budget"
                                     className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400 appearance-none cursor-pointer"
                                     defaultValue=""
                                     name="budget"
