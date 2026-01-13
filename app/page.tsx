@@ -16,7 +16,6 @@ export default function Home() {
       <Hero />
       <ServicesSection />
       <SocialProof />
-
       <Storytelling />
       <ClientResults />
       <Locations />

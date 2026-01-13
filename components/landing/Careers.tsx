@@ -81,7 +81,7 @@ const Careers = () => {
 
                     <div className="pt-8">
                         <Link
-                            href="#"
+                            href="/careers"
                             className="inline-block px-10 py-4 border-2 border-white text-white font-semibold hover:bg-white hover:text-black transition-colors duration-300 uppercase tracking-wide"
                         >
                             Search and apply

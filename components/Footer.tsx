@@ -56,21 +56,21 @@ const Footer = () => {
             </h3>
             <ul className="space-y-3 text-sm text-neutral-400">
               {[
-                "About",
-                "Solutions",
-                "Work",
-                "Recognition",
-                "News & Insights",
-                "Careers",
-                "AI & Technology",
-                "Contact",
+                { name: "About", link: "/about" },
+                { name: "Solutions", link: "/solutions" },
+                { name: "Work", link: "/work" },
+                { name: "Recognition", link: "/recognition" },
+                { name: "News & Insights", link: "/news" },
+                { name: "Careers", link: "/careers" },
+                { name: "AI & Technology", link: "/ai" },
+                { name: "Contact", link: "/contact" },
               ].map((item) => (
-                <li key={item}>
+                <li key={item.name}>
                   <Link
-                    href="#"
+                    href={item.link}
                     className="hover:text-np-orange transition-colors"
                   >
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -84,21 +84,21 @@ const Footer = () => {
             </h3>
             <ul className="space-y-3 text-sm text-neutral-400">
               {[
-                "Product Scorecard",
-                "Profit Margin Calculator",
-                "Tax Calculator",
-                "Blog",
-                "Webinars",
-                "Partnerships",
-                "Reviews",
-                "Legal",
+                { name: "Product Scorecard", link: "/resources/product-scorecard" },
+                { name: "Profit Margin Calculator", link: "/resources/profit-margin-calculator" },
+                { name: "Tax Calculator", link: "/resources/tax-calculator" },
+                { name: "Blog", link: "/blog" },
+                { name: "Webinars", link: "/resources/webinars" },
+                { name: "Partnerships", link: "/partnerships" },
+                { name: "Reviews", link: "/reviews" },
+                { name: "Legal", link: "/legal" },
               ].map((item) => (
-                <li key={item}>
+                <li key={item.name}>
                   <Link
-                    href="#"
+                    href={item.link}
                     className="hover:text-np-orange transition-colors"
                   >
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -219,9 +219,8 @@ function GlobalRegion({ region }: { region: any }) {
         onClick={() => setIsOpen(!isOpen)}
       >
         <span
-          className={`text-sm font-medium transition-colors ${
-            isOpen ? "text-white" : "text-neutral-400 group-hover:text-white"
-          }`}
+          className={`text-sm font-medium transition-colors ${isOpen ? "text-white" : "text-neutral-400 group-hover:text-white"
+            }`}
         >
           {region.region}
         </span>
@@ -232,20 +231,18 @@ function GlobalRegion({ region }: { region: any }) {
         )}
       </div>
       <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? "max-h-[500px] opacity-100 mt-2" : "max-h-0 opacity-0"
-        }`}
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-[500px] opacity-100 mt-2" : "max-h-0 opacity-0"
+          }`}
       >
         <div className="pl-4 space-y-2 text-sm text-neutral-400 pb-2">
           {region.countries.map((country: any, idx: number) => (
             <div key={idx}>
               <Link
                 href={country.link}
-                className={`block transition-colors ${
-                  country.name === "United States"
-                    ? "text-white font-medium border-l-2 border-np-orange pl-2"
-                    : "hover:text-white"
-                }`}
+                className={`block transition-colors ${country.name === "United States"
+                  ? "text-white font-medium border-l-2 border-np-orange pl-2"
+                  : "hover:text-white"
+                  }`}
               >
                 {country.name}
               </Link>

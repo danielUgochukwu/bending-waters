@@ -47,7 +47,7 @@ const ClientResults = () => {
             </p>
             <div className="pt-4">
               <Link
-                href="#"
+                href="/contact"
                 className="inline-block px-8 py-3 border-2 border-np-orange text-np-orange font-semibold hover:bg-np-orange hover:text-white transition-colors duration-300"
               >
                 Contact us to learn more

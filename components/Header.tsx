@@ -84,18 +84,16 @@ export default function Header() {
                       <li key={cIdx}>
                         <Link
                           href={country.link}
-                          className={`font-medium text-sm flex items-center gap-2 transition-colors ${
-                            country.name === "United States"
-                              ? "text-np-orange hover:text-white"
-                              : "text-white hover:text-np-orange"
-                          }`}
+                          className={`font-medium text-sm flex items-center gap-2 transition-colors ${country.name === "United States"
+                            ? "text-np-orange hover:text-white"
+                            : "text-white hover:text-np-orange"
+                            }`}
                         >
                           <span
-                            className={`w-1.5 h-1.5 rounded-sm ${
-                              country.name === "United States"
-                                ? "bg-np-orange"
-                                : "bg-neutral-500"
-                            }`}
+                            className={`w-1.5 h-1.5 rounded-sm ${country.name === "United States"
+                              ? "bg-np-orange"
+                              : "bg-neutral-500"
+                              }`}
                           ></span>{" "}
                           {country.name}
                         </Link>
@@ -148,13 +146,13 @@ export default function Header() {
                           {column.title}
                         </h3>
                         <ul className="space-y-2">
-                          {column.items.map((item, i) => (
+                          {column.items.map((item: any, i: number) => (
                             <li key={i}>
                               <Link
-                                href="#"
+                                href={item.link}
                                 className="text-neutral-400 hover:text-np-orange text-sm transition-colors block py-1"
                               >
-                                {item}
+                                {item.name}
                               </Link>
                             </li>
                           ))}
@@ -196,9 +194,8 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       <div
         ref={menuRef}
-        className={`fixed inset-0 z-50 ${
-          isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-50 ${isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
+          }`}
       >
         {/* Backdrop */}
         <div
@@ -292,14 +289,14 @@ function MobileNavItem({
                 {column.title}
               </h4>
               <ul className="space-y-2">
-                {column.items.map((item: string, i: number) => (
+                {column.items.map((item: any, i: number) => (
                   <li key={i}>
                     <Link
-                      href="#"
+                      href={item.link}
                       className="text-neutral-400 text-sm hover:text-white block py-1"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      {item}
+                      {item.name}
                     </Link>
                   </li>
                 ))}

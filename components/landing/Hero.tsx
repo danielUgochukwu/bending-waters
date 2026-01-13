@@ -37,7 +37,7 @@ export default function Hero() {
         <div className="overflow-hidden p-1">
           <Link
             onClick={openModal}
-            href="#"
+            href="/contact"
             className="hero-element inline-flex items-center justify-center bg-np-orange  px-4 py-2 rounded-md hover:bg-white hover:text-black transition-colors duration-300 text-lg"
           >
             Work with us
