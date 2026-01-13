@@ -104,7 +104,7 @@ export default function ContactModal() {
                    Actually, let's just use the image tag. */}
                             <Image
                                 src="/images/logo.png"
-                                alt="NP Digital"
+                                alt="logo"
                                 fill
                                 className="object-contain invert" // Inverting because the logo is likely white for the dark theme website
                             />

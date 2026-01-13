@@ -16,29 +16,25 @@ const jost = Jost({
   weight: ["400", "500", "600", "700"],
 });
 
-export const openGraphImage = {
-  title: "BendingWaters - We build strategic growth infrastructure for real business outcomes",
-  description: "",
-  image: "/images/creative.png",
-  type: "website",
-  url: "https://www.bendingwaters.africa",
-  siteName: "BendingWaters",
-  locale: "en_US",
-  images: [
-    {
-      url: "/images/creative.png",
-      width: 1200,
-      height: 630,
-      alt: "BendingWaters - We build strategic growth infrastructure for real business outcomes",
-    },
-  ],
-};
 
 export const metadata: Metadata = {
   title:
     "BendingWaters - We build strategic growth infrastructure for real business outcomes",
   description: "",
-  openGraph: openGraphImage,
+  openGraph: {
+    title: "BendingWaters - We build strategic growth infrastructure for real business outcomes",
+    description: "",
+    url: "https://www.bendingwaters.africa",
+    siteName: "BendingWaters",
+    images: [
+      {
+        url: "/images/creative.png",
+        width: 1200,
+        height: 630,
+        alt: "fashion"
+      }
+    ]
+  }
 };
 
 export default function RootLayout({
