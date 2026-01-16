@@ -74,7 +74,7 @@ export const globalLocations: Region[] = [
     {
         region: "EMEA",
         countries: [
-            { name: "SMB", link: "#" },
+            { name: "SMB", link: "/smb" },
             {
                 name: "StartUps",
                 link: "#",
