@@ -15,10 +15,25 @@ export default function Header() {
   const menuRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
+  const globalRef = useRef<HTMLDivElement>(null);
+
+  const [isGlobalOpen, setIsGlobalOpen] = useState(false);
 
   const { openModal } = useModal();
 
   const { contextSafe } = useGSAP({ scope: menuRef });
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (globalRef.current && !globalRef.current.contains(event.target as Node)) {
+        setIsGlobalOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useGSAP(
     () => {
@@ -54,8 +69,8 @@ export default function Header() {
     <header className="fixed top-0 z-100 w-full bg-np-dark/80 backdrop-blur-md border-b border-white/5 p-4">
       <div className="container-custom flex items-center justify-between">
         {/* Logo & Global Dropdown */}
-        <div className="relative group flex items-center h-full mr-8">
-          <div className="flex items-center gap-2 cursor-pointer">
+        <div ref={globalRef} className="relative group flex items-center h-full mr-8">
+          <div className="flex items-center gap-2">
             <Link href="/">
               <Image
                 src="/images/logo.png"
@@ -64,15 +79,26 @@ export default function Header() {
                 height={100}
               />
             </Link>
-            <div className="flex items-center gap-1">
+            <div
+              className="flex items-center gap-1 cursor-pointer"
+              onClick={() => setIsGlobalOpen(!isGlobalOpen)}
+            >
               <span className="text-neutral-500 text-xl font-light">/</span>
               <span className="text-np-orange text-lg">Global</span>
-              <ChevronDown className="w-4 h-4 text-np-orange group-hover:rotate-180 transition-transform duration-300" />
+              <ChevronDown
+                className={`w-4 h-4 text-np-orange transition-transform duration-300 ${isGlobalOpen ? "rotate-180" : "group-hover:rotate-180"
+                  }`}
+              />
             </div>
           </div>
 
           {/* Global Dropdown */}
-          <div className="absolute top-full left-0 pt-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 min-w-[250px]">
+          <div
+            className={`absolute top-full left-0 pt-6 transition-all duration-300 z-50 min-w-[250px] ${isGlobalOpen
+                ? "opacity-100 visible"
+                : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+              }`}
+          >
             <div className="bg-[#111] border border-white/10 p-6 shadow-2xl">
               {globalLocations.map((region, idx) => (
                 <div key={idx} className={idx > 0 ? "mt-6" : ""}>
