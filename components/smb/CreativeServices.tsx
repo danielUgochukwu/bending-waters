@@ -33,7 +33,7 @@ export default function CreativeServices() {
                 <h2 className="text-5xl md:text-6xl font-medium tracking-tight text-slate-900">
                     All the creative services you need
                     <br />
-                    <span className="font-serif italic text-blue-600">— and beyond.</span>
+                    <span className="font-serif italic text-np-orange">— and beyond.</span>
                 </h2>
             </div>
 
@@ -62,7 +62,7 @@ export default function CreativeServices() {
             </div>
 
             <div className="flex justify-center mt-16">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-8 py-3 font-medium transition-colors">
+                <button className="bg-np-orange hover:bg-np-orange-700 text-white rounded-lg px-8 py-3 font-medium transition-colors">
                     Read our content
                 </button>
             </div>

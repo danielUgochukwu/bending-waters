@@ -94,7 +94,7 @@ export default function HeroSection() {
                 ref={actionsRef}
                 className="flex items-center gap-4 mt-8"
             >
-                <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg px-7 h-11 active:scale-95 transition focus-visible:ring-2 focus-visible:ring-indigo-500">
+                <button className="flex items-center gap-2 bg-np-orange hover:bg-np-orange-700 text-white rounded-lg px-7 h-11 active:scale-95 transition">
                     Get started
                     <ArrowRight className="size-5" />
                 </button>
