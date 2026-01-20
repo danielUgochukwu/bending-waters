@@ -31,9 +31,9 @@ export default function CreativeServices() {
         <section className="py-24 overflow-hidden bg-white">
             <div className="container mx-auto px-4 mb-16 text-center">
                 <h2 className="text-5xl md:text-6xl font-medium tracking-tight text-slate-900">
-                    All the creative services you need
+                    Built for business owners building
                     <br />
-                    <span className="font-serif italic text-np-orange">— and beyond.</span>
+                    <span className="font-serif italic text-np-orange">real businesses</span>
                 </h2>
             </div>
 
@@ -63,7 +63,7 @@ export default function CreativeServices() {
 
             <div className="flex justify-center mt-16">
                 <button className="bg-np-orange hover:bg-np-orange-700 text-white rounded-lg px-8 py-3 font-medium transition-colors">
-                    Read our content
+                    Hire us
                 </button>
             </div>
         </section>

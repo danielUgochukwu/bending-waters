@@ -1,35 +1,35 @@
 "use client";
 
 import Image from "next/image";
-import { Users, FileText, Scaling, Calendar } from "lucide-react";
+import { Palette, Megaphone, Globe, Camera } from "lucide-react";
 
 const features = [
   {
-    icon: Users,
-    title: "Dedicated creative team",
+    icon: Palette,
+    title: "Branding & Creative",
     description:
-      "A skilled team of creatives ready to bring your ideas to life with consistency and expertise.",
+      "Logos, visuals, content, and brand identity that help your business stand out.",
     color: "text-pink-500",
   },
   {
-    icon: FileText,
-    title: "Project management support",
+    icon: Megaphone,
+    title: "Digital Marketing",
     description:
-      "Get a project manager to manage execution and talent while you focus on growth.",
+      "Social media, ads, and growth strategies designed for small businesses.",
     color: "text-orange-500",
   },
   {
-    icon: Scaling,
-    title: "Flexible scaling",
+    icon: Globe,
+    title: "Websites & Online Stores",
     description:
-      "Seamless project management, collaboration, and payments—all in one platform.",
+      "Simple, conversion-focused websites and ecommerce setups.",
     color: "text-yellow-500",
   },
   {
-    icon: Calendar,
-    title: "Monthly Subscription",
+    icon: Camera,
+    title: "Content & Storytelling",
     description:
-      "Flexible monthly plans with rollover credits for on-demand marketing and creative services.",
+      "Photography, video, and copy that tell your brand story clearly.",
     color: "text-cyan-500",
   },
 ];
@@ -43,16 +43,12 @@ export default function FractionalTeams() {
           <div className="z-10">
             <div className="mb-8">
               <h3 className="text-slate-600 font-medium mb-4">
-                <span className="font-bold text-slate-900">BENDINGwATERS</span>{" "}
-                Fractional Teams
+                <span className="font-bold text-slate-900">BENDINGWATERS</span>{" "}
+                helps you focus on growing
               </h3>
               <h2 className="text-5xl md:text-6xl font-medium tracking-tight text-slate-900 leading-[1.1]">
-                Scale without{" "}
-                <span className="font-serif italic text-bl">expensive</span>
-                <br />
-                <span className="font-serif italic text-np-orange">
-                  full-time hires
-                </span>
+                Built for business owners building
+                real businesses.
               </h2>
             </div>
 
@@ -71,7 +67,7 @@ export default function FractionalTeams() {
             </div>
 
             <button className="bg-np-orange text-white rounded-lg px-8 py-3 font-medium transition-colors">
-              Read our content
+              Explore support options
             </button>
           </div>
 

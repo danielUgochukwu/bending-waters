@@ -77,7 +77,8 @@ export default function HeroSection() {
                 ref={titleRef}
                 className="text-center text-5xl md:text-6xl font-semibold mt-4 max-w-2xl leading-tight"
             >
-                Let&apos;s build AI agents together
+                Build, grow, and scale your business — without
+                doing it alone
             </h1>
 
             {/* Text */}
@@ -85,8 +86,10 @@ export default function HeroSection() {
                 ref={textRef}
                 className="text-center text-base max-w-lg mt-2"
             >
-                Our platform helps you build, test, and deliver faster — so you can focus
-                on what matters.
+                BendingWaters supports small business owners,
+                creatives, and founders with the tools, guidance,
+                and digital support needed to grow sustainably
+                — from idea to income.
             </p>
 
             {/* Actions */}
@@ -95,12 +98,12 @@ export default function HeroSection() {
                 className="flex items-center gap-4 mt-8"
             >
                 <button className="flex items-center gap-2 bg-np-orange hover:bg-np-orange-700 text-white rounded-lg px-7 h-11 active:scale-95 transition">
-                    Get started
+                    Join the community
                     <ArrowRight className="size-5" />
                 </button>
 
                 <button className="border border-slate-400 rounded-lg px-8 h-11 hover:bg-white/10 active:scale-95 transition focus-visible:ring-2 focus-visible:ring-slate-400">
-                    Book a demo
+                    Learn more
                 </button>
             </div>
 
