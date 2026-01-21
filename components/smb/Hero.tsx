@@ -69,7 +69,7 @@ export default function HeroSection() {
                 className="flex items-center mt-48 gap-2 border border-slate-600 text-gray-50 rounded-full px-4 py-2"
             >
                 <div className="size-2.5 bg-green-500 rounded-full animate-pulse" />
-                <span>Book a live demo today</span>
+                <span>Join our growing community</span>
             </div>
 
             {/* Title */}

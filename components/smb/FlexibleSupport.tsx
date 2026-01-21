@@ -6,25 +6,25 @@ const cards = [
   {
     title: "Launch your Project",
     description:
-      "Select the type of project you want to start and get matched with the perfect team instantly.",
+      "Tell us what you’re building or growing — whether it’s your brand, website, marketing, or online presence. Answer a few simple questions so we understand your business and goals",
     image: "/images/dashboard_launch.png",
   },
   {
     title: "Meet your Project manager",
     description:
-      "Get matched with a dedicated project manager who vets top-tier creatives, manages timelines, and ensures your budget is optimized—so you can focus on strategy.",
+      "You’ll be assigned a dedicated project manager who becomes your main point of contact. They help clarify your needs, recommend the right services, and guide you through the process step by step — no confusion, no guesswork",
     image: "/images/dashboard_pm.png",
   },
   {
-    title: "Select & Pay Creatives",
+    title: "We Build with you",
     description:
-      "Review milestones, approve work, and handle payments securely within the platform.",
+      "Our in-house team and trusted creatives get to work on your project. You’ll review progress, give feedback, and approve each stage as we move forward — with clear timelines and support throughout.",
     image: "/images/dashboard_pay.png",
   },
   {
     title: "Manage Everything in One Place",
     description:
-      "Track progress, communicate with your team, and manage all your creative assets in a single dashboard.",
+      "Track your project, communicate with your project manager, and access all your files and deliverables in one simple dashboard — designed for busy business owners.",
     image: "/images/dashboard_manage.png",
   },
 ];
@@ -35,15 +35,15 @@ export default function FlexibleSupport() {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-4xl mx-auto mb-16">
           <h2 className="text-4xl md:text-6xl font-medium tracking-tight mb-6 leading-tight">
-            Finally, <span className="font-serif italic">Flexible</span> and{" "}
-            <span className="font-serif italic">Affordable</span>
-            <br />
-            Support That Works For You
+            Our Small Business Support is{" "}
+            <span className="font-serif italic">Affordable</span> and{" "}
+            <span className="font-serif italic">flexible</span>. Choose what
+            works for you.
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            With flexible monthly creative credits, you gain access to 70,000+
-            creative freelancers to support your marketing and creative needs
-            seamlessly.
+            Running a small business is hard enough. We help you focus on what
+            matters by providing flexible support, clear direction, and a
+            community that understands your journey
           </p>
         </div>
 
@@ -70,7 +70,7 @@ export default function FlexibleSupport() {
                 <h3 className="text-xl font-semibold mb-3 leading-tight">
                   {card.title.split(" ").map((word, i) =>
                     word.toLowerCase() === "project" ||
-                    word.toLowerCase() === "creatives" ||
+                    word.toLowerCase() === "build" ||
                     word.toLowerCase() === "one" ? (
                       <span key={i} className="font-serif italic font-normal">
                         {word}{" "}

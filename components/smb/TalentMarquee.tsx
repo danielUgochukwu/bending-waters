@@ -83,7 +83,7 @@ const TalentMarquee = () => {
         <section className="py-20 bg-white overflow-hidden">
             <div className="container mx-auto px-4 mb-12">
                 <h2 className="text-4xl md:text-5xl font-medium text-center text-black">
-                    Top <span className="font-serif italic text-np-orange">talent</span> on BENDINGWATERS
+                    Top <span className="font-serif italic text-np-orange">talent</span> on BendingWaters
                 </h2>
             </div>
 
