@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Jost } from "next/font/google";
+import { GoogleAnalytics } from '@next/third-parties/google'
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Providers from "@/components/Providers";
@@ -53,6 +54,7 @@ export default function RootLayout({
           <SmoothScroll />
         </Providers>
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_GOOGLE_ANALYTICS_ID!} />
     </html>
   );
 }
