@@ -75,7 +75,7 @@ export default function HeroSection() {
             {/* Title */}
             <h1
                 ref={titleRef}
-                className="text-center text-5xl md:text-6xl font-semibold mt-4 max-w-2xl leading-tight"
+                className="text-center text-2xl md:text-4xl font-semibold mt-4 max-w-2xl leading-tight"
             >
                 Build, grow, and scale your business — without
                 doing it alone
@@ -84,7 +84,7 @@ export default function HeroSection() {
             {/* Text */}
             <p
                 ref={textRef}
-                className="text-center text-base max-w-lg mt-2"
+                className="text-center text-sm md:text-base max-w-lg mt-2"
             >
                 BendingWaters supports small business owners,
                 creatives, and founders with the tools, guidance,
@@ -95,11 +95,11 @@ export default function HeroSection() {
             {/* Actions */}
             <div
                 ref={actionsRef}
-                className="flex items-center gap-4 mt-8"
+                className="flex items-center md:items-center max-sm:flex-col gap-4 mt-8"
             >
                 <button className="flex items-center gap-2 bg-np-orange hover:bg-np-orange-700 text-white rounded-lg px-7 h-11 active:scale-95 transition">
                     Join the community
-                    <ArrowRight className="size-5" />
+                    <ArrowRight className="size-4 md:size-5" />
                 </button>
 
                 <button className="border border-slate-400 rounded-lg px-8 h-11 hover:bg-white/10 active:scale-95 transition focus-visible:ring-2 focus-visible:ring-slate-400">
