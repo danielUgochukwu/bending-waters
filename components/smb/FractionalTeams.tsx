@@ -35,7 +35,7 @@ const features = [
 
 export default function FractionalTeams() {
   return (
-    <section className="py-16 px-4 md:px-8 bg-white">
+    <section className="py-4 px-4 md:px-8 bg-white">
       <div className="container mx-auto max-w-9xl bg-slate-50 rounded-[40px] p-8  overflow-hidden relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column: Content */}
@@ -45,7 +45,7 @@ export default function FractionalTeams() {
                 <span className="font-bold text-slate-900">BendingWaters</span>{" "}
                 helps you focus on growing
               </h3>
-              <h2 className="text-5xl md:text-6xl font-medium tracking-tight text-slate-900 leading-[1.1]">
+              <h2 className="text-2xl md:text-4xl font-medium tracking-tight text-slate-900 leading-[1.1]">
                 Built for business owners building real businesses.
               </h2>
             </div>
@@ -70,11 +70,11 @@ export default function FractionalTeams() {
           </div>
 
           {/* Right Column: Floating Image */}
-          <div className="relative w-full h-[600px] flex items-center justify-center">
+          <div className="relative flex items-center justify-center">
             {/* Decorative blurred blob behind image */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-blue-200/30 blur-3xl rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-200/30 blur-3xl rounded-full" />
 
-            <div className="relative w-full lg:w-3/4 h-full ">
+            <div className="relative w-[300px] h-[400px] md:w-[500px] md:w-[800px] ">
               <Image
                 src="/images/hair_vendors.jpg"
                 alt="Creative team collaboration"

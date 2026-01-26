@@ -34,7 +34,7 @@ export default function FlexibleSupport() {
     <section className="py-24 bg-[#020617] text-white">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-4xl mx-auto mb-16">
-          <h2 className="text-4xl md:text-6xl font-medium tracking-tight mb-6 leading-tight">
+          <h2 className="text-2xl md:text-6xl font-medium tracking-tight mb-6 leading-tight">
             Our Small Business Support is{" "}
             <span className="font-serif italic">Affordable</span> and{" "}
             <span className="font-serif italic">flexible</span>. Choose what
