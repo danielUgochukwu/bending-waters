@@ -27,7 +27,7 @@ export default function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative flex flex-col items-center -mt-16 overflow-hidden max-sm:px-4"
+      className="relative bg-[#171717] flex flex-col items-center -mt-16 overflow-hidden max-sm:px-4"
     >
       {/* Background SVG */}
       <svg
