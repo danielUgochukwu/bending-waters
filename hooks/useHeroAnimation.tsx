@@ -47,11 +47,6 @@ export function useHeroAnimation(refs: HeroAnimationRefs) {
                     ease: "power3.out",
                     duration: 0.9,
                 },
-                scrollTrigger: {
-                    trigger: refs.container.current,
-                    start: "top 75%",
-                    once: true,
-                },
             });
 
             tl.from(refs.bg.current, { opacity: 0, scale: 0.95 })

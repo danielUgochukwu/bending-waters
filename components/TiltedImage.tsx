@@ -40,11 +40,6 @@ export default function TiltedImage({
                 opacity: 1,
                 duration: 1,
                 ease: "power3.out",
-                scrollTrigger: {
-                    trigger: figureRef.current,
-                    start: "top 80%",
-                    once: true,
-                },
             }
         );
     }, []);

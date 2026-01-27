@@ -40,7 +40,7 @@ const Footer = () => {
           {/* Column 2: GLOBAL */}
           <div>
             <h3 className="font-bold mb-6 tracking-wider text-sm uppercase">
-              Global
+              Africa
             </h3>
             <div className="space-y-4">
               {globalLocations.map((region) => (
