@@ -84,7 +84,7 @@ export default function Header() {
               onClick={() => setIsGlobalOpen(!isGlobalOpen)}
             >
               <span className="text-neutral-500 text-xl font-light">/</span>
-              <span className="text-np-orange text-lg">Global</span>
+              <span className="text-np-orange text-lg">Africa</span>
               <ChevronDown
                 className={`w-4 h-4 text-np-orange transition-transform duration-300 ${isGlobalOpen ? "rotate-180" : "group-hover:rotate-180"
                   }`}
@@ -95,8 +95,8 @@ export default function Header() {
           {/* Global Dropdown */}
           <div
             className={`absolute top-full left-0 pt-6 transition-all duration-300 z-50 min-w-[250px] ${isGlobalOpen
-                ? "opacity-100 visible"
-                : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+              ? "opacity-100 visible"
+              : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
               }`}
           >
             <div className="bg-[#111] border border-white/10 p-6 shadow-2xl">
