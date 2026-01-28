@@ -25,12 +25,12 @@ export default function About() {
                 {/* Content */}
                 <div className="relative z-10 container mx-auto px-4 md:px-8 flex flex-col justify-center h-full pt-20">
                     <div className="max-w-5xl">
-                        <h1 className="text-4xl md:text-6xl lg:text-6xl font-bold leading-tight mb-20">
+                        <h1 className="text-4xl md:text-6xl lg:text-6xl font-bold leading-tight">
                             Built for clarity.
                             <br />
                             Designed for growth.
                         </h1>
-                        <div className="w-20 h-1 bg-[#FF5722] mb-8"></div>
+                        <div className="w-20 h-1 bg-[#FF5722] mb-4 mt-4"></div>
                         <p className="text-sm md:text-xl text-gray-200 mb-10 max-w-3xl leading-relaxed">
                             Bending Waters was founded in 2017 to help businesses grow without guessing.
 
