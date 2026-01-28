@@ -19,14 +19,14 @@ export default function About() {
                     style={{ backgroundImage: "url('/images/about-hero-bg.png')" }}
                 >
                     {/* Overlay */}
-                    <div className="absolute inset-0 bg-black/60"></div>
+                    <div className="absolute inset-0 bg-black/60" />
                 </div>
 
                 {/* Content */}
-                <div className="relative z-10 container mx-auto px-4 md:px-8 flex flex-col justify-center h-full lg:pt-20">
+                <div className="relative z-10 container mx-auto px-4 md:px-8 flex flex-col justify-center h-full pt-20">
                     <div className="max-w-5xl">
-                        <h1 className="text-4xl md:text-6xl lg:text-6xl font-bold leading-tight mb-6">
-                            Built for clarity. 
+                        <h1 className="text-4xl md:text-6xl lg:text-6xl font-bold leading-tight mb-20">
+                            Built for clarity.
                             <br />
                             Designed for growth.
                         </h1>
@@ -48,13 +48,13 @@ export default function About() {
                         <div className="flex items-center gap-6">
                             <Link
                                 href="/contact"
-                                className="bg-[#FF5722] hover:bg-[#F4511E] text-white font-semibold py-3 px-8 rounded transition-colors duration-300"
+                                className="bg-[#FF5722] hover:bg-[#F4511E] text-white py-2 px-4 rounded transition-colors duration-300"
                             >
                                 Learn more
                             </Link>
                             <Link
                                 href="/careers"
-                                className="text-[#FF5722] font-semibold border-b-2 border-[#FF5722] pb-1 hover:text-[#F4511E] hover:border-[#F4511E] transition-colors duration-300"
+                                className="text-[#FF5722] border-b-2 border-[#FF5722] pb-1 hover:text-[#F4511E] hover:border-[#F4511E] transition-colors duration-300"
                             >
                                 Hire us
                             </Link>
