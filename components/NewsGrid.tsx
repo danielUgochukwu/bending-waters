@@ -27,12 +27,12 @@ const NewsGrid = async ({ searchParams }: NewsGridProps) => {
     const { data: posts } = await sanityFetch({
         query: POSTS_QUERY,
         params: {
-            search: searchParams?.search || undefined,
-            category: searchParams?.category || undefined,
-            tag: searchParams?.tag || undefined,
+            search: searchParams?.search || null,
+            category: searchParams?.category || null,
+            tag: searchParams?.tag || null,
             start: 0,
             end: 12
-        }
+        } as any
     });
 
     if (!posts || posts.length === 0) {
