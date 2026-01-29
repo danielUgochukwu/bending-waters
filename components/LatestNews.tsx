@@ -2,6 +2,14 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { LATEST_NEWS_QUERY } from "@/sanity/lib/queries";
 import Link from "next/link";
 
+interface NewsItem {
+    title: string;
+    slug?: { current: string };
+    author?: { name: string };
+    publishedAt?: string;
+    commentsCount?: number;
+}
+
 const LatestNews = async () => {
     const { data: newsItems } = await sanityFetch({ query: LATEST_NEWS_QUERY });
 
@@ -12,7 +20,7 @@ const LatestNews = async () => {
             <h3 className="text-2xl font-bold text-white mb-8">Latest News more Information</h3>
 
             <ul className="space-y-4 mb-8">
-                {newsItems.map((item, index) => (
+                {newsItems.map((item: NewsItem, index: number) => (
                     <li key={index}>
                         <Link href={`/news/${item.slug?.current}`} className="flex items-start gap-3 text-gray-400 hover:text-np-orange transition-colors group cursor-pointer">
                             <div className="mt-1 min-w-5">
