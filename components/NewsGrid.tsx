@@ -55,7 +55,7 @@ const NewsGrid = async ({ searchParams }: NewsGridProps) => {
                     href={`/news/${post.slug?.current}`}
                     className="group flex flex-col gap-4 cursor-pointer"
                 >
-                    <div className="relative w-full aspect-4/3 overflow-hidden rounded-4xl bg-gray-900">
+                    <div className="relative w-full aspect-4/3 overflow-hidden rounded-2xl md:rounded-4xl bg-gray-900">
                         {post.mainImage && (
                             <Image
                                 src={urlFor(post.mainImage).url()}
