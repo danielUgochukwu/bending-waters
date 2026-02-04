@@ -9,10 +9,17 @@ export const contact = defineType({
             name: 'firstName',
             title: 'First Name',
             type: 'string',
+            hidden: true, // Hiding in studio as we move to fullName
         }),
         defineField({
             name: 'lastName',
             title: 'Last Name',
+            type: 'string',
+            hidden: true, // Hiding in studio as we move to fullName
+        }),
+        defineField({
+            name: 'fullName',
+            title: 'Full Name',
             type: 'string',
         }),
         defineField({
@@ -24,6 +31,16 @@ export const contact = defineType({
             name: 'phone',
             title: 'Phone',
             type: 'string',
+        }),
+        defineField({
+            name: 'subject',
+            title: 'Subject / Needs',
+            type: 'string',
+        }),
+        defineField({
+            name: 'message',
+            title: 'Message',
+            type: 'text',
         }),
         defineField({
             name: 'website',

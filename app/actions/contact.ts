@@ -3,14 +3,13 @@
 import { client } from '@/sanity/lib/client'
 
 export async function submitContactForm(formData: FormData) {
-    const firstName = formData.get('firstName') as string
-    const lastName = formData.get('lastName') as string
+    const fullName = formData.get('fullName') as string
     const email = formData.get('email') as string
     const phone = formData.get('phone') as string
-    const website = formData.get('website') as string
-    const budget = formData.get('budget') as string
+    const subject = formData.get('subject') as string
+    const message = formData.get('message') as string
 
-    if (!firstName || !lastName || !email) {
+    if (!fullName || !email || !message) {
         return { success: false, message: 'Missing required fields' }
     }
 
@@ -32,12 +31,11 @@ export async function submitContactForm(formData: FormData) {
 
         await clientWithToken.create({
             _type: 'contact',
-            firstName,
-            lastName,
+            fullName,
             email,
             phone,
-            website,
-            budget,
+            subject,
+            message,
             submittedAt: new Date().toISOString(),
         })
 

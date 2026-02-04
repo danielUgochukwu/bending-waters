@@ -1,4 +1,5 @@
 
+import PageHeader from "@/components/PageHeader";
 import Header from "@/components/Header";
 import Image from "next/image";
 import { sanityFetch } from "@/sanity/lib/live";
@@ -29,19 +30,7 @@ const Page = async () => {
         <div className="relative overflow-hidden min-h-screen">
             <Header />
 
-            <div className="relative w-full h-50 md:h-90 flex-center">
-                <Image
-                    src="/images/news_header.png"
-                    alt="News Header"
-                    fill
-                    className="object-cover"
-                    priority
-                />
-                <div className="absolute inset-0 bg-black/20" />
-                <h1 className="relative z-10 text-white text-3xl sm:text-4xl md:text-5xl tracking-wider uppercase">
-                    News & Insights
-                </h1>
-            </div>
+            <PageHeader title="News & Insights" />
 
             <section className="py-16 px-4 md:px-8 lg:px-10 xl:px-32 2xl:px-40">
                 <NewsGrid />

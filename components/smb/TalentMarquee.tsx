@@ -1,6 +1,10 @@
+'use client'
+
 import React from 'react'
 import Image from 'next/image'
 import { Briefcase, MapPin } from 'lucide-react'
+import { useModal } from '@/context/ModalContext'
+import Button from '@/components/Button'
 
 const talents = [
     {
@@ -42,6 +46,8 @@ const talents = [
 ]
 
 const TalentCard = ({ talent }: { talent: typeof talents[0] }) => {
+    const { openModal } = useModal()
+
     return (
         <div className="relative min-w-[300px] h-[400px] rounded-2xl overflow-hidden group mx-4">
             <Image
@@ -66,12 +72,16 @@ const TalentCard = ({ talent }: { talent: typeof talents[0] }) => {
                 </div>
 
                 <div className="flex gap-3">
-                    <button className="flex-1 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors">
+                    <Button variant="glass" className="flex-1 text-sm py-2 px-4 rounded-lg">
                         View Profile
-                    </button>
-                    <button className="flex-1 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors">
+                    </Button>
+                    <Button
+                        onClick={openModal}
+                        variant="glass"
+                        className="flex-1 text-sm py-2 px-4 rounded-lg"
+                    >
                         Hire
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>

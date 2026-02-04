@@ -7,6 +7,7 @@ import { Search, Menu, X, ChevronRight, ChevronDown } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
+import Button from "@/components/Button";
 import MagneticButton from "@/components/MagneticButton";
 import { useModal } from "@/context/ModalContext";
 
@@ -200,12 +201,14 @@ export default function Header() {
           </button>
 
           {/* CTA Button */}
-          <button
-            onClick={openModal}
-            className="hidden md:block bg-np-orange text-np-white px-4 py-2 text-sm rounded-sm hover:bg-black transition-colors uppercase"
+          <Button
+            href="/contact"
+            variant="primary"
+            size="sm"
+            className="hidden md:block"
           >
             Let&apos;s Talk
-          </button>
+          </Button>
 
           {/* Mobile Menu Toggle */}
           <button

@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { useModal } from "@/context/ModalContext";
+import Button from "@/components/Button";
 
 const services = [
   {
@@ -27,6 +29,7 @@ const services = [
 ];
 
 export default function CreativeServices() {
+  const { openModal } = useModal();
   return (
     <section className="py-8 overflow-hidden bg-white">
       <div className="container mx-auto px-4 mb-16 text-center">
@@ -64,9 +67,14 @@ export default function CreativeServices() {
       </div>
 
       <div className="flex justify-center mt-8">
-        <button className="bg-np-orange hover:bg-np-orange-700 text-white rounded-lg px-8 py-3 font-medium transition-colors">
+        <Button
+          onClick={openModal}
+          variant="primary"
+          size="md"
+          className="px-8"
+        >
           Hire us
-        </button>
+        </Button>
       </div>
     </section>
   );
