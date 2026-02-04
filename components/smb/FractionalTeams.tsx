@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Palette, Megaphone, Globe, Camera } from "lucide-react";
+import Button from "@/components/Button";
 
 const features = [
   {
@@ -64,9 +65,9 @@ export default function FractionalTeams() {
               ))}
             </div>
 
-            <button className="bg-np-orange text-white rounded-lg px-8 py-3 font-medium transition-colors">
+            <Button className="px-8 rounded-lg">
               Explore support options
-            </button>
+            </Button>
           </div>
 
           {/* Right Column: Floating Image */}
@@ -74,7 +75,7 @@ export default function FractionalTeams() {
             {/* Decorative blurred blob behind image */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-200/30 blur-3xl rounded-full" />
 
-            <div className="relative w-[300px] h-[400px] md:w-[500px] md:w-[800px] ">
+            <div className="relative w-[300px] h-[400px] md:w-[800px] ">
               <Image
                 src="/images/hair_vendors.jpg"
                 alt="Creative team collaboration"

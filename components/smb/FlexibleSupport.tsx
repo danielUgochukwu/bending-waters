@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Button from "@/components/Button";
 
 const cards = [
   {
@@ -62,16 +63,16 @@ export default function FlexibleSupport() {
                   className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
                 {/* Gradient Overlay - Always visible but stronger at bottom */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/40 to-transparent opacity-90" />
+                <div className="absolute inset-0 bg-linear-to-t from-[#020617] via-[#020617]/40 to-transparent opacity-90" />
               </div>
 
               {/* Content Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-[60px] transition-transform duration-300 ease-in-out group-hover:translate-y-0 bg-gradient-to-t from-[#020617] via-[#020617] to-transparent pt-12">
+              <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-[60px] transition-transform duration-300 ease-in-out group-hover:translate-y-0 bg-linear-to-t from-[#020617] via-[#020617] to-transparent pt-12">
                 <h3 className="text-xl font-semibold mb-3 leading-tight">
                   {card.title.split(" ").map((word, i) =>
                     word.toLowerCase() === "project" ||
-                    word.toLowerCase() === "build" ||
-                    word.toLowerCase() === "one" ? (
+                      word.toLowerCase() === "build" ||
+                      word.toLowerCase() === "one" ? (
                       <span key={i} className="font-serif italic font-normal">
                         {word}{" "}
                       </span>
@@ -92,9 +93,9 @@ export default function FlexibleSupport() {
           <h3 className="text-3xl md:text-4xl font-medium mb-8">
             Ready to get <span className="font-serif italic">started?</span>
           </h3>
-          <button className="bg-np-orange hover:bg-np-orange-700 text-white rounded-lg px-8 py-3 font-medium transition-colors">
+          <Button className="px-8 rounded-lg">
             Read our content
-          </button>
+          </Button>
         </div>
       </div>
     </section>

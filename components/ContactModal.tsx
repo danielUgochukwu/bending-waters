@@ -8,6 +8,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { submitContactForm } from "@/app/actions/contact";
 import { useState, useTransition } from "react";
+import Button from "@/components/Button";
 
 export default function ContactModal() {
     const { isOpen, closeModal } = useModal();
@@ -207,13 +208,14 @@ export default function ContactModal() {
 
                         {/* Submit Button */}
                         <div className="flex justify-end mt-8">
-                            <button
+                            <Button
                                 type="submit"
                                 disabled={isPending}
-                                className="bg-np-orange hover:bg-orange-600 text-white font-medium py-3 px-12 rounded-sm transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                                variant="primary"
+                                className="px-12 rounded-sm"
                             >
                                 {isPending ? "Submitting..." : "Submit"}
-                            </button>
+                            </Button>
                         </div>
                         {status && (
                             <div className={`text-center text-sm ${status.success ? "text-green-600" : "text-red-600"}`}>

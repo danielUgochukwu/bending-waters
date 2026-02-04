@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import TiltedImage from "@/components/TiltedImage";
 import { useHeroAnimation } from "@/hooks/useHeroAnimation";
+import Button from "@/components/Button";
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLElement | null>(null);
@@ -95,9 +96,9 @@ export default function HeroSection() {
         ref={actionsRef}
         className="flex items-center md:items-center max-sm:flex-col gap-4 mt-8"
       >
-        <button className="border border-slate-400 rounded-lg px-8 h-11 hover:bg-white/10 active:scale-95 transition focus-visible:ring-2 focus-visible:ring-slate-400">
+        <Button variant="outline" className="px-8 border-slate-400 text-white">
           Learn more
-        </button>
+        </Button>
       </div>
 
       {/* Tilted image */}

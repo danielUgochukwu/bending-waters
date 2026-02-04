@@ -32,28 +32,27 @@ export default function ContactPage() {
             <PageHeader title="Contact" />
 
             <main className="flex-1 w-full bg-[#fcfcfc] text-[#1a1a1a] flex items-center justify-center px-8 py-24">
-                <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+                <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start not-sm:mt-8">
 
                     {/* Left Column: Text Content */}
-                    <div className="space-y-8 sticky top-24">
+                    <div className="space-y-6 sticky top-24">
                         <div className="flex items-center gap-2 text-sm font-medium tracking-wide text-gray-700 uppercase">
                             <Sparkles className="w-4 h-4 text-np-orange" />
                             <span>Get In Touch</span>
                         </div>
 
-                        <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+                        <h1 className="text-2xl md:text-4xl font-bold leading-tight">
                             Success is a team effort <br />
                             <span className="text-np-orange">let&apos;s achieve it together</span>
                         </h1>
 
-                        <div className="space-y-4 pt-8">
-                            <p className="text-lg font-medium text-gray-700">needhelp@company.com</p>
-                            <p className="text-3xl font-bold text-gray-700">(+123) 456789 00</p>
+                        <div>
+                            <p className="text-md md:text-lg font-medium text-gray-700">askbendingwaters@gmail.com</p>
                         </div>
                     </div>
 
                     {/* Right Column: Form */}
-                    <div className="relative">
+                    <div className="relative max-sm:mt-16">
                         <form onSubmit={handleSubmit} className="space-y-8">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
@@ -78,25 +77,6 @@ export default function ContactPage() {
                                     />
                                 </div>
 
-                                <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
-                                    <label htmlFor="phone" className="text-sm text-gray-700 block">Phone number</label>
-                                    <input
-                                        type="tel"
-                                        id="phone"
-                                        name="phone"
-                                        className="w-full bg-transparent py-2 outline-none text-lg text-gray-900 placeholder-gray-300"
-                                    />
-                                </div>
-
-                                <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
-                                    <label htmlFor="subject" className="text-sm text-gray-700 block">What are your needs</label>
-                                    <input
-                                        type="text"
-                                        id="subject"
-                                        name="subject"
-                                        className="w-full bg-transparent py-2 outline-none text-lg text-gray-900 placeholder-gray-300"
-                                    />
-                                </div>
                             </div>
 
                             <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
@@ -115,7 +95,7 @@ export default function ContactPage() {
                                     type="submit"
                                     disabled={isPending}
                                     variant="primary"
-                                    size="lg"
+                                    size="sm"
                                     className="rounded-full px-8 py-4 w-auto flex items-center gap-2"
                                 >
                                     {isPending ? 'Sending...' : 'Send your request'}

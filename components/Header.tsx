@@ -8,7 +8,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import Button from "@/components/Button";
-import MagneticButton from "@/components/MagneticButton";
 import { useModal } from "@/context/ModalContext";
 
 export default function Header() {
@@ -201,14 +200,15 @@ export default function Header() {
           </button>
 
           {/* CTA Button */}
-          <Button
-            href="/contact"
-            variant="primary"
-            size="sm"
-            className="hidden md:block"
-          >
-            Let&apos;s Talk
-          </Button>
+          <div className="hidden md:block">
+            <Button
+              href="/contact"
+              variant="primary"
+              size="sm"
+            >
+              Let&apos;s Talk
+            </Button>
+          </div>
 
           {/* Mobile Menu Toggle */}
           <button

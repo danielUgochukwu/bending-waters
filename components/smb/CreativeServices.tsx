@@ -55,7 +55,7 @@ export default function CreativeServices() {
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/0 to-transparent" />
               <div className="absolute bottom-0 left-0 p-6">
                 <h3 className="text-white text-xl md:text-2xl font-medium leading-tight">
                   {service.title}
