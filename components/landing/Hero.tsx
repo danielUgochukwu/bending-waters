@@ -36,7 +36,7 @@ export default function Hero() {
 
         {/* CTA Button */}
         <Button
-            varient={`primary`}
+            variant={`primary`}
             size={`sm`}
             onClick={openModal}
         >Work with us</Button>
