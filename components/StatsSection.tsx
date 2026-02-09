@@ -2,20 +2,20 @@ import React from 'react';
 
 const stats = [
     {
-        value: '+9mm',
-        description: 'visits to the Neil Patel blog per month – one of the top 100 blog destinations in the world.',
+        value: '1000+',
+        description: 'Growing business owners communities',
     },
     {
-        value: '+1.3mm',
-        description: 'subscribers to our YouTube channel – Over 1,000,000 video views each month on average.',
+        value: '30+',
+        description: 'Enterprise clients trust our solutions worldwide.',
     },
     {
-        value: '+4.2mm',
-        description: 'users login and use Ubersuggest and ATP each month. Over 950MM monthly queries.',
+        value: '100+',
+        description: 'SMBs leveraging our expertise for growth.',
     },
     {
-        value: '+1.2mm',
-        description: 'downloads of our podcast each month, +2,300 episodes dropped to date.',
+        value: '5',
+        description: 'Countries with our active presence and support.',
     },
 ];
 
