@@ -95,7 +95,7 @@ export default function TiltedImage({
         <div className="transform-gpu will-change-transform">
             <figure
                 ref={figureRef}
-                className="relative w-full h-full mt-16 max-w-4xl mx-auto flex flex-col items-center justify-center [perspective:800px]"
+                className="relative w-full h-full mt-16 max-w-4xl mx-auto flex flex-col items-center justify-center perspective-midrange"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
             >

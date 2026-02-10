@@ -27,9 +27,9 @@ export default function WorkCard({ image, title, category, href }: WorkCardProps
                 <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
             </div>
 
-            {/* Arrow Icon - Top Right */}
-            <div className="absolute right-4 top-4 z-10 flex h-10 w-10 translate-y-4 scale-0 items-center justify-center rounded-full bg-white text-black opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100">
-                <ArrowUpRight className="h-5 w-5" />
+            {/* Arrow Icon - Center */}
+            <div className="absolute left-1/2 top-1/2 z-10 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 scale-0 items-center justify-center rounded-full bg-white text-black opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+                <ArrowUpRight className="h-6 w-6" />
             </div>
 
             {/* Content - Bottom */}
