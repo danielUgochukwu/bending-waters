@@ -13,7 +13,11 @@ interface TiltedImageProps {
 
 export default function TiltedImage({
     rotateAmplitude = 3,
-}: TiltedImageProps) {
+    imageSrc = "/images/sm-hero.png",
+    altText = "hero section showcase",
+    width = 800,
+    height = 600
+}: TiltedImageProps & { imageSrc?: string; altText?: string; width?: number; height?: number }) {
     const figureRef = useRef<HTMLElement | null>(null);
     const imageWrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -101,9 +105,11 @@ export default function TiltedImage({
                     style={{ transformStyle: "preserve-3d" }}
                 >
                     <img
-                        src="/images/sm-hero.png"
+                        src={imageSrc}
                         className="w-full rounded-[15px] transform-[translateZ(0)]"
-                        alt="hero section showcase"
+                        alt={altText}
+                        width={width}
+                        height={height}
                         loading="eager"
                     />
                 </div>

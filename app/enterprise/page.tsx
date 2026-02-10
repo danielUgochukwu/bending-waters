@@ -1,24 +1,55 @@
 import Header from '@/components/Header'
-import Hero from '@/components/smb/Hero'
-import CreativeServices from '@/components/smb/CreativeServices'
-import FractionalTeams from '@/components/smb/FractionalTeams'
-import FlexibleSupport from '@/components/smb/FlexibleSupport'
-import TalentMarquee from '@/components/smb/TalentMarquee'
-import CreativeCTA from '@/components/smb/CreativeCTA'
-import SuccessStories from '@/components/smb/SuccessStories'
+import PageHero from '@/components/PageHero'
+import ServicesCarousel from '@/components/ServicesCarousel'
 import Footer from '@/components/Footer'
+import TalentMarquee from '@/components/smb/TalentMarquee'
+
+const enterpriseServices = [
+    {
+        title: "Digital Transformation",
+        image: "/images/design_service.png",
+    },
+    {
+        title: "Cloud Migration",
+        image: "/images/social_media_service.png",
+    },
+    {
+        title: "Enterprise Security",
+        image: "/images/writing_service.png",
+    },
+    {
+        title: "Data Analytics",
+        image: "/images/videography_service.png",
+    },
+];
 
 const Page = () => {
     return (
         <main>
             <Header />
-            <Hero />
-            <CreativeServices />
-            <FractionalTeams />
-            <FlexibleSupport />
+            <PageHero
+                badgeText="Enterprise Solutions"
+                title="Digital Transformation at Scale"
+                description="Modernize legacy systems, innovate without risk, and scale globally with our enterprise-grade consulting and development teams."
+                imageSrc="/images/sm-hero.png" // Fallback
+                imageAlt="Enterprise digital network"
+                ctaText="Contact Sales"
+                ctaLink="/contact"
+            />
+            <ServicesCarousel
+                title={
+                    <>
+                        Robust solutions for <br />
+                        <span className="font-serif italic text-np-orange">global enterprises</span>
+                    </>
+                }
+                services={enterpriseServices}
+                ctaText="Partner with Us"
+            />
+
+            {/* Reuse generic components */}
             <TalentMarquee />
-            <CreativeCTA />
-            <SuccessStories />
+
             <Footer />
         </main>
     )
