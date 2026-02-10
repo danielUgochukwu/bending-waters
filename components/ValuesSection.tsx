@@ -1,20 +1,20 @@
-import { Lightbulb, Flag, Smile } from 'lucide-react';
+import { Lightbulb, BrickWall, Settings } from 'lucide-react';
 
 const values = [
     {
         icon: Lightbulb,
-        title: "Think Big",
-        description: "\"Think Big\" challenges our teams in all aspects of the business. For our clients, it requires that we expand their vision beyond what's expected, while pushing us to become a committed partner who provides strategic recommendations and measurable business outcomes."
+        title: "Why We Do What We Do",
+        description: "BendingWaters exists to bridge the gap between a brilliant idea and a global legacy, guiding your business through three critical stages of evolution"
     },
     {
-        icon: Flag,
-        title: "Own It",
-        description: "\"Own It\" plays a key role in encouraging employee autonomy. We believe owning it inspires employees to build skillsets within their roles, carve out career paths, and gain valuable leadership tools. \"Own It\" highlights the need to exercise responsibility and accountability."
+        icon: BrickWall,
+        title: "The Foundation",
+        description: "BendingWaters helps you articulate the WHY behind your idea and test its viability. By brainstorming high-level strategies and building the essential support systems, we ensure your startup has the structural integrity to support massive growth."
     },
     {
-        icon: Smile,
-        title: "Have Fun",
-        description: "\"Have Fun\" means we enjoy working together and cultivating an enjoyable work environment for all. Our passion for what we do is visible throughout the organization. Anything we enjoy, we're naturally going to do better, so we make our job something we look forward to, rather than simply a responsibility."
+        icon: Settings,
+        title: "The Process",
+        description: "Through data-driven strategies and global positioning, BendingWaters helps your brand take flight - expanding your footprint and evolving your business into the most powerful, influential version of itself."
     }
 ];
 
