@@ -80,7 +80,7 @@ export default function ContactPage() {
                             </div>
 
                             <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
-                                <label htmlFor="message" className="text-sm text-gray-700 block">your-message</label>
+                                <label htmlFor="message" className="text-sm text-gray-700 block">Your message</label>
                                 <textarea
                                     id="message"
                                     name="message"
