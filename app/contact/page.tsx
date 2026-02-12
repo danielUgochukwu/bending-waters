@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useTransition, useState } from 'react'
-import { Sparkles } from 'lucide-react'
+import { Sparkles, Send } from 'lucide-react'
 import { submitContactForm } from '@/app/actions/contact'
 import PageHeader from '@/components/PageHeader'
 import Header from '@/components/Header'
@@ -79,16 +79,16 @@ export default function ContactPage() {
 
                             </div>
 
-                             <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
-                                    <label htmlFor="email" className="text-sm text-gray-700 block">Business Name</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        required
-                                        className="w-full bg-transparent py-2 outline-none text-lg text-gray-900 placeholder-gray-300"
-                                    />
-                                </div>
+                            <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
+                                <label htmlFor="email" className="text-sm text-gray-700 block">Business Name</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    required
+                                    className="w-full bg-transparent py-2 outline-none text-lg text-gray-900 placeholder-gray-300"
+                                />
+                            </div>
 
                             <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
                                 <label htmlFor="message" className="text-sm text-gray-700 block">How can we help you?</label>
@@ -109,7 +109,11 @@ export default function ContactPage() {
                                     size="sm"
                                     className="rounded-full px-8 py-4 w-auto flex items-center gap-2"
                                 >
-                                    {isPending ? 'Sending...' : 'Send your request'}
+                                    {isPending ? 'Sending...' : (
+                                        <>
+                                            Send <Send className="w-4 h-4 ml-2" />
+                                        </>
+                                    )}
                                 </Button>
                                 {status && (
                                     <p className={`mt-4 text-sm ${status.success ? 'text-green-600' : 'text-red-500'}`}>

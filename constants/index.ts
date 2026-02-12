@@ -58,7 +58,8 @@ export const navLinks = [
     { name: "News & Insights", link: "/news" },
     { name: "Careers", link: "/careers" },
     { name: "AI & Technology", link: "/ai" },
-    { name:"Contact", link: "/contact" }
+    { name: "Pricing", link: "/pricing" },
+    { name: "Contact", link: "/contact" }
 ];
 
 export interface Country {
