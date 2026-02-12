@@ -42,10 +42,9 @@ export const news = defineType({
       },
     }),
     defineField({
-      name: "description",
-      title: "Description",
-      type: "array",
-      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+      name: "body",
+      title: "Body",
+      type: "blockContent",
     }),
   ],
 });

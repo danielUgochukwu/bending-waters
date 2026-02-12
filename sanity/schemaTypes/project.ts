@@ -52,11 +52,6 @@ export const project = defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
-            name: "publishedAt",
-            title: "Published at",
-            type: "datetime",
-        }),
-        defineField({
             name: "body",
             title: "Body",
             type: "blockContent",
