@@ -67,7 +67,7 @@ export default function ContactPage() {
                                 </div>
 
                                 <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
-                                    <label htmlFor="email" className="text-sm text-gray-700 block">Your email Address</label>
+                                    <label htmlFor="email" className="text-sm text-gray-700 block">Email</label>
                                     <input
                                         type="email"
                                         id="email"
@@ -79,8 +79,19 @@ export default function ContactPage() {
 
                             </div>
 
+                             <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
+                                    <label htmlFor="email" className="text-sm text-gray-700 block">Business Name</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        required
+                                        className="w-full bg-transparent py-2 outline-none text-lg text-gray-900 placeholder-gray-300"
+                                    />
+                                </div>
+
                             <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
-                                <label htmlFor="message" className="text-sm text-gray-700 block">Your message</label>
+                                <label htmlFor="message" className="text-sm text-gray-700 block">How can we help you?</label>
                                 <textarea
                                     id="message"
                                     name="message"
