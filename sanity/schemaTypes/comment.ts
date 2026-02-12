@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 
 export const comment = defineType({
-    name: "News or Blog Comments",
+    name: "comment",
     title: "News or Blog Comments",
     type: "document",
     fields: [
