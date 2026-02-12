@@ -6,7 +6,6 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { POSTS_QUERY } from "@/sanity/lib/queries";
 import Head from "next/head";
 import Footer from "@/components/Footer";
-import { DUMMY_NEWS } from "@/constants/dummy-news";
 import NewsGrid from "@/components/NewsGrid";
 
 export const revalidate = 60;
@@ -20,12 +19,6 @@ export async function generateMetadata() {
 }
 
 const Page = async () => {
-    // const { data: initialPosts } = await sanityFetch({
-    //     query: POSTS_QUERY,
-    //     params: { start: 0, end: 6 },
-    // });
-    const initialPosts = DUMMY_NEWS;
-
     return (
         <div className="relative overflow-hidden min-h-screen">
             <Header />
