@@ -1,8 +1,8 @@
 import { defineField, defineType } from "sanity";
 
 export const comment = defineType({
-    name: "comment",
-    title: "Comment",
+    name: "News or Blog Comments",
+    title: "News or Blog Comments",
     type: "document",
     fields: [
         defineField({
@@ -27,7 +27,7 @@ export const comment = defineType({
         }),
         defineField({
             name: "post",
-            title: "Post",
+            title: "News or Blog",
             type: "reference",
             to: [{ type: "newsStories" }],
         }),

@@ -13,14 +13,12 @@ export const news = defineType({
     defineField({
       name: "author",
       title: "Author",
-      type: "reference",
-      to: [{ type: "author" }],
+      type: "string",
     }),
     defineField({
       name: "category",
       title: "Category",
-      type: "reference",
-      to: [{ type: "category" }],
+      type: "string",
     }),
     defineField({
       name: "tags",
