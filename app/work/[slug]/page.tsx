@@ -8,6 +8,7 @@ import { PortableText } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { getMockProject, Project as MockProject } from "@/constants/mock-projects";
 
 interface Project {
     _id: string;
@@ -19,98 +20,37 @@ interface Project {
     body: any; // BlockContent
 }
 
-const MOCK_PROJECT: Project = {
-    _id: "mock-1",
-    title: "Neon Horizon",
-    category: "Brand Identity",
-    slug: { current: "neon-horizon" },
-    mainImage: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop",
-    publishedAt: new Date().toISOString(),
-    body: [
-        {
-            _key: "1",
-            _type: "block",
-            style: "normal",
-            children: [
-                {
-                    _key: "1a",
-                    _type: "span",
-                    text: "This is a preview of how the project details will look. Since we haven't added real data to Sanity yet, we're using this mock content to demonstrate the layout and typography.",
-                },
-            ],
-            markDefs: [],
-        },
-        {
-            _key: "2",
-            _type: "block",
-            style: "h2",
-            children: [{ _key: "2a", _type: "span", text: "The Challenge" }],
-            markDefs: [],
-        },
-        {
-            _key: "3",
-            _type: "block",
-            style: "normal",
-            children: [
-                {
-                    _key: "3a",
-                    _type: "span",
-                    text: "We wanted to create a visual identity that captures the essence of futuristic urban landscapes. The interplay of light and shadow was crucial to the design system.",
-                },
-            ],
-            markDefs: [],
-        },
-        {
-            _key: "4",
-            _type: "block",
-            style: "blockquote",
-            children: [
-                {
-                    _key: "4a",
-                    _type: "span",
-                    text: "Design is not just what it looks like and feels like. Design is how it works.",
-                },
-            ],
-            markDefs: [],
-        },
-        {
-            _key: "5",
-            _type: "block",
-            style: "normal",
-            children: [
-                {
-                    _key: "5a",
-                    _type: "span",
-                    text: "Using a monochromatic color palette with striking neon accents, we achieved a balance between valid minimalism and maximum impact.",
-                },
-            ],
-            markDefs: [],
-        },
-    ],
-};
-
 // 1. Generate Static Params for SSG/ISR
 export async function generateStaticParams() {
-    const query = `*[_type == "project"]{ "slug": slug.current }`;
-    const projects = await client.fetch(query);
-
-    return projects.map((project: { slug: string }) => ({
-        slug: project.slug,
-    }));
+    try {
+        const query = `*[_type == "project"]{ "slug": slug.current }`;
+        const projects = await client.fetch(query);
+        return projects.map((project: { slug: string }) => ({
+            slug: project.slug,
+        }));
+    } catch (e) {
+        // Fallback for static params if Sanity fails (using mock data keys)
+        // This allows build to pass even without sanity connection
+        return [];
+    }
 }
 
 // 2. Fetch Single Project Data
 async function getProject(slug: string) {
-    const query = `*[_type == "project" && slug.current == $slug][0] {
-        _id,
-        title,
-        category,
-        slug,
-        mainImage,
-        publishedAt,
-        body
-    }`;
-    return client.fetch(query, { slug });
+    try {
+        const query = `*[_type == "project" && slug.current == $slug][0] {
+            _id,
+            title,
+            category,
+            slug,
+            mainImage,
+            publishedAt,
+            body
+        }`;
+        return await client.fetch(query, { slug });
+    } catch (e) {
+        return null;
+    }
 }
 
 export const revalidate = 60;
@@ -118,11 +58,27 @@ export const revalidate = 60;
 // 3. Page Component
 export default async function ProjectDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    let project: Project = await getProject(slug);
+    let project = await getProject(slug);
 
-    // FALLBACK: Use mock project if no data found (for preview purposes)
+    // FALLBACK: Use mock project if no data found
     if (!project) {
-        project = { ...MOCK_PROJECT, title: `${MOCK_PROJECT.title} (Preview)` };
+        const mock = getMockProject(slug);
+        if (mock) {
+            project = {
+                ...mock,
+                mainImage: mock.mainImage || mock.image, // Use detail image or fallback to list image
+                publishedAt: mock.publishedAt || new Date().toISOString(),
+                body: mock.body || []
+            } as any;
+        } else {
+            // 404 Fallback if not found in mock either
+            return (
+                <div className="flex min-h-screen flex-col items-center justify-center bg-black text-white">
+                    <h1 className="text-4xl font-bold">Project Not Found</h1>
+                    <Link href="/work" className="mt-4 text-gray-400 hover:text-white">Back to Work</Link>
+                </div>
+            )
+        }
     }
 
     const imageUrl = typeof project.mainImage === 'string'

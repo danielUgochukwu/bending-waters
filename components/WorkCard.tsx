@@ -9,13 +9,14 @@ interface WorkCardProps {
     title: string;
     category: string;
     href: string;
+    className?: string;
 }
 
-export default function WorkCard({ image, title, category, href }: WorkCardProps) {
+export default function WorkCard({ image, title, category, href, className }: WorkCardProps) {
     return (
-        <Link href={href} className="group relative block w-full overflow-hidden rounded-2xl">
+        <Link href={href} className={`group relative block w-full overflow-hidden rounded-2xl ${className}`}>
             {/* Image Container */}
-            <div className="relative aspect-[4/3] w-full overflow-hidden">
+            <div className="relative aspect-4/3 w-full h-full overflow-hidden">
                 <Image
                     src={image}
                     alt={title}
