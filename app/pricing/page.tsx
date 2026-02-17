@@ -123,7 +123,7 @@ export default function PricingPage() {
                                 <Button
                                     href="/contact"
                                     variant={plan.popular ? 'primary' : 'outline'}
-                                    className={`w-full justify-center ${!plan.popular && 'border-gray-200 hover:border-np-orange hover:bg-np-orange hover:text-white'}`}
+                                    className={`w-full justify-center ${!plan.popular && 'border-gray-200 hover:border-np-orange hover:bg-np-orange hover:text-black'}`}
                                 >
                                     {plan.cta}
                                 </Button>

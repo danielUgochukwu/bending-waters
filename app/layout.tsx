@@ -19,6 +19,7 @@ const jost = Jost({
 
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.bendingwaters.africa"),
   title:
     "BendingWaters - We build strategic growth infrastructure for real business outcomes",
   description: "",
@@ -27,14 +28,6 @@ export const metadata: Metadata = {
     description: "",
     url: "https://www.bendingwaters.africa",
     siteName: "BendingWaters",
-    images: [
-      {
-        url: "/images/creative.png",
-        width: 1200,
-        height: 630,
-        alt: "fashion"
-      }
-    ]
   }
 };
 
