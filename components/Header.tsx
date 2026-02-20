@@ -94,7 +94,7 @@ export default function Header() {
 
           {/* Global Dropdown */}
           <div
-            className={`absolute top-full left-0 pt-6 transition-all duration-300 z-50 min-w-[250px] ${isGlobalOpen
+            className={`absolute top-full left-0 pt-6 transition-all duration-300 z-50 min-w-62.5 ${isGlobalOpen
               ? "opacity-100 visible"
               : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
               }`}
@@ -124,7 +124,7 @@ export default function Header() {
                           {country.name}
                         </Link>
                         {country.subItems && (
-                          <ul className="pl-4 mt-2 border-l border-white/10 ml-[3px]">
+                          <ul className="pl-4 mt-2 border-l border-white/10 ml-0.75">
                             {country.subItems.map((sub, sIdx) => (
                               <li key={sIdx}>
                                 <Link
@@ -310,7 +310,7 @@ function MobileNavItem({
         </div>
 
         <div
-          className={`pl-4 pr-2 space-y-4 border-l border-white/10 ml-4 overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? "max-h-[1000px] opacity-100 mt-2 pb-4" : "max-h-0 opacity-0"}`}
+          className={`pl-4 pr-2 space-y-4 border-l border-white/10 ml-4 overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? "max-h-250 opacity-100 mt-2 pb-4" : "max-h-0 opacity-0"}`}
         >
           {nav.dropdown.map((column: any, idx: number) => (
             <div key={idx}>
@@ -352,6 +352,3 @@ function MobileNavItem({
     </Link>
   );
 }
-
-
-
