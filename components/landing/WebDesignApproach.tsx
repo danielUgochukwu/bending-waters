@@ -45,7 +45,7 @@ export default function WebDesignApproach() {
                 {/* Steps */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
                     {/* Connecting Line (Desktop) */}
-                    <div className="hidden md:block absolute top-[28px] left-[10%] right-[10%] h-[1px] bg-gray-200 z-0" />
+                    <div className="hidden md:block absolute top-[28px] left-[10%] right-[10%] h-px bg-gray-200 z-0" />
 
                     {approachSteps.map((step, index) => (
                         <div key={index} className="relative z-10">
@@ -65,13 +65,6 @@ export default function WebDesignApproach() {
                             </div>
                         </div>
                     ))}
-                </div>
-
-                {/* Philosophy Label */}
-                <div className="mt-16 pt-8 border-t border-gray-200">
-                    <span className="text-np-orange font-bold tracking-widest text-xs uppercase">
-                        Our Philosophy
-                    </span>
                 </div>
             </div>
         </section>
