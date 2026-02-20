@@ -26,7 +26,7 @@ export default function ContactPage() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col pt-16 md:pt-20">
+        <div className="min-h-screen flex flex-col">
             <Header />
 
             <PageHeader title="Contact" />

@@ -203,3 +203,4 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
         </div>
     );
 }
+

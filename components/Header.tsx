@@ -66,7 +66,7 @@ export default function Header() {
   );
 
   return (
-    <header className="fixed top-0 z-100 w-full bg-np-dark/80 backdrop-blur-md border-b border-white/5 p-4">
+    <header className="sticky top-0 z-100 w-full bg-np-dark backdrop-blur-md border-b border-white/5 p-4">
       <div className="container-custom flex items-center justify-between">
         {/* Logo & Global Dropdown */}
         <div ref={globalRef} className="relative group flex items-center h-full mr-8">
@@ -352,3 +352,6 @@ function MobileNavItem({
     </Link>
   );
 }
+
+
+
