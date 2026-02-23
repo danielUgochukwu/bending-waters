@@ -84,8 +84,14 @@ const Footer = () => {
             </h3>
             <ul className="space-y-3 text-sm text-neutral-400">
               {[
-                { name: "Product Scorecard", link: "/resources/product-scorecard" },
-                { name: "Profit Margin Calculator", link: "/resources/profit-margin-calculator" },
+                {
+                  name: "Product Scorecard",
+                  link: "/resources/product-scorecard",
+                },
+                {
+                  name: "Profit Margin Calculator",
+                  link: "/resources/profit-margin-calculator",
+                },
                 { name: "Tax Calculator", link: "/resources/tax-calculator" },
                 { name: "Blog", link: "/blog" },
                 { name: "Webinars", link: "/resources/webinars" },
@@ -112,13 +118,13 @@ const Footer = () => {
             </h3>
             <div className="flex gap-4">
               <Link
-                href="#"
+                href="https://www.facebook.com/bendingwaters"
                 className="text-neutral-400 hover:text-white transition-colors"
               >
                 <Facebook className="w-5 h-5" />
               </Link>
               <Link
-                href="#"
+                href="https://www.instagram.com/bendingwaters/"
                 className="text-neutral-400 hover:text-white transition-colors"
               >
                 <Instagram className="w-5 h-5" />
@@ -136,7 +142,7 @@ const Footer = () => {
                 <Linkedin className="w-5 h-5" />
               </Link>
               <Link
-                href="#"
+                href="https://www.youtube.com/@bendingwaters"
                 className="text-neutral-400 hover:text-white transition-colors"
               >
                 <Youtube className="w-5 h-5" />

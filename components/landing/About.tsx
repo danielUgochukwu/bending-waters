@@ -98,7 +98,7 @@ export default function About() {
                 </svg>
               </div>
               {/* Center Number */}
-              <div className="bg-[#b4ff39] w-16 h-16 rounded-full flex items-center justify-center text-[#050505] font-black text-2xl z-10">
+              <div className="bg-np-orange w-16 h-16 rounded-full flex items-center justify-center text-[#050505] font-black text-2xl z-10">
                 25
               </div>
             </div>
@@ -109,14 +109,14 @@ export default function About() {
         <div className="space-y-8">
 
           {/* Label */}
-          <div className="content-reveal flex items-center gap-2 text-[#b4ff39] font-bold tracking-widest text-sm uppercase">
-            <span className="w-2 h-2 rounded-full bg-[#b4ff39]"></span>
+          <div className="content-reveal flex items-center gap-2 text-np-orange font-bold tracking-widest text-sm uppercase">
+            <span className="w-2 h-2 rounded-full bg-np-orange"></span>
             Who We Are
           </div>
 
           {/* Headline */}
           <h2 className="content-reveal text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-            Redefining The World For <span className="italic text-[#b4ff39] font-serif pr-2">A</span> <br />
+            Redefining The World For <span className="italic text-np-orange font-serif pr-2">A</span> <br />
             Better Tomorrow
           </h2>
 
@@ -126,15 +126,15 @@ export default function About() {
           </p>
 
           {/* Feature Box */}
-          <div className="content-reveal relative bg-[#121212] p-6 rounded-r-xl border-l-4 border-[#b4ff39]">
+          <div className="content-reveal relative bg-[#121212] p-6 rounded-r-xl border-l-4 border-np-orange">
             <p className="text-gray-300 text-base md:text-lg font-medium leading-relaxed">
-              We combine cutting-edge AI with simple design to help businesses of <span className="text-white font-bold underline decoration-[#b4ff39] underline-offset-4">all sizes</span>. The result? Smarter conversations, happier customers, and opportunities for growth.
+              We combine cutting-edge AI with simple design to help businesses of <span className="text-white font-bold underline decoration-np-orange underline-offset-4">all sizes</span>. The result? Smarter conversations, happier customers, and opportunities for growth.
             </p>
           </div>
 
           {/* CTA Button */}
           <div className="content-reveal pt-4">
-            <button className="group relative px-8 py-4 bg-[#b4ff39] text-black font-bold rounded-full flex items-center gap-3 overflow-hidden transition-all hover:bg-white hover:shadow-[0_0_20px_rgba(180,255,57,0.4)]">
+            <button className="group relative px-8 py-4 bg-np-orange text-black font-bold rounded-full flex items-center gap-3 overflow-hidden transition-all hover:bg-white hover:shadow-[0_0_20px_rgba(180,255,57,0.4)]">
               <span className="relative z-10">Discover More</span>
               <div className="relative z-10 w-8 h-8 bg-black text-white rounded-full flex items-center justify-center transition-transform group-hover:rotate-45">
                 <ArrowUpRight size={18} />
