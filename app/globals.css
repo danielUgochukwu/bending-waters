@@ -16,6 +16,7 @@
 
   --font-sans: var(--font-jost);
   --font-mono: var(--font-monda);
+  --font-bierika: var(--font-bierika-custom);
 
   --animate-infinite-scroll: infinite-scroll 40s linear infinite;
 
@@ -42,7 +43,7 @@ html,
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+  /* font-family: var(--font-poppins), Arial, Helvetica, sans-serif; */
   overflow-x: hidden;
   max-width: 100vw;
 }

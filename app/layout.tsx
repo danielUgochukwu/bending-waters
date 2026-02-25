@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Jost } from "next/font/google";
+import localFont from "next/font/local";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -17,6 +18,10 @@ const jost = Jost({
   weight: ["400", "500", "600", "700"],
 });
 
+const bierika = localFont({
+  src: "./fonts/bierika.otf",
+  variable: "--font-bierika-custom",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.bendingwaters.africa"),
@@ -39,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${poppins.variable} ${jost.variable} antialiased`}
+        className={`${poppins.variable} ${jost.variable} ${bierika.variable} antialiased`}
         suppressHydrationWarning={true}
       >
         <Providers>

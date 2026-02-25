@@ -15,25 +15,73 @@ export default async function Image() {
     const logoPath = join(process.cwd(), 'public/images/logo.png');
     const logoData = readFileSync(logoPath);
 
+    const fontPath = join(process.cwd(), 'app/fonts/bierika.otf');
+    const fontData = readFileSync(fontPath);
+
     return new ImageResponse(
         (
             <div
                 style={{
-                    fontSize: 128,
-                    background: 'white',
+                    background: '#0a0a0a',
                     width: '100%',
                     height: '100%',
                     display: 'flex',
+                    flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    padding: '60px',
+                    fontFamily: 'Bierika',
+                    position: 'relative',
                 }}
             >
-                {/* @ts-ignore */}
-                <img src={logoData.buffer} alt="BendingWaters" />
+                {/* Subtle background decoration */}
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'radial-gradient(circle at 50% 50%, #1a1a1a 0%, #0a0a0a 100%)',
+                        zIndex: -1,
+                    }}
+                />
+
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '48px',
+                    textAlign: 'center'
+                }}>
+                    {/* @ts-ignore */}
+                    <img
+                        src={logoData.buffer}
+                        alt="BendingWaters Logo"
+                        width="400"
+                    />
+                    <div style={{
+                        fontSize: 48,
+                        color: 'white',
+                        maxWidth: '1000px',
+                        lineHeight: 1.2,
+                        letterSpacing: '-0.02em',
+                        fontWeight: 600
+                    }}>
+                        We build strategic growth infrastructure for real business outcomes
+                    </div>
+                </div>
             </div>
         ),
         {
             ...size,
+            fonts: [
+                {
+                    name: 'Bierika',
+                    data: fontData,
+                    style: 'normal',
+                },
+            ],
         }
     );
 }

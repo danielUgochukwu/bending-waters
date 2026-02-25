@@ -8,12 +8,13 @@ import Careers from "@/components/landing/Careers";
 import UnlockGrowth from "@/components/landing/UnlockGrowth";
 import Footer from "@/components/Footer";
 import SocialProof from "@/components/landing/Community";
+import BendingWatersHero from "@/components/landing/BendingWatersHero";
 
 export default function Home() {
   return (
     <main className="flex flex-col">
       <Header />
-      <Hero />
+      <BendingWatersHero/>
       <ServicesSection />
       <SocialProof />
       <Storytelling />
