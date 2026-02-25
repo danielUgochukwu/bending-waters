@@ -14,6 +14,7 @@ export const contentType = 'image/png';
 export default async function Image() {
     const logoPath = join(process.cwd(), 'public/images/logo.png');
     const logoData = readFileSync(logoPath);
+    const logoBase64 = `data:image/png;base64,${logoData.toString('base64')}`;
 
     const fontPath = join(process.cwd(), 'app/fonts/bierika.otf');
     const fontData = readFileSync(fontPath);
@@ -54,9 +55,8 @@ export default async function Image() {
                     gap: '48px',
                     textAlign: 'center'
                 }}>
-                    {/* @ts-ignore */}
                     <img
-                        src={logoData.buffer}
+                        src={logoBase64}
                         alt="BendingWaters Logo"
                         width="400"
                     />
