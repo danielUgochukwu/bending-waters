@@ -33,6 +33,14 @@ export const metadata: Metadata = {
     description: "",
     url: "https://www.bendingwaters.africa",
     siteName: "BendingWaters",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "BendingWaters",
+      },
+    ],
   }
 };
 
