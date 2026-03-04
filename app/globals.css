@@ -60,3 +60,7 @@ h6 {
 @utility flex-center {
   @apply flex items-center justify-center;
 }
+
+@utility noisy {
+  @apply  size-full bg-[url("/images/noise.png")];
+}

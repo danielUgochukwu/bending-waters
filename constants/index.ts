@@ -74,7 +74,6 @@ export const navLinks = [
   { name: "News & Insights", link: "/news" },
   { name: "Careers", link: "/careers" },
   { name: "AI & Technology", link: "/ai" },
-  { name: "Pricing", link: "/pricing" },
   { name: "Contact", link: "/contact" },
 ];
 
