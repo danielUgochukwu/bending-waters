@@ -69,33 +69,54 @@ export default function BendingWatersHero() {
           // Scale targets
           const targetScale = isMobile ? 0.35 : 0.14;
 
-          // 1) Move + scale title into the top-left
+          // 1) Move + scale title exactly to the Header logo position
           tl.to(
             titleEl,
             {
-              scale: targetScale,
+              scale: () => {
+                const headerLogo = document.getElementById("header-logo");
+                if (headerLogo) {
+                  const headerRect = headerLogo.getBoundingClientRect();
+                  const titleRect = titleEl.getBoundingClientRect();
+                  return headerRect.width / titleRect.width;
+                }
+                return targetScale;
+              },
               x: () => {
+                const headerLogo = document.getElementById("header-logo");
+                if (headerLogo) {
+                  const headerRect = headerLogo.getBoundingClientRect();
+                  const titleRect = titleEl.getBoundingClientRect();
+                  return headerRect.left - titleRect.left;
+                }
                 const rect = titleEl.getBoundingClientRect();
                 return targetLeft - rect.left;
               },
               y: () => {
+                const headerLogo = document.getElementById("header-logo");
+                if (headerLogo) {
+                  const headerRect = headerLogo.getBoundingClientRect();
+                  const titleRect = titleEl.getBoundingClientRect();
+                  return headerRect.top - titleRect.top;
+                }
                 const rect = titleEl.getBoundingClientRect();
                 return targetTop - rect.top;
               },
               ease: "none",
+              duration: 1,
             },
             0
           );
 
-          // 2) Fade title out after it has reached the top-left
-          // Tweak 0.7 -> later/earlier fade (0.6–0.85 is a good range)
+          // 2) Fade title out after it has reached and perfectly overlapped the header logo
           tl.to(
             titleEl,
             {
               autoAlpha: 0, // opacity + visibility hidden
               ease: "none",
+              duration: 0.1,
             },
-            0.7
+            0.9
           );
 
           // 3) Cascade reveal subtitle text behind
@@ -158,7 +179,7 @@ export default function BendingWatersHero() {
           {/* Title */}
           <div
             ref={title}
-            className="w-fit mx-auto will-change-transform z-20 m-0 flex justify-center items-center"
+            className="w-fit mx-auto will-change-transform z-20 m-0 mb-8 sm:mb-24 md:mb-32 flex justify-center items-center"
           >
             <Image
               src="/images/logo.png"

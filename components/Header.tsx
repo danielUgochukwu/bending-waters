@@ -73,6 +73,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <Link href="/">
               <Image
+                id="header-logo"
                 src="/images/logo.png"
                 alt="Logo"
                 width={100}
