@@ -4,18 +4,23 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function BendingWatersHero() {
   const container = useRef<HTMLDivElement>(null);
   const hero = useRef<HTMLElement>(null);
-  const title = useRef<HTMLHeadingElement>(null);
+  const title = useRef<HTMLDivElement>(null);
   const subWrapper = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      if (!title.current || !hero.current || !subWrapper.current) return;
+      const titleEl = title.current;
+      const heroEl = hero.current;
+      const subWrapperEl = subWrapper.current;
+
+      if (!titleEl || !heroEl || !subWrapperEl) return;
 
       const mm = gsap.matchMedia();
 
@@ -34,8 +39,8 @@ export default function BendingWatersHero() {
 
           // Respect reduced motion
           if (reduceMotion) {
-            gsap.set(title.current, { clearProps: "all" });
-            gsap.set(subWrapper.current!.querySelectorAll("p"), {
+            gsap.set(titleEl, { clearProps: "all" });
+            gsap.set(subWrapperEl.querySelectorAll("p"), {
               opacity: 1,
               y: 0,
               filter: "blur(0px)",
@@ -45,7 +50,7 @@ export default function BendingWatersHero() {
 
           const tl = gsap.timeline({
             scrollTrigger: {
-              trigger: hero.current,
+              trigger: heroEl,
               start: "top top",
               end: "+=150%",
               scrub: 1,
@@ -55,7 +60,7 @@ export default function BendingWatersHero() {
           });
 
           // Make scaling anchor predictable
-          gsap.set(title.current, { transformOrigin: "left top", autoAlpha: 1 });
+          gsap.set(titleEl, { transformOrigin: "left top", autoAlpha: 1 });
 
           // Where should the title land (top-left “navbar-ish”)
           const targetTop = isMobile ? 16 : 24;
@@ -66,15 +71,15 @@ export default function BendingWatersHero() {
 
           // 1) Move + scale title into the top-left
           tl.to(
-            title.current,
+            titleEl,
             {
               scale: targetScale,
               x: () => {
-                const rect = title.current!.getBoundingClientRect();
+                const rect = titleEl.getBoundingClientRect();
                 return targetLeft - rect.left;
               },
               y: () => {
-                const rect = title.current!.getBoundingClientRect();
+                const rect = titleEl.getBoundingClientRect();
                 return targetTop - rect.top;
               },
               ease: "none",
@@ -85,7 +90,7 @@ export default function BendingWatersHero() {
           // 2) Fade title out after it has reached the top-left
           // Tweak 0.7 -> later/earlier fade (0.6–0.85 is a good range)
           tl.to(
-            title.current,
+            titleEl,
             {
               autoAlpha: 0, // opacity + visibility hidden
               ease: "none",
@@ -94,7 +99,7 @@ export default function BendingWatersHero() {
           );
 
           // 3) Cascade reveal subtitle text behind
-          const pTags = subWrapper.current!.querySelectorAll("p");
+          const pTags = subWrapperEl.querySelectorAll("p");
 
           tl.fromTo(
             pTags,
@@ -134,7 +139,7 @@ export default function BendingWatersHero() {
           {/* Subtitle - Absolute so it smoothly fades in behind the moving title */}
           <div
             ref={subWrapper}
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-full max-w-[90vw] md:max-w-3xl text-[7vw] sm:text-3xl md:text-5xl lg:text-6xl text-zinc-500 font-medium leading-[1.2] md:leading-[1.1] tracking-tight pointer-events-none"
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-full max-w-[90vw] md:max-w-3xl text-[7vw] sm:text-4xl md:text-6xl lg:text-7xl text-zinc-500 font-medium leading-[1.2] md:leading-[1.1] tracking-tight pointer-events-none"
           >
             <p className="will-change-[opacity,transform,filter] m-0 pb-1 md:pb-2">
               We build <span className="text-white">remarkable</span>
@@ -151,12 +156,19 @@ export default function BendingWatersHero() {
           </div>
 
           {/* Title */}
-          <h1
+          <div
             ref={title}
-            className="font-bold font-bierika text-center w-fit mx-auto leading-[0.8] tracking-tighter text-[10.5vw] md:text-[11vw] lg:text-[120px] xl:text-[140px] will-change-transform z-20 m-0 whitespace-nowrap"
+            className="w-fit mx-auto will-change-transform z-20 m-0 flex justify-center items-center"
           >
-            BendingWaters
-          </h1>
+            <Image
+              src="/images/logo.png"
+              alt="BendingWaters Logo"
+              width={400}
+              height={400}
+              className="w-[50vw] md:w-[35vw] lg:w-[300px] xl:w-[400px] h-auto object-contain"
+              priority
+            />
+          </div>
         </div>
       </section>
     </div>
