@@ -121,11 +121,11 @@ export default function BendingWatersHero() {
   );
 
   return (
-    <div ref={container} className="w-full noisy text-white antialiased">
+    <div ref={container} className="w-full bg-black text-white antialiased">
       <section
         ref={hero}
-        // IMPORTANT: keep at 100vh so the title is visible immediately
-        className="relative h-screen w-full flex flex-col justify-end px-4 sm:px-6 md:px-12 pb-8 sm:pb-12 overflow-hidden"
+        // IMPORTANT: use 100svh so the title is visibly at the bottom edge even when mobile browsers show address bars
+        className="relative h-svh lg:h-screen w-full flex flex-col justify-end px-4 sm:px-6 md:px-12 pb-8 sm:pb-12 overflow-hidden"
       >
         {/* Soft centered ambient glow behind the text */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] md:w-[70vw] h-[90vw] md:h-[70vw] bg-white/5 blur-[80px] md:blur-[120px] rounded-full pointer-events-none" />
@@ -153,7 +153,7 @@ export default function BendingWatersHero() {
           {/* Title */}
           <h1
             ref={title}
-            className="font-bold font-bierika leading-[0.8] tracking-tighter text-[10.5vw] md:text-[11vw] lg:text-[120px] xl:text-[140px] uppercase will-change-transform z-20 m-0 whitespace-nowrap"
+            className="font-bold font-bierika text-center w-fit mx-auto leading-[0.8] tracking-tighter text-[10.5vw] md:text-[11vw] lg:text-[120px] xl:text-[140px] will-change-transform z-20 m-0 whitespace-nowrap"
           >
             BendingWaters
           </h1>
