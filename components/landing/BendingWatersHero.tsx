@@ -179,14 +179,14 @@ export default function BendingWatersHero() {
           {/* Title */}
           <div
             ref={title}
-            className="w-fit mx-auto will-change-transform z-20 m-0 mb-8 sm:mb-24 md:mb-32 flex justify-center items-center"
+            className="w-fit mx-auto will-change-transform z-20 m-0 mb-8 sm:mb-24 md:mb-16 flex justify-center items-center"
           >
             <Image
               src="/images/logo.png"
               alt="BendingWaters Logo"
               width={400}
               height={400}
-              className="w-[50vw] md:w-[35vw] lg:w-[300px] xl:w-[400px] h-auto object-contain"
+              className="w-[50vw] md:w-[35vw] lg:w-11/12 xl:w-150 h-auto object-contain"
               priority
             />
           </div>
