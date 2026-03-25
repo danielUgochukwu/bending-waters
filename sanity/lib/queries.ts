@@ -2,20 +2,22 @@ import { defineQuery } from "next-sanity";
 
 export const POSTS_QUERY = defineQuery(`
   *[_type == "newsStories" 
-    && ($search == null || title match $search || description match $search)
-    && ($category == null || category->title == $category)
+    && ($search == null || title match $search || pt::text(body) match $search)
+    && ($category == null || coalesce(category->title, category) == $category)
     && ($tag == null || $tag in tags)
   ] | order(_createdAt desc) [$start..$end] {
     _id,
     title,
     slug,
-    author->{name, image},
-    "category": category->title,
+    "author": {
+      "name": coalesce(author->name, author)
+    },
+    "category": coalesce(category->title, category),
     tags,
     "publishedAt": _createdAt,
     "mainImage": image,
-    "description": pt::text(description),
-    "body": description
+    "description": pt::text(body),
+    body
   }
 `);
 
@@ -24,13 +26,15 @@ export const POST_QUERY = defineQuery(`
     _id,
     title,
     slug,
-    author->{name, image, bio},
-    "category": category->title,
+    "author": {
+      "name": coalesce(author->name, author)
+    },
+    "category": coalesce(category->title, category),
     tags,
     "publishedAt": _createdAt,
     "mainImage": image,
-    "description": pt::text(description),
-    "body": description,
+    "description": pt::text(body),
+    body,
     "comments": *[_type == "comment" && post._ref == ^._id && approved == true] | order(_createdAt desc) {
       name,
       comment,
@@ -43,7 +47,9 @@ export const LATEST_NEWS_QUERY = defineQuery(`
   *[_type == "newsStories"] | order(_createdAt desc) [0..2] {
     title,
     slug,
-    author->{name},
+    "author": {
+      "name": coalesce(author->name, author)
+    },
     "publishedAt": _createdAt,
     "commentsCount": count(*[_type == "comment" && post._ref == ^._id && approved == true])
   }
