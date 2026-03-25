@@ -16,7 +16,11 @@ export const POSTS_QUERY = defineQuery(`
     tags,
     "publishedAt": _createdAt,
     "mainImage": image,
-    "description": pt::text(body),
+    "description": coalesce(
+      pt::text(description),
+      description,
+      pt::text(body)[0...220]
+    ),
     body
   }
 `);
@@ -33,7 +37,11 @@ export const POST_QUERY = defineQuery(`
     tags,
     "publishedAt": _createdAt,
     "mainImage": image,
-    "description": pt::text(body),
+    "description": coalesce(
+      pt::text(description),
+      description,
+      pt::text(body)[0...220]
+    ),
     body,
     "comments": *[_type == "comment" && post._ref == ^._id && approved == true] | order(_createdAt desc) {
       name,
