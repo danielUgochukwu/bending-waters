@@ -1,4 +1,5 @@
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import PageHeader from "@/components/PageHeader";
 import WorkCard from "@/components/WorkCard";
 import { MOCK_PROJECTS } from "@/constants/mock-projects";
@@ -9,6 +10,7 @@ export default function WorkPage() {
 
     return (
         <div>
+            <Header />
             <PageHeader title="Work" />
             <main className="min-h-screen bg-black px-4 py-24 md:px-8 lg:px-8">
                 <div className="mx-auto max-w-7xl">

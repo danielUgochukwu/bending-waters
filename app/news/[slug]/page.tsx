@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     return {
-        title: `${post.title} | Ifeoluwa Omidiji`,
+        title: `${post.title} | BendingWaters`,
         description: post.description,
     };
 }
