@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Poppins, Jost } from "next/font/google";
 import localFont from "next/font/local";
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
+
 import SmoothScroll from "@/components/SmoothScroll";
 import Providers from "@/components/Providers";
+import { SanityLive } from "@/sanity/lib/live";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -29,7 +31,8 @@ export const metadata: Metadata = {
     "BendingWaters - We build strategic growth infrastructure for real business outcomes",
   description: "",
   openGraph: {
-    title: "BendingWaters - We build strategic growth infrastructure for real business outcomes",
+    title:
+      "BendingWaters - We build strategic growth infrastructure for real business outcomes",
     description: "",
     url: "https://www.bendingwaters.africa",
     siteName: "BendingWaters",
@@ -41,7 +44,7 @@ export const metadata: Metadata = {
         alt: "BendingWaters",
       },
     ],
-  }
+  },
 };
 
 export default function RootLayout({
@@ -59,6 +62,7 @@ export default function RootLayout({
           {children}
           <SmoothScroll />
         </Providers>
+        <SanityLive />
       </body>
       <GoogleAnalytics gaId={process.env.NEXT_GOOGLE_ANALYTICS_ID!} />
     </html>
