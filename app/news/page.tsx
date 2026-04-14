@@ -8,7 +8,6 @@ import Head from "next/head";
 import Footer from "@/components/Footer";
 import NewsGrid from "@/components/NewsGrid";
 
-export const revalidate = 60;
 
 export async function generateMetadata() {
     return {

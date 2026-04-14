@@ -11,7 +11,6 @@ import { Metadata } from "next";
 import { sanityFetch } from "@/sanity/lib/live";
 import { POST_QUERY } from "@/sanity/lib/queries";
 
-export const revalidate = 60;
 
 type Props = {
     params: Promise<{ slug: string }>;
