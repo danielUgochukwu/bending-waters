@@ -73,3 +73,27 @@ export const CATEGORIES_QUERY = defineQuery(`
 export const TAGS_QUERY = defineQuery(`
   array::unique(*[_type == "newsStories"].tags[])
 `);
+
+
+export const PROJECTS_QUERY = defineQuery(`
+  *[_type == "project"] | order(_createdAt desc) {
+    _id,
+    title,
+    category,
+    slug,
+    mainImage,
+    body
+  }
+`);
+
+export const PROJECT_QUERY = defineQuery(`
+  *[_type == "project" && slug.current == $slug][0] {
+    _id,
+    title,
+    category,
+    slug,
+    mainImage,
+    body,
+    _createdAt
+  }
+`);
