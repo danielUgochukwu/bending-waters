@@ -8,7 +8,7 @@ export const news = defineType({
     defineField({
       name: "title",
       title: "Title",
-      type: "string", // or array of blocks if you want rich title
+      type: "string",
     }),
     defineField({
       name: "author",
@@ -29,6 +29,12 @@ export const news = defineType({
     defineField({
       name: "image",
       title: "Image",
+      type: "image",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "thumbnail",
+      title: "Thumbnail",
       type: "image",
       options: { hotspot: true },
     }),

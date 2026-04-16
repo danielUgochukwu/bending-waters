@@ -2,25 +2,22 @@ import { defineQuery } from "next-sanity";
 
 export const POSTS_QUERY = defineQuery(`
   *[_type == "newsStories" 
-    && ($search == null || title match $search || pt::text(body) match $search)
-    && ($category == null || coalesce(category->title, category) == $category)
+    && ($search == null || title match "*" + $search + "*" || pt::text(body) match "*" + $search + "*")
+    && ($category == null || category == $category)
     && ($tag == null || $tag in tags)
   ] | order(_createdAt desc) [$start..$end] {
     _id,
     title,
     slug,
     "author": {
-      "name": coalesce(author->name, author)
+      "name": author
     },
-    "category": coalesce(category->title, category),
+    category,
     tags,
     "publishedAt": _createdAt,
     "mainImage": image,
-    "description": coalesce(
-      pt::text(description),
-      description,
-      pt::text(body)[0...220]
-    ),
+    "thumbnail": thumbnail,
+    "description": pt::text(body)[0...220],
     body
   }
 `);
@@ -31,19 +28,20 @@ export const POST_QUERY = defineQuery(`
     title,
     slug,
     "author": {
-      "name": coalesce(author->name, author)
+      "name": author
     },
-    "category": coalesce(category->title, category),
+    category,
     tags,
     "publishedAt": _createdAt,
     "mainImage": image,
-    "description": coalesce(
-      pt::text(description),
-      description,
-      pt::text(body)[0...220]
-    ),
+    "description": pt::text(body)[0...220],
     body,
-    "comments": *[_type == "comment" && post._ref == ^._id && approved == true] | order(_createdAt desc) {
+
+    "comments": *[
+      _type == "comment" 
+      && post._ref == ^._id 
+      && approved == true
+    ] | order(_createdAt desc) {
       name,
       comment,
       _createdAt

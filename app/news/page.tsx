@@ -9,14 +9,6 @@ import Footer from "@/components/Footer";
 import NewsGrid from "@/components/NewsGrid";
 
 
-export async function generateMetadata() {
-    return {
-        title: "News & Stories | Ifeoluwa Omidiji",
-        description:
-            "Explore the latest insights, product marketing strategies, and growth initiatives from Ifeoluwa Omidiji.",
-    };
-}
-
 const Page = async () => {
     return (
         <div className="relative overflow-hidden min-h-screen">
