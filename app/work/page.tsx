@@ -8,6 +8,8 @@ import { PROJECTS_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
 import { Project } from "@/types";
 
+
+
 export default async function WorkPage() {
   const projects = await client.fetch<Project[]>(PROJECTS_QUERY);
 
