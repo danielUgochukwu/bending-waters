@@ -16,11 +16,18 @@ export const revalidate = 60;
 export default async function ProjectDetailsPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const project = await client.fetch<Project | null>(PROJECT_QUERY, {
-    slug: params.slug,
-  });
+  const { slug } = await params;
+
+  if (!slug) {
+    return <div className="text-white">Invalid slug</div>;
+  }
+
+  const project = await client.fetch<Project | null>(
+    PROJECT_QUERY,
+    { slug }
+  );
 
   if (!project) {
     return (
