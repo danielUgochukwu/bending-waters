@@ -37,16 +37,45 @@ export default function BendingWatersHero() {
             reduceMotion: boolean;
           };
 
-          // Respect reduced motion
           if (reduceMotion) {
             gsap.set(titleEl, { clearProps: "all" });
-            gsap.set(subWrapperEl.querySelectorAll("p"), {
-              opacity: 1,
-              y: 0,
-              filter: "blur(0px)",
-            });
+            gsap.set(subWrapperEl, { opacity: 1, y: 0 });
             return;
           }
+
+          // ✅ FIX 1: Pre-compute all measurements in a single pass.
+          // Shared across scale/x/y — only 1x getElementById + 2x getBoundingClientRect
+          // instead of 3x + 6x on every invalidate.
+          const targetTop = isMobile ? 16 : 24;
+          const targetLeft = isMobile ? 16 : 24;
+          const fallbackScale = isMobile ? 0.35 : 0.14;
+
+          let measurements = { scale: fallbackScale, x: 0, y: 0 };
+
+          const measure = () => {
+            const headerLogo = document.getElementById("header-logo"); // 1 query
+            const titleRect = titleEl.getBoundingClientRect(); // 1 read
+            if (headerLogo) {
+              const headerRect = headerLogo.getBoundingClientRect(); // 1 read
+              measurements = {
+                scale: headerRect.width / titleRect.width,
+                x: headerRect.left - titleRect.left,
+                y: headerRect.top - titleRect.top,
+              };
+            } else {
+              measurements = {
+                scale: fallbackScale,
+                x: targetLeft - titleRect.left,
+                y: targetTop - titleRect.top,
+              };
+            }
+          };
+
+          // Re-measure on resize before GSAP recalculates tweens
+          ScrollTrigger.addEventListener("refreshInit", measure);
+          measure(); // initial measurement
+
+          gsap.set(titleEl, { transformOrigin: "left top", autoAlpha: 1 });
 
           const tl = gsap.timeline({
             scrollTrigger: {
@@ -59,85 +88,34 @@ export default function BendingWatersHero() {
             },
           });
 
-          // Make scaling anchor predictable
-          gsap.set(titleEl, { transformOrigin: "left top", autoAlpha: 1 });
-
-          // Where should the title land (top-left “navbar-ish”)
-          const targetTop = isMobile ? 16 : 24;
-          const targetLeft = isMobile ? 16 : 24;
-
-          // Scale targets
-          const targetScale = isMobile ? 0.35 : 0.14;
-
-          // 1) Move + scale title exactly to the Header logo position
+          // ✅ Single function call per value, all reading from the shared object
           tl.to(
             titleEl,
             {
-              scale: () => {
-                const headerLogo = document.getElementById("header-logo");
-                if (headerLogo) {
-                  const headerRect = headerLogo.getBoundingClientRect();
-                  const titleRect = titleEl.getBoundingClientRect();
-                  return headerRect.width / titleRect.width;
-                }
-                return targetScale;
-              },
-              x: () => {
-                const headerLogo = document.getElementById("header-logo");
-                if (headerLogo) {
-                  const headerRect = headerLogo.getBoundingClientRect();
-                  const titleRect = titleEl.getBoundingClientRect();
-                  return headerRect.left - titleRect.left;
-                }
-                const rect = titleEl.getBoundingClientRect();
-                return targetLeft - rect.left;
-              },
-              y: () => {
-                const headerLogo = document.getElementById("header-logo");
-                if (headerLogo) {
-                  const headerRect = headerLogo.getBoundingClientRect();
-                  const titleRect = titleEl.getBoundingClientRect();
-                  return headerRect.top - titleRect.top;
-                }
-                const rect = titleEl.getBoundingClientRect();
-                return targetTop - rect.top;
-              },
+              scale: () => measurements.scale,
+              x: () => measurements.x,
+              y: () => measurements.y,
               ease: "none",
               duration: 1,
             },
             0
           );
 
-          // 2) Fade title out after it has reached and perfectly overlapped the header logo
-          tl.to(
-            titleEl,
-            {
-              autoAlpha: 0, // opacity + visibility hidden
-              ease: "none",
-              duration: 0.1,
-            },
-            0.9
-          );
+          tl.to(titleEl, { autoAlpha: 0, ease: "none", duration: 0.1 }, 0.9);
 
-          // 3) Cascade reveal subtitle text behind
-          const pTags = subWrapperEl.querySelectorAll("p");
-
+          // ✅ FIX 2: Animate the wrapper, not 4 individual <p> elements.
+          // 1 compositor layer instead of 4. No filter:blur during scrub.
           tl.fromTo(
-            pTags,
-            {
-              opacity: 0,
-              y: isMobile ? 24 : 56,
-              filter: "blur(10px)",
-            },
-            {
-              opacity: 1,
-              y: 0,
-              filter: "blur(0px)",
-              stagger: 0.12,
-              ease: "power2.out",
-            },
+            subWrapperEl,
+            { opacity: 0, y: isMobile ? 24 : 56 },
+            { opacity: 1, y: 0, ease: "power2.out" },
             0.08
           );
+
+          // ✅ FIX 3: Clean up the refreshInit listener on unmount/revert
+          return () => {
+            ScrollTrigger.removeEventListener("refreshInit", measure);
+          };
         }
       );
 
@@ -150,42 +128,41 @@ export default function BendingWatersHero() {
     <div ref={container} className="w-full bg-black text-white antialiased">
       <section
         ref={hero}
-        // IMPORTANT: use 100svh so the title is visibly at the bottom edge even when mobile browsers show address bars
         className="relative h-svh lg:h-screen w-full flex flex-col justify-end px-4 sm:px-6 md:px-12 pb-8 sm:pb-12 overflow-hidden"
       >
-        {/* Soft centered ambient glow behind the text */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] md:w-[70vw] h-[90vw] md:h-[70vw] bg-white/5 blur-[80px] md:blur-[120px] rounded-full pointer-events-none" />
+        {/* ✅ FIX 4: will-change-transform promotes the glow to its own layer
+            so scroll/paint below it doesn't trigger a repaint of this element */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] md:w-[70vw] h-[90vw] md:h-[70vw] bg-white/5 blur-[80px] md:blur-[120px] rounded-full pointer-events-none will-change-transform" />
 
         <div className="max-w-7xl w-full mx-auto relative z-10 flex flex-col justify-end h-full">
-          {/* Subtitle - Absolute so it smoothly fades in behind the moving title */}
+          {/* ✅ FIX 2 continued: will-change on wrapper only, not children */}
           <div
             ref={subWrapper}
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-full max-w-[90vw] md:max-w-3xl text-[7vw] sm:text-4xl md:text-6xl lg:text-7xl text-zinc-500 font-medium leading-[1.2] md:leading-[1.1] tracking-tight pointer-events-none"
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-full max-w-[90vw] md:max-w-3xl text-[7vw] sm:text-4xl md:text-6xl lg:text-7xl text-zinc-500 font-medium leading-[1.2] md:leading-[1.1] tracking-tight pointer-events-none will-change-[opacity,transform]"
           >
-            <p className="will-change-[opacity,transform,filter] m-0 pb-1 md:pb-2">
+            {/* No will-change on individual paragraphs */}
+            <p className="m-0 pb-1 md:pb-2">
               We build <span className="text-white">remarkable</span>
             </p>
-            <p className="will-change-[opacity,transform,filter] m-0 pb-1 md:pb-2">
-              digital experiences
-            </p>
-            <p className="will-change-[opacity,transform,filter] m-0 pb-1 md:pb-2">
-              through strategy,
-            </p>
-            <p className="will-change-[opacity,transform,filter] m-0">
+            <p className="m-0 pb-1 md:pb-2">digital experiences</p>
+            <p className="m-0 pb-1 md:pb-2">through strategy,</p>
+            <p className="m-0">
               technology and <span className="text-white">design.</span>
             </p>
           </div>
 
-          {/* Title */}
           <div
             ref={title}
             className="w-fit mx-auto will-change-transform z-20 m-0 mb-8 sm:mb-24 md:mb-16 flex justify-center items-center"
           >
+            {/* ✅ FIX 5: sizes prop tells Next.js the actual rendered width
+                per breakpoint — prevents downloading a 1200px image for a 50vw slot */}
             <Image
               src="/images/logo.png"
               alt="BendingWaters Logo"
               width={400}
               height={400}
+              sizes="(max-width: 768px) 50vw, (max-width: 1280px) 35vw, 600px"
               className="w-[50vw] md:w-[35vw] lg:w-11/12 xl:w-150 h-auto object-contain"
               priority
             />
