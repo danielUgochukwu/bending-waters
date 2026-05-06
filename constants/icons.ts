@@ -1,3 +1,5 @@
+import Fashion from "@/components/svg/Fasion";
+import { Community } from "@/types";
 import {
     BarChart3,
     Settings,
@@ -53,3 +55,14 @@ export const ICON_MAP: Record<string, any> = {
 };
 
 export const getIcon = (name: string) => ICON_MAP[name] || Settings;
+
+export const communities: Community[] = [
+  {
+    number: "01",
+    category: "Fashion",
+    label: "Communities",
+    description:
+      "Style-forward brands redefining African fashion commerce with purpose.",
+    Icon: Fashion,
+  },
+];

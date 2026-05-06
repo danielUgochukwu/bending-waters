@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import Hero from "@/components/landing/Hero";
 import ServicesSection from "@/components/landing/Service";
 import Storytelling from "@/components/landing/Storytelling";
 import Locations from "@/components/landing/Locations";

@@ -7,6 +7,7 @@ import PageHeader from '@/components/PageHeader'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Button from '@/components/Button'
+import Link from 'next/link'
 
 export default function ContactPage() {
     const [isPending, startTransition] = useTransition()
@@ -47,7 +48,7 @@ export default function ContactPage() {
                         </h1>
 
                         <div>
-                            <p className="text-md md:text-lg font-medium text-gray-700">askbendingwaters@gmail.com</p>
+                            <Link href="mailto:outreach@bendingwaters.africa" className="text-md md:text-lg font-medium text-gray-700">outreach@bendingwaters.africa</Link>
                         </div>
                     </div>
 
