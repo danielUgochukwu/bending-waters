@@ -81,7 +81,7 @@ export const CARD_DATA: ProductCardData[] = [
   {
     id: "c7",
     brandColor: "bg-black",
-    border: "border-white/10",
+      border: "border-white/10",
     type: "dark",
     icon: Fingerprint,
     name: "AuthX",

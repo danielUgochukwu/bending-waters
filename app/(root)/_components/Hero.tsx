@@ -6,126 +6,56 @@ import { CARD_DATA, ProductCardData } from "../_contstants";
 
 function ProductCard({
   data,
+  index,
   setRef,
 }: {
   data: ProductCardData;
+  index: number;
   setRef: (el: HTMLDivElement | null) => void;
 }) {
   const Icon = data.icon;
-  const isLight = data.type === "light";
+  // Map to one of the 4 generated images
+  const imageNum = (index % 4) + 1;
+  const imageUrl = `/agency-images/${imageNum}.png`;
 
   return (
     <div
       ref={setRef}
       className={[
         "absolute left-1/2 top-1/2",
-        "h-[450px] w-[320px] md:h-[540px] md:w-[380px]",
+        "h-[360px] w-[260px] md:h-[420px] md:w-[320px]",
         "flex flex-col overflow-hidden rounded-3xl shadow-2xl",
         "transform-gpu will-change-transform",
         "contain-layout contain-paint",
-        data.brandColor,
-        data.border ? `border ${data.border}` : "",
+        "border border-white/10 bg-black",
       ].join(" ")}
       style={{
         backfaceVisibility: "hidden",
-        transform: "translate3d(-50%, -50%, 0)",
+        transformStyle: "preserve-3d",
       }}
     >
-      <div
-        className={`flex items-center justify-between p-6 ${
-          isLight ? "text-black" : "text-white"
-        }`}
-      >
-        <div className="flex items-center gap-3">
-          <div
-            className={`rounded-xl p-2 ${
-              isLight ? "bg-black/5" : "bg-white/10 backdrop-blur-md"
-            }`}
-          >
-            <Icon
-              size={24}
-              className={
-                isLight
-                  ? "text-black"
-                  : data.id === "c2"
-                    ? "text-[#a3ff90]"
-                    : "text-white"
-              }
-            />
-          </div>
+      <div className="absolute inset-0 z-0">
+        <img
+          src={imageUrl}
+          alt={data.name}
+          className="h-full w-full object-cover transition-transform duration-700 hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/20" />
+      </div>
 
+      <div className="relative z-10 flex flex-1 flex-col justify-end p-6 text-white">
+        <div className="flex items-center gap-3">
+          <div className="rounded-xl bg-white/10 p-2 backdrop-blur-md">
+            <Icon size={24} className="text-[#a3ff90]" />
+          </div>
           <div>
-            <h3 className="text-lg font-bold leading-tight">{data.name}</h3>
-            <p className="text-xs font-medium opacity-70">{data.desc}</p>
+            <h3 className="text-lg font-bold leading-tight drop-shadow-md">{data.name}</h3>
+            <p className="text-xs font-medium opacity-80 drop-shadow-md">{data.desc}</p>
           </div>
         </div>
       </div>
 
-      <div className="relative flex flex-1 flex-col gap-3 px-6 pb-6">
-        {data.type === "ui" && (
-          <>
-            <div
-              className={`mb-2 h-24 w-full rounded-xl ${
-                isLight ? "bg-black/5" : "bg-white/10"
-              }`}
-            />
-            <div className="flex gap-3">
-              <div
-                className={`h-32 flex-1 rounded-xl ${
-                  isLight ? "bg-black/5" : "bg-white/10"
-                }`}
-              />
-              <div
-                className={`h-32 w-1/3 rounded-xl ${
-                  isLight ? "bg-black/5" : "bg-white/10"
-                }`}
-              />
-            </div>
-            <div
-              className={`mt-auto h-6 w-2/3 rounded-md ${
-                isLight ? "bg-black/10" : "bg-white/20"
-              }`}
-            />
-          </>
-        )}
-
-        {data.type === "dark" && (
-          <div className="flex flex-1 flex-col gap-4 rounded-xl border border-white/10 bg-black/40 p-4">
-            <div className="flex h-16 items-end justify-between border-b border-white/10 pb-2">
-              {[40, 70, 30, 90, 50, 80].map((height, index) => (
-                <div
-                  key={index}
-                  className="w-3 rounded-t-sm bg-[#a3ff90]/80"
-                  style={{ height: `${height}%` }}
-                />
-              ))}
-            </div>
-            <div className="h-4 w-full rounded bg-white/5" />
-            <div className="h-4 w-3/4 rounded bg-white/5" />
-          </div>
-        )}
-
-        {data.type === "gradient" && (
-          <div className="relative flex flex-1 items-center justify-center overflow-hidden">
-            <div className="absolute inset-0 scale-105 rotate-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm" />
-            <div className="absolute inset-0 -rotate-2 rounded-xl border border-white/20 bg-black/10 backdrop-blur-md" />
-            <Icon size={80} className="z-10 text-white/50 drop-shadow-xl" />
-          </div>
-        )}
-
-        {data.type === "light" && (
-          <div className="flex flex-1 flex-col gap-3 rounded-xl border border-zinc-200 bg-white p-4 shadow-inner">
-            <div className="h-10 w-full rounded-lg bg-zinc-100" />
-            <div className="flex gap-2">
-              <div className="h-8 w-8 rounded-full bg-zinc-200" />
-              <div className="h-8 flex-1 rounded-lg bg-zinc-100" />
-            </div>
-            <div className="mt-2 flex-1 rounded-lg border border-zinc-100 bg-zinc-50" />
-          </div>
-        )}
-      </div>
-
-      <div className="shadow-overlay pointer-events-none absolute inset-0 bg-black opacity-0" />
+      <div className="shadow-overlay pointer-events-none absolute inset-0 z-20 bg-black opacity-0" />
     </div>
   );
 }
@@ -134,131 +64,133 @@ export default function ProductHero() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
+  // Duplicate cards to ensure a smooth, seamless infinite wrap across wide screens.
+  const extendedCards = [
+    ...CARD_DATA,
+    ...CARD_DATA.map((c) => ({ ...c, id: c.id + "_copy" })),
+  ];
+
   useLayoutEffect(() => {
     const root = rootRef.current;
     if (!root) return;
 
     const ctx = gsap.context(() => {
       const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
-      const totalCards = cards.length;
-
-      if (!totalCards) return;
-
-      const anglePerCard = 360 / totalCards;
-      const radius = 950;
-      const state = { angle: 0 };
+      if (!cards.length) return;
 
       const prefersReducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
       ).matches;
 
-      gsap.set(cards, {
-        xPercent: -50,
-        yPercent: -50,
-        transformOrigin: "50% 50%",
-        transformStyle: "preserve-3d",
-        backfaceVisibility: "hidden",
-        force3D: true,
-      });
+      const isMobile = window.innerWidth < 768;
+      const cardWidth = isMobile ? 260 : 320;
+      const gap = isMobile ? 10 : 24;
+      const itemWidth = cardWidth + gap;
+      const totalWidth = itemWidth * cards.length;
 
-      const overlays = cards
-        .map((card) => card.querySelector(".shadow-overlay"))
-        .filter(Boolean);
+      // Ensure the X position stays within a balanced negative/positive range
+      const wrapX = gsap.utils.wrap(-totalWidth / 2, totalWidth / 2);
 
-      gsap.set(overlays, {
-        willChange: "opacity",
-      });
+      let progress = 0;
+      const speed = 0.00025; // Base horizontal movement speed
 
-      const render = () => {
-        cards.forEach((card, index) => {
-          let currentAngle = (index * anglePerCard + state.angle) % 360;
+      if (!prefersReducedMotion) {
+        gsap.ticker.add(updateMarquee);
+      } else {
+        updateMarquee(); // Render statically if reduced motion is on
+      }
 
-          if (currentAngle < 0) currentAngle += 360;
+      function updateMarquee() {
+        if (!prefersReducedMotion) {
+          progress -= speed;
+          if (progress < 0) progress += 1;
+        }
 
-          let opacity = 1;
+        cards.forEach((card, i) => {
+          let linearX = i * itemWidth + progress * totalWidth;
+          linearX = linearX - totalWidth / 2;
+          const x = wrapX(linearX);
 
-          if (currentAngle > 90 && currentAngle < 270) {
-            opacity = 0;
-          } else if (currentAngle > 75 && currentAngle <= 90) {
-            opacity = 1 - (currentAngle - 75) / 15;
-          } else if (currentAngle >= 270 && currentAngle < 285) {
-            opacity = (currentAngle - 270) / 15;
-          }
+          // Calculate normalized distance from the center (-1 to 1 based on max screen range)
+          const maxDist = window.innerWidth / 1.5;
+          const normalizedDist = gsap.utils.clamp(-1, 1, x / maxDist);
 
-          const distanceFromFront = Math.min(currentAngle, 360 - currentAngle);
-          const darkness = Math.min((distanceFromFront / 90) * 0.7, 0.7);
+          // Rotate inward: Left side cards rotate right (+), Right side cards rotate left (-)
+          const rotateY = -normalizedDist * 45; 
+          
+          // Z positioning: Center is pushed back (farther), sides are pulled forward (closer)
+          const z = Math.abs(normalizedDist) * 450 - 200; 
+
+          // Scale: Slightly smaller in the center for depth emphasis
+          const scale = 0.9 + Math.abs(normalizedDist) * 0.15;
+          
+          // Z-index: Sides must overlay center cards correctly
+          const zIndex = Math.round(Math.abs(normalizedDist) * 100);
+
+          // Center fade logic: "Cards farther away should be slightly darker"
+          const darkness = 1 - Math.abs(normalizedDist);
+          const overlayOpacity = Math.max(0, darkness * 0.7); // Center gets ~70% dark overlay
 
           gsap.set(card, {
-            rotateY: currentAngle,
-            z: -radius,
-            opacity,
+            xPercent: -50,
+            yPercent: -50,
+            x: x,
+            rotateY: rotateY,
+            z: z,
+            scale: scale,
+            zIndex: zIndex,
+            transformOrigin: "50% 50%",
           });
 
           const overlay = card.querySelector(".shadow-overlay");
-
           if (overlay) {
-            gsap.set(overlay, {
-              opacity: darkness,
-            });
+            gsap.set(overlay, { opacity: overlayOpacity });
           }
         });
-      };
-
-      render();
-
-      if (prefersReducedMotion) return;
-
-      const tick = () => {
-        state.angle += 0.08;
-
-        if (state.angle >= 360) {
-          state.angle -= 360;
-        }
-
-        render();
-      };
-
-      gsap.ticker.add(tick);
+      }
 
       return () => {
-        gsap.ticker.remove(tick);
+        gsap.ticker.remove(updateMarquee);
       };
     }, root);
 
     return () => ctx.revert();
-  }, []);
+  }, [extendedCards.length]);
 
   return (
-    <div
+    <section
       ref={rootRef}
-      className="relative flex h-[550px] w-full items-center justify-center overflow-hidden md:h-[650px]"
-      style={{
-        contain: "layout paint size",
-        maskImage:
-          "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
-        WebkitMaskImage:
-          "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
-      }}
-      aria-hidden="true"
+      className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-hidden bg-black pt-32 pb-16 md:pt-40"
     >
+      {/* Headline Layer */}
+      <div className="z-10 mb-16 flex flex-col items-center justify-center px-4 text-center">
+        <h1 className="max-w-4xl text-5xl font-light tracking-tight text-white md:text-6xl lg:text-7xl">
+          Impossible is Nothing
+        </h1>
+      </div>
+
+      {/* 3D Marquee Layer */}
       <div
-        className="relative flex h-full w-full max-w-[1400px] items-center justify-center"
+        className="relative mt-auto flex h-[500px] w-full items-center justify-center md:h-[600px]"
         style={{
           perspective: "1200px",
-          contain: "layout paint",
+          contain: "layout paint size",
+          maskImage:
+            "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
         }}
+        aria-hidden="true"
       >
         <div
           className="relative h-full w-full"
-          style={{
-            transformStyle: "preserve-3d",
-            transform: "translateZ(300px)",
-          }}
+          style={{ transformStyle: "preserve-3d" }}
         >
-          {CARD_DATA.map((card, index) => (
+          {extendedCards.map((card, index) => (
             <ProductCard
-              key={card.id}
+              key={`${card.id}-${index}`}
               data={card}
+              index={index}
               setRef={(el) => {
                 cardsRef.current[index] = el;
               }}
@@ -266,6 +198,6 @@ export default function ProductHero() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
