@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Poppins, Jost } from "next/font/google";
 import localFont from "next/font/local";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
@@ -7,18 +6,6 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Providers from "@/components/Providers";
 import { SanityLive } from "@/sanity/lib/live";
-
-const poppins = Poppins({
-  variable: "--font-poppins",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const jost = Jost({
-  variable: "--font-jost",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
 
 const bierika = localFont({
   src: "./fonts/bierika.otf",
@@ -55,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${poppins.variable} ${jost.variable} ${bierika.variable} antialiased`}
+        className={`${bierika.variable} antialiased`}
         suppressHydrationWarning={true}
       >
         <Providers>

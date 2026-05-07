@@ -1,90 +1,78 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Check } from "lucide-react";
+import {
+  Check,
+  ArrowUpRight,
+  Zap,
+  BarChart3,
+  Target,
+  BookOpen,
+  TrendingUp,
+} from "lucide-react";
 import { useModal } from "@/context/ModalContext";
+import { BUSINESS_UNITS, SERVICES, STATS } from "@/constants";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SERVICES = [
-  "AI SEO",
-  "SEO",
-  "Paid media",
-  "Creative",
-  "Content",
-  "Social Media",
-  "App Store",
-  "Analytics",
-  "Other",
-];
 
-const CLIENTS = [
-  "HP",
-  "SoFi",
-  "Intuit",
-  "Mitsubishi",
-  "Adobe",
-  "Nissan",
-  "Marriott",
-  "L'Oreal",
-  "Kumon",
-  "Cartier",
-  "DHL",
-  "Clarins",
-  "Unilever",
-  "Canon",
-  "Prudential",
-  "AirAsia",
-  "Western Union",
-  "Sony Music",
-  "Domino's",
-  "Levi's",
-];
 
 export default function ServicesSection() {
   const { openModal } = useModal();
-  const container = useRef(null);
-  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const container = useRef<HTMLElement>(null);
+  const [selected, setSelected] = useState<string[]>([]);
 
-  // Handle checkbox toggle
-  const toggleService = (service: string) => {
-    if (selectedServices.includes(service)) {
-      setSelectedServices(selectedServices.filter((s) => s !== service));
-    } else {
-      setSelectedServices([...selectedServices, service]);
-    }
+  const toggle = (service: string) => {
+    setSelected((prev) =>
+      prev.includes(service)
+        ? prev.filter((item) => item !== service)
+        : [...prev, service]
+    );
   };
 
   useGSAP(
     () => {
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: container.current, start: "top 80%" },
+        scrollTrigger: {
+          trigger: container.current,
+          start: "top 75%",
+          once: true,
+        },
       });
 
-      // 1. Animate Logo Grid (Left Side)
-      // tl.from('.client-logo', {
-      //     opacity: 0,
-      //     y: 20,
-      //     stagger: 0.05,
-      //     duration: 0.6,
-      //     ease: "power2.out"
-      // });
+      tl.from(".unit-item", {
+        x: -24,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.7,
+        ease: "power3.out",
+      });
 
-      // 2. Animate Form Elements (Right Side)
+      tl.from(
+        ".stat-item",
+        {
+          y: 16,
+          opacity: 0,
+          stagger: 0.08,
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        "-=0.4"
+      );
+
       tl.from(
         ".form-element",
         {
-          x: 30,
+          x: 28,
           opacity: 0,
-          stagger: 0.1,
-          duration: 0.8,
+          stagger: 0.06,
+          duration: 0.7,
           ease: "power3.out",
         },
-        "-=0.4"
+        "-=0.6"
       );
     },
     { scope: container }
@@ -93,77 +81,174 @@ export default function ServicesSection() {
   return (
     <section
       ref={container}
-      className="w-full bg-[radial-gradient(circle,rgba(18,17,17,0.99)_90%,rgba(247,58,0,0.77)_100%)] flex flex-col-reverse lg:flex-row"
+      className="w-full flex flex-col lg:flex-row min-h-[720px] bg- text-white"
     >
-      {/* LEFT COLUMN: Client Logos (Black) */}
-      <div className="w-full lg:w-1/2 bg-black text-white flex flex-col justify-center items-center">
-        <img
-          src="/images/service.png"
-          alt="service"
-          className="object-cover w-full w-[800px]"
-        />
-      </div>
+      {/* LEFT COLUMN */}
+      <div className="relative w-full lg:w-[48%] bg-[#080808] flex flex-col justify-between px-6 py-12 sm:px-10 lg:px-14 lg:py-16 overflow-hidden">
+        {/* Primary glow */}
+        <div className="pointer-events-none absolute -top-32 -left-32 size-96 rounded-full bg-primary/10 blur-3xl" />
 
-      {/* RIGHT COLUMN: Service Form (Light Gray) */}
-      <div className="w-full lg:w-1/2 bg-np-grey p-8 md:px-16 max-sm:py-8 flex flex-col justify-center">
-        <div className="max-w-4xl mx-auto w-full">
-          <h2 className="form-element text-3xl md:text-4xl font-bold text-black mb-12 text-center">
-            How can we help you get found?
+        <div className="relative z-10 mb-10">
+          <p className="mb-3 text-[11px] font-semibold tracking-[0.18em] text-primary uppercase">
+            Our Ecosystem
+          </p>
+
+          <h2 className="text-3xl md:text-4xl font-bold leading-[1.15] tracking-tight">
+            Five units.
+            <br />
+            <span className="text-white/40">One mission.</span>
           </h2>
 
-          {/* Custom Checkbox Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-            {SERVICES.map((service, index) => {
-              const isSelected = selectedServices.includes(service);
-              return (
-                <div
-                  key={index}
-                  onClick={() => toggleService(service)}
-                  className="form-element group relative cursor-pointer"
-                >
-                  <div
-                    className={`
-                    flex items-center gap-3 px-4 py-2 bg-white rounded-sm border transition-all duration-200 h-full
-                    ${isSelected
-                        ? "border-transparent"
-                        : "border-transparent hover:border-gray-300"
-                      }
-                  `}
-                  >
-                    {/* Checkbox Square */}
-                    <div
-                      className={`
-                      w-5 h-5 border flex items-center justify-center transition-colors shrink-0
-                      ${isSelected
-                          ? "bg-np-orange border-np-orange"
-                          : "bg-white border-gray-300"
-                        }
-                    `}
-                    >
-                      {isSelected && <Check size={14} className="text-white" />}
-                    </div>
+          <p className="mt-4 max-w-sm text-sm text-white/45 leading-relaxed">
+            Bending Waters is built as a flywheel — each unit feeds the next,
+            compounding your growth from audience to investment.
+          </p>
+        </div>
 
-                    {/* Label */}
-                    <span
-                      className={`font-medium text-sm ${isSelected ? "text-black" : "text-gray-600"
-                        }`}
-                    >
-                      {service}
-                    </span>
-                  </div>
-                </div>
+        {/* Business unit list */}
+        <div className="relative z-10 flex-1 flex flex-col justify-center space-y-1">
+          {BUSINESS_UNITS.map((unit) => (
+            <div
+              key={unit.code}
+              className="unit-item flex items-start gap-4 rounded-xl px-4 py-3.5 transition-colors duration-200"
+            >
+              <span className="mt-0.5 shrink-0 text-[11px] font-bold tracking-widest text-primary">
+                {unit.code}
+              </span>
+
+              <div className="min-w-0">
+                <p className="text-sm font-semibold leading-snug text-white">
+                  {unit.name}
+                </p>
+
+                <p className="mt-0.5 text-xs leading-snug text-white/50">
+                  {unit.tagline}
+                </p>
+              </div>
+
+              <ArrowUpRight className="ml-auto size-3.5 shrink-0 text-primary" />
+            </div>
+          ))}
+        </div>
+
+        {/* Stats */}
+        <div className="relative z-10 mt-10 grid grid-cols-3 gap-4 border-t border-white/10 pt-8">
+          {STATS.map((stat) => (
+            <div key={stat.label} className="stat-item">
+              <p className="text-2xl md:text-3xl font-bold tracking-tight text-white">
+                {stat.value}
+              </p>
+              <p className="mt-1 text-[11px] leading-tight text-white/40">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* RIGHT COLUMN */}
+      <div className="w-full lg:w-[52%] bg-[#0f0f0f] border-l border-white/10 flex flex-col justify-center px-6 py-12 sm:px-10 lg:px-14 lg:py-16">
+        <div className="mx-auto w-full max-w-xl">
+          <div className="form-element mb-10">
+            <p className="mb-3 text-[11px] font-semibold tracking-[0.18em] text-primary uppercase">
+              Get Started
+            </p>
+
+            <h2 className="text-3xl md:text-4xl font-bold leading-[1.15] tracking-tight text-white">
+              What can we
+              <br />
+              <span className="text-white/40">help you grow?</span>
+            </h2>
+
+            <p className="mt-4 text-sm text-white/45 leading-relaxed">
+              Select the areas you&apos;re looking to accelerate. We&apos;ll
+              match you with the right unit and specialists.
+            </p>
+          </div>
+
+          {/* Services */}
+          <div className="form-element mb-10 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            {SERVICES.map((service) => {
+              const isSelected = selected.includes(service.label);
+              const Icon = service.icon;
+
+              return (
+                <button
+                  key={service.label}
+                  type="button"
+                  onClick={() => toggle(service.label)}
+                  aria-pressed={isSelected}
+                  className={[
+                    "group relative flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-150",
+                    "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-accent",
+                    isSelected
+                      ? "bg-primary/10 border-primary/50 text-white"
+                      : "bg-white/[0.03] border-white/10 text-white/50 hover:border-primary/30 hover:bg-primary/5 hover:text-white",
+                  ].join(" ")}
+                >
+                  <span
+                    className={[
+                      "flex size-4 shrink-0 items-center justify-center rounded border transition-all duration-150",
+                      isSelected
+                        ? "border-primary bg-primary"
+                        : "border-white/15 bg-white/5",
+                    ].join(" ")}
+                  >
+                    {isSelected && (
+                      <Check
+                        size={10}
+                        strokeWidth={3}
+                        className="text-accent"
+                      />
+                    )}
+                  </span>
+
+                  <Icon
+                    className={[
+                      "size-4 shrink-0 transition-colors",
+                      isSelected
+                        ? "text-primary"
+                        : "text-white/30 group-hover:text-primary",
+                    ].join(" ")}
+                  />
+
+                  <span className="text-[13px] font-medium leading-tight">
+                    {service.label}
+                  </span>
+                </button>
               );
             })}
           </div>
 
-          {/* Submit Button */}
-          <div className="form-element flex justify-center">
+          {/* Selected count */}
+          {selected.length > 0 && (
+            <div className="form-element mb-5 flex items-center gap-2">
+              <div className="flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1">
+                <span className="size-1.5 rounded-full bg-primary" />
+                <span className="text-xs font-medium text-primary">
+                  {selected.length} service{selected.length > 1 ? "s" : ""}{" "}
+                  selected
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* CTA */}
+          <div className="form-element flex flex-col sm:flex-row sm:items-center gap-4">
             <button
+              type="button"
               onClick={openModal}
-              className="bg-np-orange hover:bg-np-orange text-white text-lg font-medium py-3 px-12 rounded-sm shadow-sm transition-transform active:scale-95"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-accent transition-all duration-150 hover:bg-secondary active:scale-[0.98]"
             >
-              Get started
+              Let&apos;s Talk
+              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </button>
+
+            <p className="text-xs leading-snug text-white/30">
+              No commitment.
+              <br />
+              We respond within 24hrs.
+            </p>
           </div>
         </div>
       </div>

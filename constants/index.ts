@@ -1,8 +1,10 @@
+import { NavLink } from "@/types";
+import { ArrowUpRight, BarChart3, BookOpen, Target, TrendingUp, Zap } from "lucide-react";
+
 export const navLinks = [
   { name: "About", link: "/about" },
   {
     name: "Solutions",
-    link: "/solutions",
     dropdown: [
       {
         title: "Data & Analytics",
@@ -71,11 +73,11 @@ export const navLinks = [
     ],
   },
   { name: "Work", link: "/work" },
-  { name: "News & Insights", link: "/news" },
+  { name: "Blog", link: "/blog" },
   { name: "Careers", link: "/careers" },
   { name: "AI & Technology", link: "/ai" },
   { name: "Contact", link: "/contact" },
-];
+] satisfies NavLink[];
 
 export interface Country {
   name: string;
@@ -100,4 +102,53 @@ export const globalLocations: Region[] = [
       { name: "Enterprises", link: "/enterprise" },
     ],
   },
+];
+
+export const BUSINESS_UNITS = [
+  {
+    code: "01",
+    name: "BW Marketing Collective",
+    tagline: "The execution engine. Campaigns, content, consulting.",
+  },
+  {
+    code: "02",
+    name: "BW Media",
+    tagline: "YouTube, podcasts, newsletters. Audience at scale.",
+  },
+  {
+    code: "03",
+    name: "BW Labs",
+    tagline: "AudienceGPT, FinAd Studio, AI analytics dashboards.",
+  },
+  {
+    code: "04",
+    name: "BW Academy",
+    tagline: "Certifications, webinars, community programmes.",
+  },
+  {
+    code: "05",
+    name: "BW Ventures",
+    tagline: "Minority equity, mentorship & media amplification.",
+  },
+];
+
+export const SERVICES = [
+  { label: "Paid Search & Social", icon: Target },
+  { label: "SEO & GEO", icon: TrendingUp },
+  { label: "AI Audience Profiling", icon: Zap },
+  { label: "Content & Brand Strategy", icon: BookOpen },
+  { label: "Data & Analytics", icon: BarChart3 },
+  { label: "Performance Creative", icon: Target },
+  { label: "Influencer Marketing", icon: TrendingUp },
+  { label: "App Store Optimisation", icon: Zap },
+  { label: "Technology Buildouts", icon: BarChart3 },
+  { label: "Consulting & Strategy", icon: BookOpen },
+  { label: "Digital PR", icon: TrendingUp },
+  { label: "Other", icon: ArrowUpRight },
+];
+
+export const STATS = [
+  { value: "5+", label: "Business Units" },
+  { value: "₦1B", label: "2030 Revenue Target" },
+  { value: "40%", label: "Gross Margin (2030)" },
 ];

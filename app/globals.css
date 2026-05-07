@@ -2,12 +2,18 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
+  --font-poppins: Poppins, Arial, Helvetica, sans-serif;
+  --font-jost: Jost, Arial, Helvetica, sans-serif;
+  --font-monda: "Courier New", Courier, monospace;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: #fd7c1c;
+  --color-secondary: #f94d03;
+  --color-accent: #1d2332;
   --color-np-orange: #ff5722;
   --color-np-green: #84cc16;
   --color-np-dark: #000000;
@@ -43,7 +49,7 @@ html,
 body {
   background: var(--background);
   color: var(--foreground);
-  /* font-family: var(--font-poppins), Arial, Helvetica, sans-serif; */
+  font-family: var(--font-jost);
   overflow-x: hidden;
   max-width: 100vw;
 }
@@ -59,6 +65,10 @@ h6 {
 
 @utility flex-center {
   @apply flex items-center justify-center;
+}
+
+@utility flex-between {
+  @apply flex items-center justify-between;
 }
 
 @utility noisy {
