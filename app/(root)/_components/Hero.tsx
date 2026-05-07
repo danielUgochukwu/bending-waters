@@ -82,75 +82,96 @@ export default function ProductHero() {
         "(prefers-reduced-motion: reduce)"
       ).matches;
 
-      const isMobile = window.innerWidth < 768;
-      const cardWidth = isMobile ? 260 : 320;
-      const gap = isMobile ? 10 : 24;
-      const itemWidth = cardWidth + gap;
-      const totalWidth = itemWidth * cards.length;
-
-      // Ensure the X position stays within a balanced negative/positive range
-      const wrapX = gsap.utils.wrap(-totalWidth / 2, totalWidth / 2);
-
       let progress = 0;
       const speed = 0.00025; // Base horizontal movement speed
+      let currentUpdateFn: gsap.TickerCallback | null = null;
 
-      if (!prefersReducedMotion) {
-        gsap.ticker.add(updateMarquee);
-      } else {
-        updateMarquee(); // Render statically if reduced motion is on
-      }
-
-      function updateMarquee() {
-        if (!prefersReducedMotion) {
-          progress -= speed;
-          if (progress < 0) progress += 1;
+      function setupMarquee() {
+        if (currentUpdateFn) {
+          gsap.ticker.remove(currentUpdateFn);
         }
 
-        cards.forEach((card, i) => {
-          let linearX = i * itemWidth + progress * totalWidth;
-          linearX = linearX - totalWidth / 2;
-          const x = wrapX(linearX);
+        const isMobile = window.innerWidth < 768;
+        const cardWidth = isMobile ? 260 : 320;
+        const gap = isMobile ? 10 : 24;
+        const itemWidth = cardWidth + gap;
+        const totalWidth = itemWidth * cards.length;
 
-          // Calculate normalized distance from the center (-1 to 1 based on max screen range)
-          const maxDist = window.innerWidth / 1.5;
-          const normalizedDist = gsap.utils.clamp(-1, 1, x / maxDist);
+        // Ensure the X position stays within a balanced negative/positive range
+        const wrapX = gsap.utils.wrap(-totalWidth / 2, totalWidth / 2);
 
-          // Rotate inward: Left side cards rotate right (+), Right side cards rotate left (-)
-          const rotateY = -normalizedDist * 45; 
-          
-          // Z positioning: Center is pushed back (farther), sides are pulled forward (closer)
-          const z = Math.abs(normalizedDist) * 450 - 200; 
-
-          // Scale: Slightly smaller in the center for depth emphasis
-          const scale = 0.9 + Math.abs(normalizedDist) * 0.15;
-          
-          // Z-index: Sides must overlay center cards correctly
-          const zIndex = Math.round(Math.abs(normalizedDist) * 100);
-
-          // Center fade logic: "Cards farther away should be slightly darker"
-          const darkness = 1 - Math.abs(normalizedDist);
-          const overlayOpacity = Math.max(0, darkness * 0.7); // Center gets ~70% dark overlay
-
-          gsap.set(card, {
-            xPercent: -50,
-            yPercent: -50,
-            x: x,
-            rotateY: rotateY,
-            z: z,
-            scale: scale,
-            zIndex: zIndex,
-            transformOrigin: "50% 50%",
-          });
-
-          const overlay = card.querySelector(".shadow-overlay");
-          if (overlay) {
-            gsap.set(overlay, { opacity: overlayOpacity });
+        function updateMarquee() {
+          if (!prefersReducedMotion) {
+            progress -= speed;
+            if (progress < 0) progress += 1;
           }
-        });
+
+          cards.forEach((card, i) => {
+            let linearX = i * itemWidth + progress * totalWidth;
+            linearX = linearX - totalWidth / 2;
+            const x = wrapX(linearX);
+
+            // Calculate normalized distance from the center (-1 to 1 based on max screen range)
+            const maxDist = window.innerWidth / 1.5;
+            const normalizedDist = gsap.utils.clamp(-1, 1, x / maxDist);
+
+            // Rotate inward: Left side cards rotate right (+), Right side cards rotate left (-)
+            const rotateY = -normalizedDist * 45; 
+            
+            // Z positioning: Center is pushed back (farther), sides are pulled forward (closer)
+            const z = Math.abs(normalizedDist) * 450 - 200; 
+
+            // Scale: Slightly smaller in the center for depth emphasis
+            const scale = 0.9 + Math.abs(normalizedDist) * 0.15;
+            
+            // Z-index: Sides must overlay center cards correctly
+            const zIndex = Math.round(Math.abs(normalizedDist) * 100);
+
+            // Center fade logic: "Cards farther away should be slightly darker"
+            const darkness = 1 - Math.abs(normalizedDist);
+            const overlayOpacity = Math.max(0, darkness * 0.7); // Center gets ~70% dark overlay
+
+            gsap.set(card, {
+              xPercent: -50,
+              yPercent: -50,
+              x: x,
+              rotateY: rotateY,
+              z: z,
+              scale: scale,
+              zIndex: zIndex,
+              transformOrigin: "50% 50%",
+            });
+
+            const overlay = card.querySelector(".shadow-overlay");
+            if (overlay) {
+              gsap.set(overlay, { opacity: overlayOpacity });
+            }
+          });
+        }
+
+        if (!prefersReducedMotion) {
+          gsap.ticker.add(updateMarquee);
+        } else {
+          updateMarquee(); // Render statically if reduced motion is on
+        }
+
+        currentUpdateFn = updateMarquee;
       }
 
+      setupMarquee();
+
+      let resizeTimer: NodeJS.Timeout;
+      const onResize = () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(setupMarquee, 150);
+      };
+
+      window.addEventListener("resize", onResize);
+
       return () => {
-        gsap.ticker.remove(updateMarquee);
+        window.removeEventListener("resize", onResize);
+        clearTimeout(resizeTimer);
+        if (currentUpdateFn) gsap.ticker.remove(currentUpdateFn);
       };
     }, root);
 

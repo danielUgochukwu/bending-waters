@@ -1,6 +1,12 @@
-import  { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
+import { ProductCardData } from "../_contstants";
 
-const BrandCard = ({ data, setRef }) => {
+interface Props {
+  data: ProductCardData;
+  setRef?: React.RefCallback<HTMLDivElement> | ((el: HTMLDivElement | null) => void) | null;
+}
+
+const BrandCard: React.FC<Props> = ({ data, setRef }) => {
   const Icon = data.icon;
   const isLight = data.type === "light";
   return (

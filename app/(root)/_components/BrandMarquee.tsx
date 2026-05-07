@@ -3,11 +3,11 @@
 import { useMemo, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Brand, BrandMarqueeProps } from "../_types";
+import { ProductCardData } from "../_contstants";
 import BrandCard from "./BrandCard";
 
 type Props = {
-  items: Brand[];
+  items: ProductCardData[];
   speed?: number;
 };
 
@@ -87,7 +87,7 @@ const BrandMarquee = ({ items, speed = 28 }: Props) => {
             className={`shrink-0 transform-gpu ${getArcStyle(index)}`}
             aria-hidden={index >= items.length}
           >
-            <BrandCard brand={item} />
+            <BrandCard data={item} />
           </div>
         ))}
       </div>
