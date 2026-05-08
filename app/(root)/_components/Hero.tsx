@@ -186,7 +186,7 @@ export default function Hero() {
       {/* Headline Layer */}
       <div className="z-10 mb-16 flex flex-col items-center justify-center px-4 text-center">
         <h1 className="max-w-4xl text-7xl font-light tracking-tight text-white md:text-8xl lg:text-9xl">
-          Impossible is <br/> <em className="text-primary">nothing</em>
+          Impossible is <br/> <span className="text-primary font-serif italic">nothing</span>
         </h1>
       </div>
 
