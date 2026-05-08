@@ -155,7 +155,7 @@ export default function ServicesSection() {
             </p>
 
             <h2 className="text-3xl md:text-4xl font-bold leading-[1.15] tracking-tight text-white">
-              What can we
+              How can we
               <br />
               <span className="text-white/40">help you grow?</span>
             </h2>

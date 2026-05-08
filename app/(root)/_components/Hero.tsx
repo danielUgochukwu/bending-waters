@@ -60,7 +60,7 @@ function ProductCard({
   );
 }
 
-export default function ProductHero() {
+export default function Hero() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -152,7 +152,7 @@ export default function ProductHero() {
         if (!prefersReducedMotion) {
           gsap.ticker.add(updateMarquee);
         } else {
-          updateMarquee(); // Render statically if reduced motion is on
+          updateMarquee();
         }
 
         currentUpdateFn = updateMarquee;
@@ -181,18 +181,18 @@ export default function ProductHero() {
   return (
     <section
       ref={rootRef}
-      className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-hidden bg-black pt-32 pb-16 md:pt-40"
+      className="relative flex h-screen w-full flex-col items-center justify-start overflow-hidden bg-black pt-32 pb-16"
     >
       {/* Headline Layer */}
       <div className="z-10 mb-16 flex flex-col items-center justify-center px-4 text-center">
-        <h1 className="max-w-4xl text-5xl font-light tracking-tight text-white md:text-6xl lg:text-7xl">
-          Impossible is Nothing
+        <h1 className="max-w-4xl text-7xl font-light tracking-tight text-white md:text-8xl lg:text-9xl">
+          Impossible is <br/> <em className="text-primary">nothing</em>
         </h1>
       </div>
 
       {/* 3D Marquee Layer */}
       <div
-        className="relative mt-auto flex h-[500px] w-full items-center justify-center md:h-[600px]"
+        className="relative mt-auto flex h-125 w-full items-center justify-center md:h-150"
         style={{
           perspective: "1200px",
           contain: "layout paint size",

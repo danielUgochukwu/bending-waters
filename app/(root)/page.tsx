@@ -7,14 +7,13 @@ import Careers from "@/components/landing/Careers";
 import UnlockGrowth from "@/components/landing/UnlockGrowth";
 import Footer from "@/components/Footer";
 import SocialProof from "@/components/landing/Community";
-import HeroSection from "@/components/landing/BendingWatersHero";
-import ProductHero from "./_components/Hero";
+import Hero from "./_components/Hero";
 
 export default function Home() {
   return (
     <main className="flex flex-col">
       <Header />
-      <ProductHero />
+      <Hero />
       <ServicesSection />
       <SocialProof />
       <Storytelling />
