@@ -148,7 +148,7 @@ export const SERVICES = [
 ];
 
 export const STATS = [
-  { value: "5+", label: "Business Units" },
-  { value: "₦1B", label: "2030 Revenue Target" },
+  { value: "3+", label: "Business Units" },
+  { value: "$1B", label: "2030 Revenue Target" },
   { value: "40%", label: "Gross Margin (2030)" },
 ];
