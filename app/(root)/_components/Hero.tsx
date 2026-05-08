@@ -181,7 +181,7 @@ export default function Hero() {
   return (
     <section
       ref={rootRef}
-      className="relative flex h-screen w-full flex-col items-center justify-start overflow-hidden bg-black pt-32 pb-16"
+      className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-hidden bg-black pt-32 pb-16"
     >
       {/* Headline Layer */}
       <div className="z-10 mb-16 flex flex-col items-center justify-center px-4 text-center">
