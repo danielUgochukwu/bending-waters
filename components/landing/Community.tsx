@@ -1,293 +1,6 @@
-"use client"
+"use client";
 
 import React, { useEffect, useRef, useState } from "react";
-
-const GOOGLE_FONTS = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Sora:wght@300;400;600&display=swap');
-`;
-
-const STYLES = `
-  .bw-proof-section {
-    position: relative;
-    padding: 7rem 0 6rem;
-    background: #0A0907;
-    overflow: hidden;
-    font-family: 'Sora', sans-serif;
-  }
-
-  /* Grain texture */
-  .bw-proof-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.6;
-  }
-
-  /* Ambient warm glow top-right */
-  .bw-proof-section::after {
-    content: '';
-    position: absolute;
-    top: -120px;
-    right: -80px;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(190, 85, 30, 0.12) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .bw-proof-inner {
-    position: relative;
-    z-index: 2;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2.5rem;
-  }
-
-  /* ── Header ── */
-  .bw-proof-header {
-    margin-bottom: 5rem;
-  }
-
-  .bw-proof-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .bw-proof-eyebrow.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .bw-proof-eyebrow-line {
-    display: block;
-    width: 28px;
-    height: 1px;
-    background: #C85C2A;
-  }
-  .bw-proof-eyebrow-text {
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #C85C2A;
-  }
-
-  .bw-proof-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 900;
-    color: #F5EDE3;
-    line-height: 1.15;
-    max-width: 780px;
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
-  }
-  .bw-proof-title.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .bw-proof-title em {
-    font-style: italic;
-    color: #C85C2A;
-  }
-
-  /* ── Stat Banner ── */
-  .bw-stat-banner {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-top: 2.5rem;
-    padding: 1.25rem 1.75rem;
-    border: 0.5px solid rgba(200, 92, 42, 0.25);
-    border-radius: 2px;
-    max-width: 480px;
-    background: rgba(200, 92, 42, 0.06);
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
-  }
-  .bw-stat-banner.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .bw-stat-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.6rem;
-    font-weight: 900;
-    color: #E8A87C;
-    line-height: 1;
-    min-width: 90px;
-  }
-  .bw-stat-divider {
-    width: 1px;
-    height: 40px;
-    background: rgba(200, 92, 42, 0.3);
-    flex-shrink: 0;
-  }
-  .bw-stat-desc {
-    font-size: 0.8rem;
-    font-weight: 300;
-    color: rgba(245, 237, 227, 0.7);
-    line-height: 1.5;
-  }
-  .bw-stat-desc strong {
-    display: block;
-    font-weight: 600;
-    color: #F5EDE3;
-    margin-bottom: 2px;
-    font-size: 0.85rem;
-  }
-
-  /* ── Grid ── */
-  .bw-proof-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 0.5px solid rgba(255, 255, 255, 0.05);
-  }
-
-  @media (max-width: 900px) {
-    .bw-proof-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-  @media (max-width: 600px) {
-    .bw-proof-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .bw-community-card {
-    position: relative;
-    background: #0A0907;
-    padding: 2rem 1.5rem;
-    cursor: default;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity 0.5s ease,
-      transform 0.5s ease,
-      background 0.3s ease;
-  }
-  .bw-community-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .bw-community-card:hover {
-    background: #111009;
-  }
-
-  /* Hover accent line */
-  .bw-community-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background: #C85C2A;
-    transition: width 0.35s ease;
-  }
-  .bw-community-card:hover::after {
-    width: 100%;
-  }
-
-  .bw-card-number {
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    color: rgba(200, 92, 42, 0.5);
-    margin-bottom: 1.5rem;
-    display: block;
-  }
-
-  .bw-card-icon {
-    width: 36px;
-    height: 36px;
-    margin-bottom: 1.25rem;
-    opacity: 0.85;
-  }
-
-  .bw-card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: #F5EDE3;
-    margin-bottom: 0.4rem;
-    line-height: 1.2;
-  }
-
-  .bw-card-label {
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(245, 237, 227, 0.35);
-    margin-bottom: 1rem;
-    display: block;
-  }
-
-  .bw-card-desc {
-    font-size: 0.75rem;
-    font-weight: 300;
-    color: rgba(245, 237, 227, 0.5);
-    line-height: 1.6;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-  }
-  .bw-community-card:hover .bw-card-desc {
-    max-height: 60px;
-    opacity: 1;
-  }
-
-  /* ── Footer Line ── */
-  .bw-proof-footer {
-    margin-top: 3rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s;
-  }
-  .bw-proof-footer.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .bw-proof-footer-line {
-    flex: 1;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.07);
-  }
-  .bw-proof-footer-text {
-    font-size: 0.7rem;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    color: rgba(245, 237, 227, 0.3);
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  .bw-proof-footer-dot {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: #C85C2A;
-    flex-shrink: 0;
-  }
-`;
 
 const communities = [
   {
@@ -301,7 +14,7 @@ const communities = [
         viewBox="0 0 36 36"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="bw-card-icon"
+        className="w-9 h-9 mb-5 opacity-85"
       >
         <rect
           x="8"
@@ -348,7 +61,7 @@ const communities = [
         viewBox="0 0 36 36"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="bw-card-icon"
+        className="w-9 h-9 mb-5 opacity-85"
       >
         <circle cx="18" cy="18" r="10" stroke="#C85C2A" strokeWidth="1.2" />
         <path
@@ -381,7 +94,7 @@ const communities = [
         viewBox="0 0 36 36"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="bw-card-icon"
+        className="w-9 h-9 mb-5 opacity-85"
       >
         <polygon
           points="18,5 32,28 4,28"
@@ -410,7 +123,7 @@ const communities = [
         viewBox="0 0 36 36"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="bw-card-icon"
+        className="w-9 h-9 mb-5 opacity-85"
       >
         <path
           d="M18 6 L28 18 L22 18 L22 30 L14 30 L14 18 L8 18 Z"
@@ -433,7 +146,7 @@ const communities = [
         viewBox="0 0 36 36"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="bw-card-icon"
+        className="w-9 h-9 mb-5 opacity-85"
       >
         <rect
           x="5"
@@ -512,7 +225,6 @@ export default function SocialProof() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          // Stagger card reveals
           communities.forEach((_, i) => {
             setTimeout(
               () => {
@@ -536,59 +248,130 @@ export default function SocialProof() {
 
   return (
     <>
-      <style>{GOOGLE_FONTS}</style>
-      <style>{STYLES}</style>
-      <section className="bw-proof-section" ref={sectionRef}>
-        <div className="bw-proof-inner">
+
+      <section
+        ref={sectionRef}
+        className="relative pt-28 pb-24 bg-[#0A0907] overflow-hidden font-['Sora',sans-serif]"
+      >
+        {/* Grain texture overlay */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none z-[1] opacity-60"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Ambient warm glow top-right */}
+        <div
+          aria-hidden="true"
+          className="absolute -top-30 -right-20 w-125 h-125 rounded-full pointer-events-none z-1"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(190, 85, 30, 0.12) 0%, transparent 70%)",
+          }}
+        />
+
+        <div className="relative z-10 mx-auto px-10">
           {/* ── Header ── */}
-          <div className="bw-proof-header">
-            <div className={`bw-proof-eyebrow ${visible ? "visible" : ""}`}>
-              <span className="bw-proof-eyebrow-line" />
-              <span className="bw-proof-eyebrow-text">Our Communities</span>
+          <div className="mb-20">
+            {/* Eyebrow */}
+            <div
+              className={`flex items-center gap-2.5 mb-6 transition-[opacity,transform] duration-600 ease-out ${
+                visible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}
+            >
+              <span className="block w-7 h-px bg-primary" />
+              <span className="text-[0.65rem] font-semibold tracking-[0.2em] uppercase text-primary">
+                Our Communities
+              </span>
             </div>
 
-            <h2 className={`bw-proof-title ${visible ? "visible" : ""}`}>
-              We build communities of business owners contributing to Africa&apos;s{" "}
-              <em>economic renaissance</em>
+            {/* Title */}
+            <h2
+              className={`text-4xl font-bold max-w-160 transition-[opacity,transform] duration-700 ease-out delay-100 ${
+                visible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-6"
+              }`}
+            >
+              We build communities of business owners contributing to
+              Africa&apos;s{" "}
+              <em className="italic text-primary font-serif">economic renaissance</em>
             </h2>
 
-            <div className={`bw-stat-banner ${visible ? "visible" : ""}`}>
-              <div className="bw-stat-number">{count.toLocaleString()}+</div>
-              <div className="bw-stat-divider" />
-              <div className="bw-stat-desc">
-                <strong>Business Owners</strong>
+            {/* Stat Banner */}
+            <div
+              className={`flex items-center gap-8 mt-10 py-5 px-7 border border-[#C85C2A]/25 rounded-xs max-w-120 bg-[#C85C2A]/6 transition-[opacity,transform] duration-700 ease-out delay-200 ${
+                visible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}
+            >
+              <div className="text-[2.6rem] font-black text-primary leading-none min-w-22.5">
+                {count.toLocaleString()}+
+              </div>
+              <div className="w-px h-10 bg-[#C85C2A]/30 shrink-0" />
+              <div className="text-[0.8rem] font-light text-white/70 leading-normal">
+                <strong className="block font-semibold text-text mb-0.5 text-[0.85rem]">
+                  Business Owners
+                </strong>
                 across fashion, tech, lifestyle, and beyond — growing with
                 purpose.
               </div>
             </div>
           </div>
 
-          {/* ── Community Cards ── */}
-          <div className="bw-proof-grid">
+          {/* ── Community Cards Grid ── */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px bg-white/5 border border-white/5">
             {communities.map((c, i) => (
               <div
                 key={i}
-                className={`bw-community-card ${cardVisible[i] ? "visible" : ""}`}
+                className={`group relative bg-[#0A0907] p-8 px-6 cursor-default overflow-hidden
+                  transition-[opacity,transform,background-color] duration-500 ease-out
+                  hover:bg-[#111009]
+                  after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0
+                  after:bg-[#C85C2A] after:transition-[width] after:duration-350 after:ease-out
+                  hover:after:w-full
+                  ${cardVisible[i] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
                 style={{ transitionDelay: `${i * 0.06}s` }}
               >
-                <span className="bw-card-number">{c.number}</span>
+                <span className="text-[0.6rem] font-semibold tracking-[0.15em] text-primary mb-6 block">
+                  {c.number}
+                </span>
+
                 {c.icon}
-                <div className="bw-card-title">{c.category}</div>
-                <span className="bw-card-label">{c.label}</span>
-                <p className="bw-card-desc">{c.description}</p>
+
+                <div className="font-['Playfair_Display',serif] text-[1.15rem] font-bold text-[#F5EDE3] mb-[0.4rem] leading-[1.2]">
+                  {c.category}
+                </div>
+
+                <span className="text-[0.65rem] font-semibold tracking-[0.12em] uppercase text-white/40 mb-4 block">
+                  {c.label}
+                </span>
+
+                <p className="text-[0.75rem] font-light text-white/40 leading-[1.6] max-h-0 overflow-hidden opacity-0 group-hover:max-h-15 group-hover:opacity-100 transition-[max-height,opacity] duration-300 ease-out">
+                  {c.description}
+                </p>
               </div>
             ))}
           </div>
 
           {/* ── Footer ── */}
-          <div className={`bw-proof-footer ${visible ? "visible" : ""}`}>
-            <div className="bw-proof-footer-line" />
-            <div className="bw-proof-footer-dot" />
-            <span className="bw-proof-footer-text">
+          <div
+            className={`mt-12 flex items-center gap-4 transition-[opacity,transform] duration-600 ease-out delay-400 ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+            }`}
+          >
+            <div className="flex-1 h-px bg-white/[0.07]" />
+            <div className="size-1 rounded-full bg-primary shrink-0" />
+            <span className="text-[0.7rem] font-light tracking-widest text-white/40 uppercase whitespace-nowrap">
               Raising zebras — resilient, profitable, community-rooted
             </span>
-            <div className="bw-proof-footer-dot" />
-            <div className="bw-proof-footer-line" />
+            <div className="size-1 rounded-full bg-primary shrink-0" />
+            <div className="flex-1 h-px bg-white/[0.07]" />
           </div>
         </div>
       </section>

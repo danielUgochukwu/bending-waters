@@ -116,14 +116,14 @@ export default function Hero() {
             const normalizedDist = gsap.utils.clamp(-1, 1, x / maxDist);
 
             // Rotate inward: Left side cards rotate right (+), Right side cards rotate left (-)
-            const rotateY = -normalizedDist * 45; 
-            
+            const rotateY = -normalizedDist * 45;
+
             // Z positioning: Center is pushed back (farther), sides are pulled forward (closer)
-            const z = Math.abs(normalizedDist) * 450 - 200; 
+            const z = Math.abs(normalizedDist) * 450 - 200;
 
             // Scale: Slightly smaller in the center for depth emphasis
             const scale = 0.9 + Math.abs(normalizedDist) * 0.15;
-            
+
             // Z-index: Sides must overlay center cards correctly
             const zIndex = Math.round(Math.abs(normalizedDist) * 100);
 
@@ -186,7 +186,7 @@ export default function Hero() {
       {/* Headline Layer */}
       <div className="z-10 mb-16 flex flex-col items-center justify-center px-4 text-center">
         <h1 className="max-w-4xl text-7xl font-light tracking-tight text-white md:text-8xl lg:text-9xl">
-          Impossible is <br/> <span className="text-primary font-serif italic">nothing</span>
+          Impossible is <br /> <span className="text-primary font-serif italic">nothing</span>
         </h1>
       </div>
 

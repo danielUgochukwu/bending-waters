@@ -81,7 +81,7 @@ export default function ServicesSection() {
   return (
     <section
       ref={container}
-      className="w-full flex flex-col lg:flex-row min-h-[720px] bg- text-white"
+      className="w-full flex flex-col lg:flex-row min-h-180 bg- text-white"
     >
       {/* LEFT COLUMN */}
       <div className="relative w-full lg:w-[48%] bg-[#080808] flex flex-col justify-between px-6 py-12 sm:px-10 lg:px-14 lg:py-16 overflow-hidden">

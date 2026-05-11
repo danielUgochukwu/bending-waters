@@ -3,11 +3,11 @@ import ServicesSection from "@/components/landing/Service";
 import Storytelling from "@/components/landing/Storytelling";
 import Locations from "@/components/landing/Locations";
 import ClientResults from "@/components/landing/ClientResults";
-import Careers from "@/components/landing/Careers";
 import UnlockGrowth from "@/components/landing/UnlockGrowth";
 import Footer from "@/components/Footer";
 import SocialProof from "@/components/landing/Community";
 import Hero from "./_components/Hero";
+import CareersSection from "./_components/CareerSection";
 
 export default function Home() {
   return (
@@ -19,7 +19,7 @@ export default function Home() {
       <Storytelling />
       <ClientResults />
       <Locations />
-      <Careers />
+      <CareersSection />
       <UnlockGrowth />
       <Footer />
     </main>
