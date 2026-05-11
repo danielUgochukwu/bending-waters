@@ -112,24 +112,26 @@ export default function Hero() {
             const x = wrapX(linearX);
 
             // Calculate normalized distance from the center (-1 to 1 based on max screen range)
-            const maxDist = window.innerWidth / 1.5;
+            const maxDist = isMobile ? window.innerWidth : window.innerWidth / 1.5;
             const normalizedDist = gsap.utils.clamp(-1, 1, x / maxDist);
 
             // Rotate inward: Left side cards rotate right (+), Right side cards rotate left (-)
-            const rotateY = -normalizedDist * 45;
+            const rotateY = -normalizedDist * (isMobile ? 30 : 45);
 
             // Z positioning: Center is pushed back (farther), sides are pulled forward (closer)
-            const z = Math.abs(normalizedDist) * 450 - 200;
+            const baseZ = isMobile ? -100 : -200;
+            const pullZ = isMobile ? 200 : 450;
+            const z = Math.abs(normalizedDist) * pullZ + baseZ;
 
             // Scale: Slightly smaller in the center for depth emphasis
-            const scale = 0.9 + Math.abs(normalizedDist) * 0.15;
+            const scale = (isMobile ? 0.85 : 0.9) + Math.abs(normalizedDist) * 0.15;
 
             // Z-index: Sides must overlay center cards correctly
             const zIndex = Math.round(Math.abs(normalizedDist) * 100);
 
             // Center fade logic: "Cards farther away should be slightly darker"
             const darkness = 1 - Math.abs(normalizedDist);
-            const overlayOpacity = Math.max(0, darkness * 0.7); // Center gets ~70% dark overlay
+            const overlayOpacity = Math.max(0, darkness * (isMobile ? 0.5 : 0.7)); // Center gets dark overlay
 
             gsap.set(card, {
               xPercent: -50,
@@ -181,18 +183,18 @@ export default function Hero() {
   return (
     <section
       ref={rootRef}
-      className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-hidden bg-black pt-32 pb-16"
+      className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-hidden bg-black pt-20 pb-8 md:pt-32 md:pb-16"
     >
       {/* Headline Layer */}
-      <div className="z-10 mb-16 flex flex-col items-center justify-center px-4 text-center">
-        <h1 className="max-w-4xl text-7xl font-light tracking-tight text-white md:text-8xl lg:text-9xl">
-          Impossible is <br /> <span className="text-primary font-serif italic">nothing</span>
+      <div className="z-10 mb-8 md:mb-16 flex flex-col items-center justify-center px-4 text-center">
+        <h1 className="max-w-4xl text-[clamp(3.5rem,8vw,7rem)] font-light leading-[1.1] tracking-tight text-white md:text-8xl lg:text-9xl">
+          Impossible is <br className="hidden sm:block" /> <span className="text-primary font-serif italic">nothing</span>
         </h1>
       </div>
 
       {/* 3D Marquee Layer */}
       <div
-        className="relative mt-auto flex h-125 w-full items-center justify-center md:h-150"
+        className="relative mt-auto flex h-[400px] w-full items-center justify-center md:h-[600px]"
         style={{
           perspective: "1200px",
           contain: "layout paint size",
