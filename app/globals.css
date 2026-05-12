@@ -25,6 +25,9 @@
   --font-sans: var(--font-jost);
   --font-mono: var(--font-monda);
   --font-bierika: var(--font-bierika-custom);
+  --font-serif: "Playfair Display", serif;
+  --font-sora: "Sora", sans-serif;
+
 
   --animate-infinite-scroll: infinite-scroll 40s linear infinite;
 

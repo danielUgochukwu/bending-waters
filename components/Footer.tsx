@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import {
   Facebook,
   Instagram,
@@ -12,236 +13,113 @@ import {
   Minus,
   ArrowUp,
 } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
 import { globalLocations } from "@/constants";
 
 /* ─────────────────────────────────────────────
-   Design tokens — matches SocialProof.tsx
-───────────────────────────────────────────── */
-const BW = {
-  bg: "#0A0907",
-  bgSurface: "#0F0D0A",
-  terracotta: "#C85C2A",
-  terracottaMid: "#E8A87C",
-  cream: "#F5EDE3",
-  creamMuted: "rgba(245,237,227,0.55)",
-  creamFaint: "rgba(245,237,227,0.18)",
-  border: "rgba(255,255,255,0.07)",
-  borderWarm: "rgba(200,92,42,0.18)",
-};
-
-/* ─────────────────────────────────────────────
-   BW Business Units — from the business model
+   Static data
 ───────────────────────────────────────────── */
 const BW_UNITS = [
-  { tag: "BW Media", desc: "Digital properties & content" },
-  { tag: "BW Labs", desc: "AI + Data intelligence" },
+  { tag: "BW Media",      desc: "Digital properties & content" },
+  { tag: "BW Labs",       desc: "AI + Data intelligence" },
   { tag: "BW Collective", desc: "Client-facing agency" },
-  { tag: "BW Ventures", desc: "Investment & incubation" },
-  { tag: "BW Academy", desc: "Community & education" },
+  { tag: "BW Ventures",   desc: "Investment & incubation" },
+  { tag: "BW Academy",    desc: "Community & education" },
 ];
 
 const COMPANY_LINKS = [
-  { name: "About", href: "/about" },
-  { name: "Solutions", href: "/solutions" },
-  { name: "Work", href: "/work" },
-  { name: "Recognition", href: "/recognition" },
+  { name: "About",           href: "/about" },
+  { name: "Solutions",       href: "/solutions" },
+  { name: "Work",            href: "/work" },
+  { name: "Recognition",     href: "/recognition" },
   { name: "News & Insights", href: "/news" },
-  { name: "Careers", href: "/careers" },
+  { name: "Careers",         href: "/careers" },
   { name: "AI & Technology", href: "/ai" },
-  { name: "Contact", href: "/contact" },
+  { name: "Contact",         href: "/contact" },
 ];
 
 const RESOURCE_LINKS = [
-  { name: "Product Scorecard", href: "/resources/product-scorecard" },
-  {
-    name: "Profit Margin Calculator",
-    href: "/resources/profit-margin-calculator",
-  },
-  { name: "Tax Calculator", href: "/resources/tax-calculator" },
-  { name: "Blog", href: "/blog" },
-  { name: "Webinars", href: "/resources/webinars" },
-  { name: "Partnerships", href: "/partnerships" },
-  { name: "Reviews", href: "/reviews" },
-  { name: "Legal", href: "/legal" },
+  { name: "Product Scorecard",        href: "/resources/product-scorecard" },
+  { name: "Profit Margin Calculator", href: "/resources/profit-margin-calculator" },
+  { name: "Tax Calculator",           href: "/resources/tax-calculator" },
+  { name: "Blog",                     href: "/blog" },
+  { name: "Webinars",                 href: "/resources/webinars" },
+  { name: "Partnerships",             href: "/partnerships" },
+  { name: "Reviews",                  href: "/reviews" },
+  { name: "Legal",                    href: "/legal" },
 ];
 
 const SOCIAL_LINKS = [
-  {
-    icon: Facebook,
-    href: "https://www.facebook.com/bendingwaters",
-    label: "Facebook",
-  },
-  {
-    icon: Instagram,
-    href: "https://www.instagram.com/bendingwaters/",
-    label: "Instagram",
-  },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  {
-    icon: Youtube,
-    href: "https://www.youtube.com/@bendingwaters",
-    label: "YouTube",
-  },
+  { icon: Facebook,  href: "https://www.facebook.com/bendingwaters",   label: "Facebook"  },
+  { icon: Instagram, href: "https://www.instagram.com/bendingwaters/", label: "Instagram" },
+  { icon: Twitter,   href: "#",                                         label: "Twitter"   },
+  { icon: Linkedin,  href: "#",                                         label: "LinkedIn"  },
+  { icon: Youtube,   href: "https://www.youtube.com/@bendingwaters",   label: "YouTube"   },
 ];
 
-/* ─────────────────────────────────────────────
-   Partner chip component
-───────────────────────────────────────────── */
-function PartnerChip({ name, sub }: { name: string; sub: string }) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "4px",
-        padding: "0.6rem 1.2rem",
-        border: `0.5px solid ${BW.border}`,
-        minWidth: "100px",
-      }}
-    >
-      <span
-        style={{
-          fontFamily: "'Sora', sans-serif",
-          fontSize: "0.85rem",
-          fontWeight: 600,
-          color: BW.cream,
-          letterSpacing: "0.02em",
-        }}
-      >
-        {name}
-      </span>
-      <span
-        style={{
-          fontFamily: "'Sora', sans-serif",
-          fontSize: "0.6rem",
-          fontWeight: 300,
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          color: BW.creamMuted,
-        }}
-      >
-        {sub}
-      </span>
-    </div>
-  );
-}
+const PARTNER_CHIPS = [
+  { name: "Google",        sub: "Premier Partner"  },
+  { name: "Meta",          sub: "Business Partner" },
+  { name: "Microsoft Ads", sub: "Select Partner"   },
+  { name: "Amazon Ads",    sub: "Verified Partner" },
+  { name: "NMSDC",         sub: "Certified"        },
+];
+
+const LEGAL_LINKS = ["Privacy Policy", "Terms of Use", "Cookie Policy"];
 
 /* ─────────────────────────────────────────────
-   Accordion region for Africa locations
+   Region accordion
 ───────────────────────────────────────────── */
 function RegionAccordion({ region }: { region: any }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div
-      style={{
-        borderBottom: `0.5px solid ${BW.border}`,
-        paddingBottom: "0.5rem",
-        marginBottom: "0.25rem",
-      }}
-    >
+    <div className="border-b border-white/[0.07] pb-2 mb-1">
       <button
         onClick={() => setOpen((o) => !o)}
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          padding: "0.4rem 0",
-          color: open ? BW.cream : BW.creamMuted,
-          transition: "color 0.2s",
-        }}
         aria-expanded={open}
+        className="w-full flex justify-between items-center py-1.5 cursor-pointer bg-transparent border-none text-left"
       >
         <span
-          style={{
-            fontFamily: "'Sora', sans-serif",
-            fontSize: "0.78rem",
-            fontWeight: open ? 600 : 400,
-            transition: "font-weight 0.2s",
-          }}
+          className={`text-[0.78rem] transition-all duration-200 ${
+            open
+              ? "font-semibold text-np-grey"
+              : "font-normal text-np-grey/55"
+          }`}
         >
           {region.region}
         </span>
         {open ? (
-          <Minus style={{ width: 13, height: 13, color: BW.terracotta }} />
+          <Minus className="w-3 h-3 shrink-0 text-primary" />
         ) : (
-          <Plus style={{ width: 13, height: 13, color: BW.creamFaint }} />
+          <Plus className="w-3 h-3 shrink-0 text-np-grey/18" />
         )}
       </button>
 
       <div
-        style={{
-          maxHeight: open ? "400px" : "0",
-          overflow: "hidden",
-          transition: "max-height 0.35s ease",
-          opacity: open ? 1 : 0,
-        }}
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
       >
-        <div
-          style={{
-            paddingLeft: "0.75rem",
-            paddingBottom: "0.5rem",
-            marginTop: "0.25rem",
-          }}
-        >
+        <div className="pl-3 pb-2 mt-1 space-y-1.5">
           {region.countries.map((country: any, idx: number) => (
-            <div key={idx} style={{ marginBottom: "0.35rem" }}>
+            <div key={idx}>
               <Link
                 href={country.link}
-                style={{
-                  display: "block",
-                  fontFamily: "'Sora', sans-serif",
-                  fontSize: "0.75rem",
-                  fontWeight: 400,
-                  color: BW.creamMuted,
-                  textDecoration: "none",
-                  transition: "color 0.2s",
-                  paddingLeft: country.name === "Nigeria" ? "0.5rem" : "0",
-                  borderLeft:
-                    country.name === "Nigeria"
-                      ? `2px solid ${BW.terracotta}`
-                      : "none",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color = BW.cream;
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color =
-                    BW.creamMuted;
-                }}
+                className={`block text-[0.75rem] font-normal no-underline transition-colors duration-200 text-np-grey/55 hover:text-np-grey ${
+                  country.name === "Nigeria"
+                    ? "pl-2 border-l-2 border-primary"
+                    : ""
+                }`}
               >
                 {country.name}
               </Link>
               {country.subItems && (
-                <div style={{ paddingLeft: "0.75rem", marginTop: "0.2rem" }}>
+                <div className="pl-3 mt-1 space-y-0.5">
                   {country.subItems.map((sub: any, si: number) => (
                     <Link
                       key={si}
                       href={sub.link}
-                      style={{
-                        display: "block",
-                        fontFamily: "'Sora', sans-serif",
-                        fontSize: "0.68rem",
-                        color: "rgba(245,237,227,0.3)",
-                        textDecoration: "none",
-                        lineHeight: 1.8,
-                        transition: "color 0.2s",
-                      }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLAnchorElement).style.color =
-                          BW.terracotta;
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLAnchorElement).style.color =
-                          "rgba(245,237,227,0.3)";
-                      }}
+                      className="block text-[0.68rem] leading-[1.8] text-np-grey/30 no-underline transition-colors duration-200 hover:text-primary"
                     >
                       {sub.name}
                     </Link>
@@ -257,476 +135,182 @@ function RegionAccordion({ region }: { region: any }) {
 }
 
 /* ─────────────────────────────────────────────
-   Nav link helper
-───────────────────────────────────────────── */
-function FooterLink({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <li>
-      <Link
-        href={href}
-        style={{
-          fontFamily: "'Sora', sans-serif",
-          fontSize: "0.78rem",
-          fontWeight: 300,
-          color: BW.creamMuted,
-          textDecoration: "none",
-          lineHeight: "2",
-          display: "inline-block",
-          transition: "color 0.2s",
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.color = BW.terracottaMid;
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.color = BW.creamMuted;
-        }}
-      >
-        {children}
-      </Link>
-    </li>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   Column heading
-───────────────────────────────────────────── */
-function ColHead({ children }: { children: React.ReactNode }) {
-  return (
-    <h3
-      style={{
-        fontFamily: "'Sora', sans-serif",
-        fontSize: "0.6rem",
-        fontWeight: 600,
-        letterSpacing: "0.18em",
-        textTransform: "uppercase",
-        color: BW.terracotta,
-        marginBottom: "1.25rem",
-        display: "flex",
-        alignItems: "center",
-        gap: "8px",
-      }}
-    >
-      <span
-        style={{
-          display: "inline-block",
-          width: "16px",
-          height: "1px",
-          background: BW.terracotta,
-          opacity: 0.6,
-          flexShrink: 0,
-        }}
-      />
-      {children}
-    </h3>
-  );
-}
-
-/* ─────────────────────────────────────────────
    Main Footer
 ───────────────────────────────────────────── */
 const Footer = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [fabVisible, setFabVisible] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setFabVisible(window.scrollY > 400);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setFabVisible(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <>
-      {/* Google Fonts — same as SocialProof */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Sora:wght@300;400;600&display=swap');
-      `}</style>
+      <footer className="relative bg-dark text-np-grey overflow-hidden">
 
-      <footer
-        style={{
-          background: BW.bg,
-          color: BW.cream,
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        {/* Grain overlay */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")`,
-            pointerEvents: "none",
-            zIndex: 1,
-            opacity: 0.5,
-          }}
-        />
+        {/* Ambient bottom-left terracotta glow */}
+        <div className="absolute -bottom-24 -left-20 w-[350px] h-[350px]  rounded-full bg-[radial-gradient(circle,rgba(200,92,42,0.08)_0%,transparent_70%)] pointer-events-none z-0" />
 
-        {/* Ambient bottom-left glow */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "-100px",
-            left: "-80px",
-            width: "400px",
-            height: "400px",
-            borderRadius: "50%",
-            background: `radial-gradient(circle, rgba(200,92,42,0.08) 0%, transparent 70%)`,
-            pointerEvents: "none",
-            zIndex: 1,
-          }}
-        />
+        <div className="relative z-10">
 
-        {/* ── Top border with terracotta accent ── */}
-        <div style={{ position: "relative", zIndex: 2 }}>
-          <div
-            style={{
-              height: "1px",
-              background: BW.border,
-              position: "relative",
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                left: 0,
-                top: 0,
-                width: "80px",
-                height: "2px",
-                background: BW.terracotta,
-              }}
-            />
+          {/* ── Top accent border ── */}
+          <div className="relative h-px bg-white/[0.07]">
+            <div className="absolute left-0 top-0 w-20 h-[2px] bg-primary" />
           </div>
-        </div>
 
-        {/* ── Editorial marquee headline ── */}
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-            borderBottom: `0.5px solid ${BW.border}`,
-            padding: "3rem 0 2.5rem",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              maxWidth: "1200px",
-              margin: "0 auto",
-              padding: "0 2.5rem",
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "space-between",
-              gap: "2rem",
-              flexWrap: "wrap",
-            }}
-          >
-            {/* Logo + tagline */}
-            <div>
-              <Link href="/" style={{ display: "block", marginBottom: "1rem" }}>
-                <div
-                  style={{
-                    position: "relative",
-                    width: "160px",
-                    height: "42px",
-                  }}
-                >
-                  <Image
-                    src="/images/logo.png"
-                    alt="Bending Waters"
-                    fill
-                    style={{ objectFit: "contain", objectPosition: "left" }}
-                  />
-                </div>
-              </Link>
-              <p
-                style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontStyle: "italic",
-                  fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
-                  fontWeight: 700,
-                  color: "rgba(245,237,227,0.35)",
-                  lineHeight: 1.2,
-                  maxWidth: "440px",
-                }}
-              >
-                Bending what's possible, without breaking what matters.
-              </p>
-            </div>
+          {/* ── Top bar: logo + tagline + unit pills ── */}
+          <div className="border-b border-white/[0.07]">
+            <div className="mx-auto px-12 md:px-16 py-12 flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
 
-            {/* Business units — pill tags */}
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "0.5rem",
-                maxWidth: "380px",
-              }}
-            >
-              {BW_UNITS.map((unit) => (
-                <div
-                  key={unit.tag}
-                  style={{
-                    padding: "0.35rem 0.85rem",
-                    border: `0.5px solid ${BW.borderWarm}`,
-                    borderRadius: "1px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "2px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "'Sora', sans-serif",
-                      fontSize: "0.65rem",
-                      fontWeight: 600,
-                      color: BW.terracottaMid,
-                      letterSpacing: "0.05em",
-                    }}
+              {/* Logo + tagline */}
+              <div>
+                <Link href="/" className="block mb-4">
+                  <div className="relative w-40 h-[42px]">
+                    <Image
+                      src="/images/logo.png"
+                      alt="Bending Waters"
+                      fill
+                      className="object-contain object-left"
+                    />
+                  </div>
+                </Link>
+                <p className="font-serif italic font-bold text-[clamp(1.1rem,2vw,1.5rem)] text-np-grey/35 leading-snug max-w-[440px]">
+                  Bending what's possible,<br />without breaking what matters.
+                </p>
+              </div>
+
+              {/* BW unit pills */}
+              <div className="flex flex-wrap gap-2 max-w-[380px]">
+                {BW_UNITS.map((unit) => (
+                  <div
+                    key={unit.tag}
+                    className="flex flex-col gap-[2px] px-3.5 py-1.5 border-[0.5px] border-primary/18 rounded-[1px]"
                   >
-                    {unit.tag}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "'Sora', sans-serif",
-                      fontSize: "0.58rem",
-                      fontWeight: 300,
-                      color: BW.creamMuted,
-                    }}
-                  >
-                    {unit.desc}
-                  </span>
-                </div>
-              ))}
+                    <span className="text-[0.65rem] font-semibold tracking-[0.05em] text-primary">
+                      {unit.tag}
+                    </span>
+                    <span className="text-[0.58rem] font-light text-np-grey/55">
+                      {unit.desc}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* ── Main columns ── */}
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-            maxWidth: "1200px",
-            margin: "0 auto",
-            padding: "3rem 2.5rem 2.5rem",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))",
-            gap: "2.5rem",
-          }}
-        >
-          {/* Col 1: Contact */}
-          <div>
-            <ColHead>Contact</ColHead>
-            <address
-              style={{
-                fontStyle: "normal",
-                fontFamily: "'Sora', sans-serif",
-                fontSize: "0.75rem",
-                fontWeight: 300,
-                color: BW.creamMuted,
-                lineHeight: 1.9,
-              }}
-            >
-              <p>House Suite 100, Rear</p>
-              <p>Car Park Wing, 8 Opebi Rd</p>
-              <p>Adebola, Ikeja 100281, Lagos</p>
-              <a
-                href="mailto:outreach@bendingwaters.africa"
-                style={{
-                  display: "block",
-                  marginTop: "0.75rem",
-                  color: BW.terracottaMid,
-                  textDecoration: "none",
-                  transition: "color 0.2s",
-                  fontWeight: 400,
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color = BW.cream;
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color =
-                    BW.terracottaMid;
-                }}
-              >
-                outreach@bendingwaters.africa
-              </a>
-            </address>
-          </div>
+          {/* ── Main columns ── */}
+          <div className=" mx-auto px-12 md:px-16 py-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10">
 
-          {/* Col 2: Africa locations */}
-          <div>
-            <ColHead>Africa</ColHead>
+            {/* Col 1 — Contact */}
             <div>
+              <h3 className="flex items-center gap-2 mb-5 text-[0.6rem] font-semibold tracking-[0.18em] uppercase text-primary">
+                Contact
+              </h3>
+              <address className="not-italic text-[0.75rem] font-light leading-[1.9] text-np-grey/55">
+                <p>House Suite 100, Rear</p>
+                <p>Car Park Wing, 8 Opebi Rd</p>
+                <p>Adebola, Ikeja 100281, Lagos</p>
+                <Link
+                  href="mailto:outreach@bendingwaters.africa"
+                  className="block mt-3 font-normal no-underline text-primary transition-colors duration-200 hover:text-np-grey"
+                >
+                  outreach@bendingwaters.africa
+                </Link>
+              </address>
+            </div>
+
+            {/* Col 2 — Africa */}
+            <div>
+              <h3 className="flex items-center gap-2 mb-5 text-[0.6rem] font-semibold tracking-[0.18em] uppercase text-primary">
+                Africa
+              </h3>
               {globalLocations.map((region) => (
                 <RegionAccordion key={region.region} region={region} />
               ))}
             </div>
-          </div>
 
-          {/* Col 3: Company */}
-          <div>
-            <ColHead>Company</ColHead>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-              {COMPANY_LINKS.map((item) => (
-                <FooterLink key={item.name} href={item.href}>
-                  {item.name}
-                </FooterLink>
-              ))}
-            </ul>
-          </div>
+            {/* Col 3 — Company */}
+            <div>
+              <h3 className="flex items-center gap-2 mb-5 text-[0.6rem] font-semibold tracking-[0.18em] uppercase text-primary">
+                Company
+              </h3>
+              <ul className="list-none p-0 m-0">
+                {COMPANY_LINKS.map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="inline-block leading-loose text-[0.78rem] font-light text-np-grey/55 no-underline transition-colors duration-200 hover:text-primary"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Col 4: Resources */}
-          <div>
-            <ColHead>Resources</ColHead>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-              {RESOURCE_LINKS.map((item) => (
-                <FooterLink key={item.name} href={item.href}>
-                  {item.name}
-                </FooterLink>
-              ))}
-            </ul>
-          </div>
+            {/* Col 4 — Resources */}
+            <div>
+              <h3 className="flex items-center gap-2 mb-5 text-[0.6rem] font-semibold tracking-[0.18em] uppercase text-primary">
+                Resources
+              </h3>
+              <ul className="list-none p-0 m-0">
+                {RESOURCE_LINKS.map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="inline-block leading-loose text-[0.78rem] font-light text-np-grey/55 no-underline transition-colors duration-200 hover:text-primary"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Col 5: Social */}
-          <div>
-            <ColHead>Follow Us</ColHead>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.85rem",
-              }}
-            >
-              {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
-                <Link
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.65rem",
-                    color: BW.creamMuted,
-                    textDecoration: "none",
-                    transition: "color 0.2s",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = BW.terracottaMid;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = BW.creamMuted;
-                  }}
-                >
-                  <Icon style={{ width: 15, height: 15, flexShrink: 0 }} />
-                  <span
-                    style={{
-                      fontFamily: "'Sora', sans-serif",
-                      fontSize: "0.75rem",
-                      fontWeight: 300,
-                    }}
+            {/* Col 5 — Follow Us */}
+            <div>
+              <h3 className="flex items-center gap-2 mb-5 text-[0.6rem] font-semibold tracking-[0.18em] uppercase text-primary">
+                Follow Us
+              </h3>
+              <div className="flex flex-col gap-3.5">
+                {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
+                  <Link
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 no-underline text-np-grey/55 transition-colors duration-200 hover:text-primary"
                   >
-                    {label}
-                  </span>
-                </Link>
-              ))}
+                    <Icon className="w-[15px] h-[15px] shrink-0" />
+                    <span className="text-[0.75rem] font-light">{label}</span>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* ── Partner logos strip ── */}
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-            borderTop: `0.5px solid ${BW.border}`,
-            borderBottom: `0.5px solid ${BW.border}`,
-          }}
-        >
-          <div
-            style={{
-              maxWidth: "1200px",
-              margin: "0 auto",
-              padding: "1.75rem 2.5rem",
-              display: "flex",
-              alignItems: "center",
-              gap: "0",
-              flexWrap: "wrap",
-              opacity: 0.65,
-            }}
-          >
-            <PartnerChip name="Google" sub="Premier Partner" />
-            <PartnerChip name="Meta" sub="Business Partner" />
-            <PartnerChip name="Microsoft Ads" sub="Select Partner" />
-            <PartnerChip name="Amazon Ads" sub="Verified Partner" />
-            <PartnerChip name="NMSDC" sub="Certified" />
+          {/* ── Legal bar ── */}
+          <div className="max-w-[1200px] mx-auto px-6 md:px-10 py-5">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <p className="m-0 text-[0.65rem] font-light tracking-[0.04em] text-np-grey/25">
+                © {new Date().getFullYear()} Bending Waters. All rights reserved. — Raising zebras.
+              </p>
+              <div className="flex items-center gap-6">
+                {LEGAL_LINKS.map((label) => (
+                  <Link
+                    key={label}
+                    href="/legal"
+                    className="text-[0.63rem] font-light tracking-[0.04em] text-np-grey/25 no-underline transition-colors duration-200 hover:text-np-grey/55"
+                  >
+                    {label}
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* ── Legal base ── */}
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-            maxWidth: "1200px",
-            margin: "0 auto",
-            padding: "1.25rem 2.5rem",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "1rem",
-            flexWrap: "wrap",
-          }}
-        >
-          <p
-            style={{
-              fontFamily: "'Sora', sans-serif",
-              fontSize: "0.65rem",
-              fontWeight: 300,
-              color: "rgba(245,237,227,0.25)",
-              letterSpacing: "0.04em",
-              margin: 0,
-            }}
-          >
-            © {new Date().getFullYear()} Bending Waters. All rights reserved. —
-            Raising zebras.
-          </p>
-
-          <div style={{ display: "flex", gap: "1.5rem" }}>
-            {["Privacy Policy", "Terms of Use", "Cookie Policy"].map((t) => (
-              <Link
-                key={t}
-                href="/legal"
-                style={{
-                  fontFamily: "'Sora', sans-serif",
-                  fontSize: "0.63rem",
-                  fontWeight: 300,
-                  color: "rgba(245,237,227,0.25)",
-                  textDecoration: "none",
-                  letterSpacing: "0.04em",
-                  transition: "color 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color =
-                    BW.creamMuted;
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color =
-                    "rgba(245,237,227,0.25)";
-                }}
-              >
-                {t}
-              </Link>
-            ))}
-          </div>
         </div>
       </footer>
 
@@ -734,33 +318,13 @@ const Footer = () => {
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Scroll to top"
-        style={{
-          position: "fixed",
-          bottom: "2rem",
-          right: "2rem",
-          zIndex: 50,
-          width: "42px",
-          height: "42px",
-          background: BW.terracotta,
-          border: "none",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          opacity: fabVisible ? 1 : 0,
-          transform: fabVisible ? "translateY(0)" : "translateY(12px)",
-          transition: "opacity 0.3s ease, transform 0.3s ease, background 0.2s",
-          pointerEvents: fabVisible ? "auto" : "none",
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.background = "#A8481E";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.background =
-            BW.terracotta;
-        }}
+        className={`fixed bottom-8 right-8 z-50 w-[42px] h-[42px] bg-primary flex items-center justify-center border-none cursor-pointer transition-all duration-300 ease-in-out hover:bg-secondary ${
+          fabVisible
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 translate-y-3 pointer-events-none"
+        }`}
       >
-        <ArrowUp style={{ width: 18, height: 18, color: "#fff" }} />
+        <ArrowUp className="w-[18px] h-[18px] text-white" />
       </button>
     </>
   );
