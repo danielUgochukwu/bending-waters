@@ -2,22 +2,23 @@
 
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { CARD_DATA, ProductCardData } from "../_contstants";
+
+const VIDEOS = [
+  "/videos/helping-builders.mp4",
+  "/videos/helping-builders-2.mp4",
+  "/videos/helping-builders-3.mp4",
+  "/videos/helping-builders-4.mp4",
+];
 
 function ProductCard({
-  data,
+  videoUrl,
   index,
   setRef,
 }: {
-  data: ProductCardData;
+  videoUrl: string;
   index: number;
   setRef: (el: HTMLDivElement | null) => void;
 }) {
-  const Icon = data.icon;
-  // Map to one of the 4 generated images
-  const imageNum = (index % 4) + 1;
-  const imageUrl = `/agency-images/${imageNum}.png`;
-
   return (
     <div
       ref={setRef}
@@ -35,24 +36,14 @@ function ProductCard({
       }}
     >
       <div className="absolute inset-0 z-0">
-        <img
-          src={imageUrl}
-          alt={data.name}
+        <video
+          src={videoUrl}
+          autoPlay
+          loop
+          muted
+          playsInline
           className="h-full w-full object-cover transition-transform duration-700 hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/20" />
-      </div>
-
-      <div className="relative z-10 flex flex-1 flex-col justify-end p-6 text-white">
-        <div className="flex items-center gap-3">
-          <div className="rounded-xl bg-white/10 p-2 backdrop-blur-md">
-            <Icon size={24} className="text-[#a3ff90]" />
-          </div>
-          <div>
-            <h3 className="text-lg font-bold leading-tight drop-shadow-md">{data.name}</h3>
-            <p className="text-xs font-medium opacity-80 drop-shadow-md">{data.desc}</p>
-          </div>
-        </div>
       </div>
 
       <div className="shadow-overlay pointer-events-none absolute inset-0 z-20 bg-black opacity-0" />
@@ -66,8 +57,10 @@ export default function Hero() {
 
   // Duplicate cards to ensure a smooth, seamless infinite wrap across wide screens.
   const extendedCards = [
-    ...CARD_DATA,
-    ...CARD_DATA.map((c) => ({ ...c, id: c.id + "_copy" })),
+    ...VIDEOS,
+    ...VIDEOS,
+    ...VIDEOS,
+    ...VIDEOS,
   ];
 
   useLayoutEffect(() => {
@@ -209,10 +202,10 @@ export default function Hero() {
           className="relative h-full w-full"
           style={{ transformStyle: "preserve-3d" }}
         >
-          {extendedCards.map((card, index) => (
+          {extendedCards.map((videoUrl, index) => (
             <ProductCard
-              key={`${card.id}-${index}`}
-              data={card}
+              key={`${videoUrl}-${index}`}
+              videoUrl={videoUrl}
               index={index}
               setRef={(el) => {
                 cardsRef.current[index] = el;

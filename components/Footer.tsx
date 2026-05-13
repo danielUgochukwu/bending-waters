@@ -134,9 +134,7 @@ function RegionAccordion({ region }: { region: any }) {
   );
 }
 
-/* ─────────────────────────────────────────────
-   Main Footer
-───────────────────────────────────────────── */
+
 const Footer = () => {
   const [fabVisible, setFabVisible] = useState(false);
 
