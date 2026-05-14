@@ -1,7 +1,10 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP);
 
 const VIDEOS = [
   "/videos/helping-builders.mp4",
@@ -10,65 +13,54 @@ const VIDEOS = [
   "/videos/helping-builders-4.mp4",
 ];
 
-function ProductCard({
-  videoUrl,
-  index,
-  setRef,
-}: {
+type ProductCardProps = {
   videoUrl: string;
-  index: number;
   setRef: (el: HTMLDivElement | null) => void;
-}) {
+};
+
+function ProductCard({ videoUrl, setRef }: ProductCardProps) {
   return (
     <div
       ref={setRef}
       className={[
         "absolute left-1/2 top-1/2",
-        "h-[360px] w-[260px] md:h-[420px] md:w-[320px]",
-        "flex flex-col overflow-hidden rounded-3xl shadow-2xl",
+        "h-72 w-[260px] md:h-96 md:w-[320px]",
+        "overflow-hidden rounded-4xl",
+        "border border-white/10 bg-black",
+        "shadow-[0_30px_90px_rgba(0,0,0,0.75)]",
         "transform-gpu will-change-transform",
         "contain-layout contain-paint",
-        "border border-white/10 bg-black",
       ].join(" ")}
       style={{
         backfaceVisibility: "hidden",
         transformStyle: "preserve-3d",
       }}
     >
-      <div className="absolute inset-0 z-0">
-        <video
-          src={videoUrl}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="h-full w-full object-cover transition-transform duration-700 hover:scale-110"
-        />
-      </div>
-
-      <div className="shadow-overlay pointer-events-none absolute inset-0 z-20 bg-black opacity-0" />
+      <video
+        src={videoUrl}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        className="h-full w-full object-cover"
+      />
     </div>
   );
 }
 
 export default function Hero() {
-  const rootRef = useRef<HTMLDivElement | null>(null);
+  const rootRef = useRef<HTMLElement | null>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Duplicate cards to ensure a smooth, seamless infinite wrap across wide screens.
-  const extendedCards = [
-    ...VIDEOS,
-    ...VIDEOS,
-    ...VIDEOS,
-    ...VIDEOS,
-  ];
+  const extendedCards = useMemo(() => {
+    return [...VIDEOS, ...VIDEOS, ...VIDEOS, ...VIDEOS];
+  }, []);
 
-  useLayoutEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-
-    const ctx = gsap.context(() => {
+  useGSAP(
+    () => {
       const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
+
       if (!cards.length) return;
 
       const prefersReducedMotion = window.matchMedia(
@@ -76,137 +68,174 @@ export default function Hero() {
       ).matches;
 
       let progress = 0;
-      const speed = 0.00025; // Base horizontal movement speed
-      let currentUpdateFn: gsap.TickerCallback | null = null;
+      let ticker: gsap.TickerCallback | null = null;
+      let resizeTimer: ReturnType<typeof setTimeout>;
 
-      function setupMarquee() {
-        if (currentUpdateFn) {
-          gsap.ticker.remove(currentUpdateFn);
+      const setupMarquee = () => {
+        if (ticker) {
+          gsap.ticker.remove(ticker);
+          ticker = null;
         }
 
-        const isMobile = window.innerWidth < 768;
+        const viewportWidth = window.innerWidth;
+        const isMobile = viewportWidth < 768;
+
         const cardWidth = isMobile ? 260 : 320;
-        const gap = isMobile ? 10 : 24;
+        const gap = isMobile ? 12 : 28;
         const itemWidth = cardWidth + gap;
         const totalWidth = itemWidth * cards.length;
 
-        // Ensure the X position stays within a balanced negative/positive range
         const wrapX = gsap.utils.wrap(-totalWidth / 2, totalWidth / 2);
 
-        function updateMarquee() {
+        const updateMarquee: gsap.TickerCallback = () => {
           if (!prefersReducedMotion) {
-            progress -= speed;
-            if (progress < 0) progress += 1;
+            progress -= 0.00022 * gsap.ticker.deltaRatio(60);
+
+            if (progress < 0) {
+              progress += 1;
+            }
           }
 
-          cards.forEach((card, i) => {
-            let linearX = i * itemWidth + progress * totalWidth;
-            linearX = linearX - totalWidth / 2;
-            const x = wrapX(linearX);
+          cards.forEach((card, index) => {
+            const rawX = index * itemWidth + progress * totalWidth;
+            const centeredX = rawX - totalWidth / 2;
+            const x = wrapX(centeredX);
 
-            // Calculate normalized distance from the center (-1 to 1 based on max screen range)
-            const maxDist = isMobile ? window.innerWidth : window.innerWidth / 1.5;
-            const normalizedDist = gsap.utils.clamp(-1, 1, x / maxDist);
+            const maxDistance = isMobile
+              ? viewportWidth * 0.85
+              : viewportWidth * 0.65;
 
-            // Rotate inward: Left side cards rotate right (+), Right side cards rotate left (-)
-            const rotateY = -normalizedDist * (isMobile ? 30 : 45);
+            const normalizedDistance = gsap.utils.clamp(-1, 1, x / maxDistance);
 
-            // Z positioning: Center is pushed back (farther), sides are pulled forward (closer)
-            const baseZ = isMobile ? -100 : -200;
-            const pullZ = isMobile ? 200 : 450;
-            const z = Math.abs(normalizedDist) * pullZ + baseZ;
+            const distanceFromCenter = Math.abs(normalizedDistance);
 
-            // Scale: Slightly smaller in the center for depth emphasis
-            const scale = (isMobile ? 0.85 : 0.9) + Math.abs(normalizedDist) * 0.15;
+            const rotateY = -normalizedDistance * (isMobile ? 30 : 48);
 
-            // Z-index: Sides must overlay center cards correctly
-            const zIndex = Math.round(Math.abs(normalizedDist) * 100);
+            const z = gsap.utils.interpolate(
+              isMobile ? -120 : -260,
+              isMobile ? 180 : 420,
+              distanceFromCenter
+            );
 
-            // Center fade logic: "Cards farther away should be slightly darker"
-            const darkness = 1 - Math.abs(normalizedDist);
-            const overlayOpacity = Math.max(0, darkness * (isMobile ? 0.5 : 0.7)); // Center gets dark overlay
+            const scale = gsap.utils.interpolate(
+              isMobile ? 0.84 : 0.88,
+              isMobile ? 1 : 1.08,
+              distanceFromCenter
+            );
+
+            const opacity = gsap.utils.interpolate(0.82, 1, distanceFromCenter);
+
+            const overlayOpacity = gsap.utils.interpolate(
+              isMobile ? 0.56 : 0.68,
+              0.08,
+              distanceFromCenter
+            );
+
+            const zIndex = Math.round(distanceFromCenter * 100);
 
             gsap.set(card, {
               xPercent: -50,
               yPercent: -50,
-              x: x,
-              rotateY: rotateY,
-              z: z,
-              scale: scale,
-              zIndex: zIndex,
+              x,
+              z,
+              rotateY,
+              scale,
+              opacity,
+              zIndex,
               transformOrigin: "50% 50%",
             });
 
             const overlay = card.querySelector(".shadow-overlay");
+
             if (overlay) {
-              gsap.set(overlay, { opacity: overlayOpacity });
+              gsap.set(overlay, {
+                opacity: overlayOpacity,
+              });
             }
           });
-        }
+        };
+
 
         if (!prefersReducedMotion) {
           gsap.ticker.add(updateMarquee);
-        } else {
-          updateMarquee();
+          ticker = updateMarquee;
         }
+      };
 
-        currentUpdateFn = updateMarquee;
-      }
-
-      setupMarquee();
-
-      let resizeTimer: NodeJS.Timeout;
       const onResize = () => {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(setupMarquee, 150);
+
+        resizeTimer = setTimeout(() => {
+          setupMarquee();
+        }, 150);
       };
+
+      setupMarquee();
 
       window.addEventListener("resize", onResize);
 
       return () => {
         window.removeEventListener("resize", onResize);
         clearTimeout(resizeTimer);
-        if (currentUpdateFn) gsap.ticker.remove(currentUpdateFn);
-      };
-    }, root);
 
-    return () => ctx.revert();
-  }, [extendedCards.length]);
+        if (ticker) {
+          gsap.ticker.remove(ticker);
+        }
+      };
+    },
+    {
+      scope: rootRef,
+      dependencies: [extendedCards.length],
+    }
+  );
 
   return (
     <section
       ref={rootRef}
-      className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-hidden bg-black pt-20 pb-8 md:pt-32 md:pb-16"
+      className="relative flex min-h-screen w-full flex-col items-center overflow-hidden bg-black px-4 pt-20 pb-10 text-white md:pt-28 md:pb-16"
     >
-      {/* Headline Layer */}
-      <div className="z-10 mb-8 md:mb-16 flex flex-col items-center justify-center px-4 text-center">
-        <h1 className="max-w-4xl text-[clamp(3.5rem,8vw,7rem)] font-light leading-[1.1] tracking-tight text-white md:text-8xl lg:text-9xl">
-          Impossible is <br className="hidden sm:block" /> <span className="text-primary font-serif italic">nothing</span>
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-130 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.16),transparent_58%)]" />
+
+      {/* <div className="pointer-events-none absolute inset-0 opacity-[0.08] bg-[linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] bg-size-[80px_80px]" /> */}
+
+      <div className="relative z-10 flex max-w-5xl flex-col items-center text-center">
+        <p className="mb-5 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-[0.28em] text-white/60 backdrop-blur">
+          We build for growth
+        </p>
+
+        <h1 className="text-9xl text-white">
+          Impossible is
+          <br />
+          <span className="font-serif italic tracking-[-0.04em] text-primary">
+            nothing
+          </span>
         </h1>
+
+       
       </div>
 
-      {/* 3D Marquee Layer */}
       <div
-        className="relative mt-auto flex h-[400px] w-full items-center justify-center md:h-[600px]"
+        className="relative z-0 mt-8 flex h-[430px] w-full items-center justify-center sm:h-[500px] md:mt-4 md:h-[620px]"
         style={{
           perspective: "1200px",
           contain: "layout paint size",
           maskImage:
-            "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+            "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
           WebkitMaskImage:
-            "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+            "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
         }}
         aria-hidden="true"
       >
         <div
           className="relative h-full w-full"
-          style={{ transformStyle: "preserve-3d" }}
+          style={{
+            transformStyle: "preserve-3d",
+          }}
         >
           {extendedCards.map((videoUrl, index) => (
             <ProductCard
               key={`${videoUrl}-${index}`}
               videoUrl={videoUrl}
-              index={index}
               setRef={(el) => {
                 cardsRef.current[index] = el;
               }}
@@ -214,6 +243,8 @@ export default function Hero() {
           ))}
         </div>
       </div>
+
+      {/* <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black via-black/80 to-transparent" /> */}
     </section>
   );
 }
