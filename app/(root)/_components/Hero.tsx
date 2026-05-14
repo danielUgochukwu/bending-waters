@@ -4,8 +4,6 @@ import { useMemo, useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(useGSAP);
-
 const VIDEOS = [
   "/videos/helping-builders.mp4",
   "/videos/helping-builders-2.mp4",
@@ -24,7 +22,7 @@ function ProductCard({ videoUrl, setRef }: ProductCardProps) {
       ref={setRef}
       className={[
         "absolute left-1/2 top-1/2",
-        "h-72 w-[260px] md:h-96 md:w-[320px]",
+        "h-72 w-65 md:h-96 md:w-[320px]",
         "overflow-hidden rounded-4xl",
         "border border-white/10 bg-black",
         "shadow-[0_30px_90px_rgba(0,0,0,0.75)]",
@@ -43,7 +41,7 @@ function ProductCard({ videoUrl, setRef }: ProductCardProps) {
         muted
         playsInline
         preload="metadata"
-        className="h-full w-full object-cover"
+        className="h-full w-full object-cover pointer-events-none"
       />
     </div>
   );
@@ -199,19 +197,17 @@ export default function Hero() {
       {/* <div className="pointer-events-none absolute inset-0 opacity-[0.08] bg-[linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] bg-size-[80px_80px]" /> */}
 
       <div className="relative z-10 flex max-w-5xl flex-col items-center text-center">
-        <p className="mb-5 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-[0.28em] text-white/60 backdrop-blur">
+        <p className="mb-5 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/60 backdrop-blur">
           We build for growth
         </p>
 
-        <h1 className="text-9xl text-white">
+        <h1 className="text-[clamp(2.5rem,7vw,6rem)] leading-9 md:leading-14 tracking-tight text-white">
           Impossible is
           <br />
           <span className="font-serif italic tracking-[-0.04em] text-primary">
             nothing
           </span>
         </h1>
-
-       
       </div>
 
       <div
