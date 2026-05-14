@@ -1,134 +1,79 @@
-'use client'
+"use client";
 
-import React, { useTransition, useState } from 'react'
-import { Sparkles, Send } from 'lucide-react'
-import { submitContactForm } from '@/app/actions/contact'
-import PageHeader from '@/components/PageHeader'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import Button from '@/components/Button'
-import Link from 'next/link'
+// File: app/contact/page.tsx
+
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ContactHero from "./_components/ContactHero";
+import ContactForm from "./_components/ContactForm";
 
 export default function ContactPage() {
-    const [isPending, startTransition] = useTransition()
-    const [status, setStatus] = useState<{ success?: boolean; message?: string } | null>(null)
+  return (
+    <div className="min-h-screen flex flex-col bg-[#FAFAF8]">
+      <Header />
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        const formData = new FormData(event.currentTarget)
-
-        startTransition(async () => {
-            const result = await submitContactForm(formData)
-            setStatus(result)
-            if (result.success) {
-                (event.target as HTMLFormElement).reset()
-            }
-        })
-    }
-
-    return (
-        <div className="min-h-screen flex flex-col">
-            <Header />
-
-            <PageHeader title="Contact" />
-
-            <main className="flex-1 w-full bg-[#fcfcfc] text-[#1a1a1a] flex items-center justify-center px-8 py-24">
-                <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start not-sm:mt-8">
-
-                    {/* Left Column: Text Content */}
-                    <div className="space-y-6 sticky top-24">
-                        <div className="flex items-center gap-2 text-sm font-medium tracking-wide text-gray-700 uppercase">
-                            <Sparkles className="w-4 h-4 text-np-orange" />
-                            <span>Get In Touch</span>
-                        </div>
-
-                        <h1 className="text-2xl md:text-4xl font-bold leading-tight">
-                            Success is a team effort <br />
-                            <span className="text-np-orange">let&apos;s achieve it together</span>
-                        </h1>
-
-                        <div>
-                            <Link href="mailto:outreach@bendingwaters.africa" className="text-md md:text-lg font-medium text-gray-700">outreach@bendingwaters.africa</Link>
-                        </div>
-                    </div>
-
-                    {/* Right Column: Form */}
-                    <div className="relative max-sm:mt-16">
-                        <form onSubmit={handleSubmit} className="space-y-8">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
-                                    <label htmlFor="fullName" className="text-sm text-gray-700 block">Your full name</label>
-                                    <input
-                                        type="text"
-                                        id="fullName"
-                                        name="fullName"
-                                        required
-                                        className="w-full bg-transparent py-2 outline-none text-lg text-gray-900 placeholder-gray-300"
-                                    />
-                                </div>
-
-                                <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
-                                    <label htmlFor="email" className="text-sm text-gray-700 block">Email</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        required
-                                        className="w-full bg-transparent py-2 outline-none text-lg text-gray-900 placeholder-gray-300"
-                                    />
-                                </div>
-
-                            </div>
-
-                            <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
-                                <label htmlFor="email" className="text-sm text-gray-700 block">Business Name</label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    required
-                                    className="w-full bg-transparent py-2 outline-none text-lg text-gray-900 placeholder-gray-300"
-                                />
-                            </div>
-
-                            <div className="space-y-2 border-b border-gray-300 focus-within:border-np-orange transition-colors">
-                                <label htmlFor="message" className="text-sm text-gray-700 block">How can we help you?</label>
-                                <textarea
-                                    id="message"
-                                    name="message"
-                                    required
-                                    rows={1}
-                                    className="w-full bg-transparent py-2 outline-none text-lg text-gray-900 placeholder-gray-300 resize-none min-h-[40px]"
-                                />
-                            </div>
-
-                            <div className="pt-4">
-                                <Button
-                                    type="submit"
-                                    disabled={isPending}
-                                    variant="primary"
-                                    size="sm"
-                                    className="rounded-full px-8 py-4 w-auto flex items-center gap-2"
-                                >
-                                    {isPending ? 'Sending...' : (
-                                        <>
-                                            Send <Send className="w-4 h-4 ml-2" />
-                                        </>
-                                    )}
-                                </Button>
-                                {status && (
-                                    <p className={`mt-4 text-sm ${status.success ? 'text-green-600' : 'text-red-500'}`}>
-                                        {status.message}
-                                    </p>
-                                )}
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </main>
-
-            <Footer />
+      {/* ── Page banner ───────────────────────────────────────────── */}
+      <section className="w-full border-b border-gray-100 bg-[#FAFAF8]">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-8 flex items-end justify-between gap-4">
+          <div className="flex items-center gap-3">
+            {/* Breadcrumb */}
+            <span className="text-xs font-medium text-gray-800 tracking-widest uppercase">
+              BendingWaters
+            </span>
+            <span className="text-gray-200">—</span>
+            <span className="text-xs font-medium text-[#0F0F0F] tracking-widest uppercase">
+              Contact
+            </span>
+          </div>
+          {/* Animated zebra stripe bar */}
+          <div className="hidden sm:flex items-center gap-0.5">
+            {[...Array(12)].map((_, i) => (
+              <div
+                key={i}
+                style={{ animationDelay: `${i * 80}ms` }}
+                className={`h-4 w-[3px] rounded-full animate-pulse ${
+                  i % 2 === 0 ? "bg-[#0F0F0F]" : "bg-primary"
+                }`}
+              />
+            ))}
+          </div>
         </div>
-    )
+      </section>
+
+      {/* ── Main content ──────────────────────────────────────────── */}
+      <main className="flex-1 w-full">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 lg:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24 items-start">
+            {/* Left: Hero / info */}
+            <ContactHero />
+
+            {/* Right: Form */}
+            <div className="bg-white rounded-2xl border border-gray-100 p-8 md:p-12 shadow-sm">
+              {/* Form header */}
+              <div className="mb-10 pb-8 border-b border-gray-100 flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold tracking-[0.2em] text-primary uppercase mb-2">
+                    New inquiry
+                  </p>
+                  <h2 className="text-xl font-bold text-[#0F0F0F]">
+                    Start a conversation
+                  </h2>
+                </div>
+                {/* Step indicator */}
+                <div className="flex items-center gap-1.5 mt-1 shrink-0">
+                  <div className="w-6 h-1.5 rounded-full bg-primary" />
+                  <div className="w-3 h-1.5 rounded-full bg-gray-200" />
+                  <div className="w-3 h-1.5 rounded-full bg-gray-500" />
+                </div>
+              </div>
+
+              <ContactForm />
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
 }

@@ -215,7 +215,7 @@ export default function Hero() {
       </div>
 
       <div
-        className="relative z-0 mt-8 flex h-[430px] w-full items-center justify-center sm:h-[500px] md:mt-4 md:h-[620px]"
+        className="relative z-0 mt-8 flex h-107.5 w-full items-center justify-center sm:h-125 md:mt-4 md:h-155"
         style={{
           perspective: "1200px",
           contain: "layout paint size",
