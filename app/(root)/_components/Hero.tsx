@@ -36,11 +36,10 @@ function ProductCard({ videoUrl, setRef }: ProductCardProps) {
     >
       <video
         src={videoUrl}
-        autoPlay
         loop
         muted
         playsInline
-        preload="metadata"
+        preload="metadata" // autoPlay removed to prevent network jam
         className="h-full w-full object-cover pointer-events-none"
       />
     </div>
@@ -81,6 +80,7 @@ export default function Hero() {
         const cardWidth = isMobile ? 260 : 320;
         const gap = isMobile ? 12 : 28;
         const itemWidth = cardWidth + gap;
+
         const totalWidth = itemWidth * cards.length;
 
         const wrapX = gsap.utils.wrap(-totalWidth / 2, totalWidth / 2);
@@ -88,7 +88,6 @@ export default function Hero() {
         const updateMarquee: gsap.TickerCallback = () => {
           if (!prefersReducedMotion) {
             progress -= 0.00022 * gsap.ticker.deltaRatio(60);
-
             if (progress < 0) {
               progress += 1;
             }
@@ -106,6 +105,18 @@ export default function Hero() {
             const normalizedDistance = gsap.utils.clamp(-1, 1, x / maxDistance);
 
             const distanceFromCenter = Math.abs(normalizedDistance);
+
+            // --- DYNAMIC PLAY/PAUSE LOGIC ---
+            const video = card.querySelector("video");
+            if (video) {
+              // Threshold 0.25 targets the cards closest to the center
+              if (distanceFromCenter < 0.25) {
+                if (video.paused) video.play().catch(() => {});
+              } else {
+                if (!video.paused) video.pause();
+              }
+            }
+            // --------------------------------
 
             const rotateY = -normalizedDistance * (isMobile ? 30 : 48);
 
@@ -153,7 +164,6 @@ export default function Hero() {
           });
         };
 
-
         if (!prefersReducedMotion) {
           gsap.ticker.add(updateMarquee);
           ticker = updateMarquee;
@@ -162,7 +172,6 @@ export default function Hero() {
 
       const onResize = () => {
         clearTimeout(resizeTimer);
-
         resizeTimer = setTimeout(() => {
           setupMarquee();
         }, 150);
@@ -175,7 +184,6 @@ export default function Hero() {
       return () => {
         window.removeEventListener("resize", onResize);
         clearTimeout(resizeTimer);
-
         if (ticker) {
           gsap.ticker.remove(ticker);
         }
@@ -193,8 +201,6 @@ export default function Hero() {
       className="relative flex min-h-screen w-full flex-col items-center overflow-hidden bg-black px-4 pt-20 pb-10 text-white md:pt-28 md:pb-16"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-130 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.16),transparent_58%)]" />
-
-      {/* <div className="pointer-events-none absolute inset-0 opacity-[0.08] bg-[linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] bg-size-[80px_80px]" /> */}
 
       <div className="relative z-10 flex max-w-5xl flex-col items-center text-center">
         <p className="mb-5 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/60 backdrop-blur">
@@ -239,8 +245,6 @@ export default function Hero() {
           ))}
         </div>
       </div>
-
-      {/* <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black via-black/80 to-transparent" /> */}
     </section>
   );
 }
